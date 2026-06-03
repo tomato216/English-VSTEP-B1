@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSTEP B1 - Transport Vocabulary</title>
+    <style>
+        :root {
+            --primary-color: #0ea5e9; /* Xanh cyan hiện đại, dịu mát */
+            --dark-color: #1e293b;    /* Xám đen đường phố đường bệ */
+            --bg-color: #f0f4f8;      /* Nền xám xanh nhạt rất dịu cho mắt */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hạt bụi khí/vệt sáng nhỏ rơi nhẹ bay bổng ở nền */
+        .petal {
+            position: absolute;
+            background-color: #cbd5e1;
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: fade 5s infinite linear, float 5s infinite ease-in-out;
+        }
+
+        @keyframes fade {
+            0% { top: -10px; opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(35px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Khung chứa giao diện chính của bài học */
+        .main-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(30, 41, 59, 0.08);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Icon giao diện đô thị hiện đại */
+        .transport-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h2 {
+            color: var(--dark-color);
+            margin: 5px 0;
+            font-size: 24px;
+        }
+
+        .question { 
+            font-size: 19px; 
+            font-weight: bold; 
+            color: #1e293b; 
+            margin: 25px 0 20px 0; 
+            line-height: 1.4;
+        }
+
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+
+        .btn-option { 
+            padding: 14px; 
+            border: 2px solid #f1f5f9; 
+            border-radius: 12px; 
+            background-color: #fff; 
+            cursor: pointer; 
+            font-size: 16px; 
+            transition: background-color 0.15s, border-color 0.15s; 
+            font-weight: 500; 
+            color: #334155;
+            text-align: center;
+        }
+
+        .btn-option:hover { 
+            background-color: #f8fafc; 
+            border-color: var(--primary-color); 
+        }
+
+        .score { 
+            margin-top: 20px; 
+            font-size: 15px; 
+            color: #64748b; 
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* Khung chứa nút kết quả ở màn hình cuối */
+        .result-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-result {
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .btn-next-topic {
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .btn-next-topic:hover {
+            background-color: #22c55e;
+            color: white;
+            border-color: #166534;
+        }
+
+        .btn-redo-wrong {
+            background-color: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .btn-redo-wrong:hover {
+            background-color: #ef4444;
+            color: white;
+            border-color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+
+<div id="petal-container"></div>
+
+<!-- MÀN HÌNH LÀM BÀI TẬP CỐ ĐỊNH -->
+<div id="quiz-screen" class="main-box">
+    <div class="transport-icon">🚗🚌</div>
+    <div style="color: var(--dark-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">CHỦ ĐỀ: TRANSPORT</div>
+    <div class="question" id="question-text">Đang tải câu hỏi...</div>
+    <div class="options" id="options-container"></div>
+    <div class="score" id="score-text"></div>
+    <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
+</div>
+
+<!-- MÀN HÌNH KẾT THÚC BÀI HỌC (2 LỰA CHỌN Ô VUÔNG LỚN) -->
+<div id="result-screen" class="main-box" style="display: none;">
+    <div class="transport-icon">🏁⚡</div>
+    <h2>Kết Quả Luyện Tập</h2>
+    <div class="question" id="result-summary"></div>
+    
+    <div class="result-buttons">
+        <button class="btn-result btn-next-topic" onclick="goToMenu()">🔄 Đổi sang chủ đề khác</button>
+        <button class="btn-result btn-redo-wrong" id="btn-redo" onclick="startRedoWrong()">🔥 Làm lại các câu sai</button>
+    </div>
+</div>
+
+<script>
+    // DATA TOÀN BỘ 41 TỪ VỰNG CHỦ ĐỀ TRANSPORT KHÔNG THIẾU TỪ NÀO
+    const vocabularyData = [
+        { word: "Urban transport (n)", mean: "Giao thông đô thị" },
+        { word: "Public transport (n)", mean: "Giao thông công cộng" },
+        { word: "Private transport (n)", mean: "Phương tiện giao thông cá nhân" },
+        { word: "Dilemma (n)", mean: "Tình thế tiến thoái lưỡng nan / Sự khó xử" },
+        { word: "Citizen (n)", mean: "Công dân / Người dân thành phố" },
+        { word: "Daily commute (n)", mean: "Quãng đường đi làm/đi học hàng ngày" },
+        { word: "Affordable (adj)", mean: "Giá cả phải chăng / Hợp túi tiền" },
+        { word: "Fare (n)", mean: "Giá vé (xe bus, tàu, máy bay...)" },
+        { word: "Delay (n/v)", mean: "Sự chậm trễ / Trì hoãn" },
+        { word: "Depart (v)", mean: "Khởi hành / Xuất phát" },
+        { word: "Inconvenience (n)", mean: "Sự bất tiện" },
+        { word: "On board (prep)", mean: "Trên tàu / Trên xe" },
+        { word: "Flexibility (n)", mean: "Sự linh hoạt" },
+        { word: "Rush hour (n)", mean: "Giờ cao điểm" },
+        { word: "Traffic jam / Traffic congestion (n)", mean: "Sự ùn tắc giao thông / Kẹt xe" },
+        { word: "Severe (adj)", mean: "Nghiêm trọng / Khắc nghiệt" },
+        { word: "Infrastructure (n)", mean: "Cơ sở hạ tầng" },
+        { word: "Vehicle (n)", mean: "Xe cộ / Phương tiện giao thông" },
+        { word: "Gridlock (n)", mean: "Tình trạng giao thông tê liệt / Kẹt cứng" },
+        { word: "Queue (n)", mean: "Hàng dài người hoặc xe cộ xếp hàng chờ" },
+        { word: "Law enforcement (n)", mean: "Việc thực thi pháp luật" },
+        { word: "Authority board (n)", mean: "Ban ngành có thẩm quyền / Cơ quan chức năng" },
+        { word: "Speed limit (n)", mean: "Tốc độ giới hạn" },
+        { word: "Occupant (n)", mean: "Người ngồi trên xe (tài xế hoặc hành khách)" },
+        { word: "Seatbelt (n)", mean: "Dây an toàn" },
+        { word: "Traffic violation (n)", mean: "Sự vi phạm giao thông" },
+        { word: "Traffic signal (n)", mean: "Tín hiệu giao thông (đèn giao thông, biển báo)" },
+        { word: "Careless behavior (n)", mean: "Hành vi bất cẩn / Cẩu thả" },
+        { word: "Pedestrian (n)", mean: "Người đi bộ" },
+        { word: "Exhaust (n)", mean: "Khí thải / Ống xả xe" },
+        { word: "Upgrade (v)", mean: "Nâng cấp" },
+        { word: "Eco-friendly (adj)", mean: "Thân thiện với môi trường" },
+        { word: "Route (n)", mean: "Tuyến đường / Lộ trình" },
+        { word: "Reasonable (adj)", mean: "Hợp lý (giá cả)" },
+        { word: "Cancellation (n)", mean: "Sự hủy bỏ (chuyến đi, lịch trình)" },
+        { word: "Primary cause (n)", mean: "Nguyên nhân chính / Nguyên nhân cốt lõi" },
+        { word: "Ownership (n)", mean: "Quyền sở hữu (việc sở hữu cái gì đó)" },
+        { word: "Discharged gas (n)", mean: "Khí thải ra ngoài (đồng nghĩa với Emission)" },
+        { word: "Infer (v)", mean: "Suy ra / Luận ra (Thông tin không nói thẳng trong bài)" },
+        { word: "Behavioral change (n)", mean: "Sự thay đổi về hành vi" },
+        { word: "System upgrade (n)", mean: "Sự nâng cấp hệ thống" }
+    ];
+
+    let currentQuestions = [];
+    let wrongQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let isRedoMode = false;
+
+    // Âm thanh phần cứng: Tiếng tinh tinh trong trẻo (khi đúng) và tiếng bíp trầm ngắn (khi sai)
+    function playSound(type) {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'click' || type === 'correct') {
+                osc.type = 'sine';
+                // Tần số 900Hz nghe thanh và bắt tai giống tiếng tinh tinh của các phiên bản trước
+                osc.frequency.setValueAtTime(type === 'correct' ? 900 : 800, ctx.currentTime);
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+                osc.start(); osc.stop(ctx.currentTime + 0.1);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth'; 
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+                osc.start(); osc.stop(ctx.currentTime + 0.18);
+            }
+        } catch(e) {}
+    }
+
+    // Hiệu ứng hạt bụi khí/vệt sáng chạy nhẹ ở phông nền
+    function createPetals() {
+        const container = document.getElementById('petal-container');
+        for (let i = 0; i < 8; i++) {
+            let petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 6 + 6 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+            container.appendChild(petal);
+        }
+    }
+    createPetals();
+
+    function initQuiz() {
+        currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
+        wrongQuestions = [];
+        currentQuestionIndex = 0;
+        score = 0;
+        isRedoMode = false;
+        showQuestion();
+    }
+
+    function showQuestion() {
+        let q = currentQuestions[currentQuestionIndex];
+        document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
+        document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
+
+        // Sinh phương án nhiễu ngẫu nhiên từ kho dữ liệu
+        let options = [q.word];
+        let allWords = vocabularyData.map(item => item.word).filter(w => w !== q.word);
+        allWords.sort(() => Math.random() - 0.5);
+        
+        for (let i = 0; i < 3; i++) {
+            if (allWords[i]) options.push(allWords[i]);
+        }
+        options.sort(() => Math.random() - 0.5);
+
+        let optionsHTML = "";
+        options.forEach(opt => {
+            optionsHTML += `<button class="btn-option" onclick="checkAnswer('${opt}', '${q.word}', this)">${opt}</button>`;
+        });
+        document.getElementById('options-container').innerHTML = optionsHTML;
+    }
+
+    function checkAnswer(selected, correct, btn) {
+        const buttons = document.querySelectorAll('.btn-option');
+        buttons.forEach(b => b.disabled = true);
+
+        let q = currentQuestions[currentQuestionIndex];
+
+        if (selected === correct) {
+            playSound('correct');
+            btn.style.backgroundColor = '#dcfce7';
+            btn.style.borderColor = '#86efac';
+            if (!isRedoMode) score++;
+        } else {
+            playSound('wrong');
+            btn.style.backgroundColor = '#fee2e2';
+            btn.style.borderColor = '#fca5a5';
+            if (!wrongQuestions.some(item => item.word === q.word)) {
+                wrongQuestions.push(q);
+            }
+        }
+
+        // Chuyển sang câu tiếp theo đứng yên ổn định sau 0.7 giây
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 700);
+    }
+
+    function showResult() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        let summaryText = "";
+        if (isRedoMode) {
+            summaryText = `Lượt sửa lỗi hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa thuộc vững.`;
+        } else {
+            summaryText = `Hoàn thành! Bạn đạt số điểm <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Giao thông.`;
+        }
+        document.getElementById('result-summary').innerHTML = summaryText;
+
+        let redoBtn = document.getElementById('btn-redo');
+        if (wrongQuestions.length === 0) {
+            redoBtn.style.display = 'none';
+            document.getElementById('result-summary').innerHTML += "<br><span style='color: #15803d; font-weight: bold; font-size: 15px;'>Mượt mà như đường thông thoáng! Bạn đã thuộc hết 100% từ vựng! 🟢🚙</span>";
+        } else {
+            redoBtn.style.display = 'block';
+            redoBtn.innerText = `🔥 Làm lại ${wrongQuestions.length} câu sai`;
+        }
+    }
+
+    function startRedoWrong() {
+        playSound('click');
+        currentQuestions = [...wrongQuestions];
+        wrongQuestions = [];
+        currentQuestionIndex = 0;
+        isRedoMode = true;
+
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        
+        showQuestion();
+    }
+
+    function goToMenu() {
+        playSound('click');
+        window.location.href = 'reading.html';
+    }
+
+    initQuiz();
+</script>
+
+</body>
+</html>
