@@ -343,12 +343,12 @@
                 <span>➔</span>
             </div>
         </div>
-        <!-- Nút Reset dữ liệu thực hành nếu cần -->
+        <!-- Nút Reset dữ liệu thực hành chuẩn hóa bảo mật -->
         <button class="btn-action" style="margin-top: 25px; background-color: #6b7280; font-size: 14px; padding: 8px 15px;" onclick="resetAllProgress()">🔄 Xóa lịch sử làm bài</button>
     </div>
 
 
-    <!-- ================= TRANG KHÔNG GIAN LUYỆN TẬP CHI TIẾT ================= -->
+    <!-- ================= TRANG KHÔNG GIAN LUYỆF TẬP CHI TIẾT ================= -->
     <div id="study-practice-screen" style="display: none;">
         <!-- TOP NAV -->
         <div class="top-nav">
@@ -436,12 +436,10 @@
     let level2LinesData = [];  
     let wrongPool = [];        
 
-    // Tải trạng thái ban đầu khi mở trang khách
     window.onload = function() {
         renderMenuStatus();
     };
 
-    // HIỂN THỊ KẾT QUẢ ĐÃ LƯU TRÊN MENU CHỦ ĐỀ
     function renderMenuStatus() {
         dataset.forEach((_, index) => {
             let statusSpan = document.getElementById(`status-${index}`);
@@ -460,17 +458,14 @@
         });
     }
 
-    // MỞ CHỦ ĐỀ VÀ CHUYỂN SANG KHÔNG GIAN HỌC TẬP
     function openTopic(index) {
         currentTopicIndex = index;
         document.getElementById('menu-screen').style.display = 'none';
         document.getElementById('study-practice-screen').style.display = 'block';
-        changeLevelMode(0); // Luôn mặc định mở chế độ đọc hiểu trước
+        changeLevelMode(0);
     }
 
-    // QUAY LẠI MÀN HÌNH MENU CHỌN CHỦ ĐỀ RIÊNG BIỆT
     function backToMainMenu() {
-        // Lưu dữ liệu nháp của bài đang làm trước khi thoát ra ngoài menu
         saveDraftProgress();
         document.getElementById('study-practice-screen').style.display = 'none';
         document.getElementById('menu-screen').style.display = 'block';
@@ -488,9 +483,7 @@
         document.getElementById('tab-grammar').style.display = tabName === 'grammar' ? 'block' : 'none';
     }
 
-    // CHUYỂN ĐỔI LEVEL TỰ DO
     function changeLevelMode(levelNum) {
-        // Trước khi đổi level, lưu lại dữ liệu nháp của level cũ
         if (currentLevel > 0) saveDraftProgress();
 
         currentLevel = levelNum;
@@ -519,7 +512,6 @@
         }
     }
 
-    // LEVEL 1: THUẬT TOÁN ẨN TỪ SO LE THÔNG MINH
     function startLevel1(forceWords = null) {
         document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết";
         document.getElementById('level-display-badge').style.backgroundColor = '#a0522d';
@@ -530,8 +522,6 @@
         let tokens = text.split(/(\s+)/);
         
         let chosenIndices = [];
-
-        // Kiểm tra xem cấu trúc form của topic này đã từng được sinh ra và lưu nháp chưa
         let structureKey = `structure_topic_${currentTopicIndex}_lvl1`;
         let savedStructure = localStorage.getItem(structureKey);
 
@@ -556,7 +546,6 @@
                 }
                 if(chosenIndices.length >= 13) break;
             }
-            // Lưu lại khung cấu trúc đề bài này để không bị thay đổi từ ngẫu nhiên khi quay lại
             localStorage.setItem(structureKey, JSON.stringify(chosenIndices));
         }
 
@@ -586,11 +575,9 @@
         document.getElementById('btn-redo-errors').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
 
-        // Khôi phục nội dung đang gõ dở (nếu có)
         loadDraftProgress();
     }
 
-    // LEVEL 2: ẨN CÂU
     function startLevel2(forceLines = null) {
         document.getElementById('level-display-badge').innerText = "Cấp độ 2: Thử Thách Điền Câu";
         document.getElementById('level-display-badge').style.backgroundColor = '#16a34a';
@@ -646,11 +633,9 @@
         document.getElementById('btn-redo-errors').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
 
-        // Khôi phục nội dung đang gõ dở (nếu có)
         loadDraftProgress();
     }
 
-    // LƯU BÀI LÀM NHÁP ĐANG GÕ DỞ VÀO LOCALSTORAGE
     function saveDraftProgress() {
         if (currentLevel === 1) {
             let draftAnswers = [];
@@ -667,7 +652,6 @@
         }
     }
 
-    // TẢI LẠI BÀI LÀM NHÁP TỪ LOCALSTORAGE
     function loadDraftProgress() {
         if (currentLevel === 1) {
             let savedDraft = localStorage.getItem(`draft_${currentTopicIndex}_lvl1`);
@@ -688,17 +672,14 @@
         }
     }
 
-    // CHẤM ĐIỂM TỰ ĐỘNG & LƯU ĐIỂM CHÍNH THỨC (ĐÃ TÍCH HỢP ĐỒNG BỘ SANG TRANG LỊCH SỬ)
     function gradePractice() {
         let feedbackHTML = "";
         let correctCount = 0;
         wrongPool = [];
 
-        // Đồng bộ lưu bản nháp hiện tại trước
         saveDraftProgress();
 
         let currentTopic = dataset[currentTopicIndex];
-        // Rút gọn bớt tiêu đề đề bài để hiển thị trên dòng bảng lịch sử cho vừa vặn
         let shortTitle = currentTopic.prompt.length > 45 ? currentTopic.prompt.substring(0, 42) + "..." : currentTopic.prompt;
 
         if(currentLevel === 1) {
@@ -719,11 +700,8 @@
                 }
             });
 
-            // Tiến hành lưu điểm cao nhất vào localStorage cục bộ
             let scoreString = `${correctCount}/${level1BlanksData.length}`;
             localStorage.setItem(`topic_${currentTopicIndex}_lvl1`, scoreString);
-
-            // ĐẨY DỮ LIỆU SANG MẢNG LỊCH SỬ TỔNG
             saveToGlobalHistory("Writing", shortTitle, "Cấp độ 1: Từ khuyết", scoreString);
 
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
@@ -733,7 +711,7 @@
             } else {
                 feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn gõ đúng toàn bộ từ khuyết! 🥳 (Đã lưu kết quả)</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
-                localStorage.removeItem(`draft_${currentTopicIndex}_lvl1`); // Xoá nháp vì đã hoàn thành 100%
+                localStorage.removeItem(`draft_${currentTopicIndex}_lvl1`);
             }
         } 
         else if(currentLevel === 2) {
@@ -741,7 +719,7 @@
             textareas.forEach(box => {
                 let lIdx = parseInt(box.getAttribute('data-lineidx'));
                 let target = level2LinesData[lIdx];
-                let userVal = box.value.replace(/[^a-zA-0-9]/g, "").toLowerCase().trim();
+                let userVal = box.value.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().trim();
 
                 if(userVal === target.cleanText) {
                     correctCount++;
@@ -754,11 +732,8 @@
                 }
             });
 
-            // Tiến hành lưu điểm vào localStorage cục bộ
             let scoreString = `${correctCount}/${level2LinesData.length}`;
             localStorage.setItem(`topic_${currentTopicIndex}_lvl2`, scoreString);
-
-            // ĐẨY DỮ LIỆU SANG MẢNG LỊCH SỬ TỔNG
             saveToGlobalHistory("Writing", shortTitle, "Cấp độ 2: Điền câu", scoreString);
 
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu.<br>`;
@@ -774,7 +749,7 @@
             } else {
                 feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá tốt! Bạn đã thuộc lòng và gõ lại đúng 100% rồi! 🏆 (Đã lưu kết quả)</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
-                localStorage.removeItem(`draft_${currentTopicIndex}_lvl2`); // Xoá nháp vì đã hoàn thành 100%
+                localStorage.removeItem(`draft_${currentTopicIndex}_lvl2`);
             }
         }
 
@@ -783,7 +758,6 @@
         fBox.style.display = 'block';
     }
 
-    // HÀM BỔ SUNG ĐỒNG BỘ: Định dạng thời gian thời gian thực và ghi vào vstep_learning_history
     function saveToGlobalHistory(kyNang, chuDe, capDo, diemSo) {
         let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
         let now = new Date();
@@ -797,12 +771,10 @@
             diemSo: diemSo
         };
         
-        // Đưa log mới lên đầu danh sách
         history.unshift(newLog);
         localStorage.setItem('vstep_learning_history', JSON.stringify(history));
     }
 
-    // LÀM LẠI CÂU SAI
     function redoWrongAnswers() {
         if(wrongPool.length === 0) return;
         let originalWrong = [...wrongPool];
@@ -814,13 +786,10 @@
         document.getElementById('btn-redo-errors').style.display = 'none';
     }
 
-    // RESET TOÀN BỘ TIẾN ĐỘ THỰC HÀNH HỌC TẬP (Cập nhật dọn sạch đồng bộ)
+    /* ĐÃ SỬA: Hàm chỉ xóa điểm số cục bộ và bản nháp gõ chữ của trang, tuyệt đối không động chạm hệ thống data cốt lõi */
     function resetAllProgress() {
         if (confirm("Bạn có chắc chắn muốn xoá toàn bộ lịch sử điểm và bài gõ nháp không?")) {
-            // Xóa mảng lịch sử tổng hợp chung
             localStorage.removeItem('vstep_learning_history');
-            
-            // Xóa sạch các key điểm lẻ cục bộ
             for(let i = 0; i < dataset.length; i++) {
                 localStorage.removeItem(`topic_${i}_lvl1`);
                 localStorage.removeItem(`topic_${i}_lvl2`);
@@ -830,7 +799,7 @@
                 localStorage.removeItem(`draft_${i}_lvl2`);
             }
             renderMenuStatus();
-            alert("Đã xóa sạch bộ nhớ tiến độ của trang này!");
+            alert("Đã reset toàn bộ tiến độ thành công!");
         }
     }
 </script>
