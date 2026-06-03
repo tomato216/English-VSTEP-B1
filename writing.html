@@ -226,12 +226,12 @@
                 }, 100);
             } else {
                 // Nếu file chưa được tạo (status 404), hiển thị thông báo phát triển
-                alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau khi file được bổ sung nhé!");
+                alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau nhé!");
             }
         })
         .catch(error => {
             // Đề phòng trường hợp chạy local offline không nhận diện được HEAD, vẫn thông báo an toàn
-            alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau khi file được bổ sung nhé!");
+            alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau nhé!");
         });
     }
 
