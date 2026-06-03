@@ -81,6 +81,14 @@
             margin-top: 4px;
         }
 
+        .menu-card .topic-status {
+            font-size: 12px;
+            color: var(--success-color);
+            font-weight: bold;
+            margin-top: 4px;
+            display: block;
+        }
+
         /* THANH ĐIỀU HƯỚNG KHI ĐÃ VÀO BÀI HỌC */
         .top-nav {
             display: flex;
@@ -298,6 +306,7 @@
                 <div>
                     <div>1. Traditional Festival</div>
                     <div class="topic-meta">Introduce a traditional festival in your country (Tet Holiday)</div>
+                    <span id="status-0" class="topic-status"></span>
                 </div>
                 <span>➔</span>
             </div>
@@ -305,6 +314,7 @@
                 <div>
                     <div>2. Historical Site</div>
                     <div class="topic-meta">Introduce a famous historical site in Vietnam (Ho Chi Minh Mausoleum)</div>
+                    <span id="status-1" class="topic-status"></span>
                 </div>
                 <span>➔</span>
             </div>
@@ -312,6 +322,7 @@
                 <div>
                     <div>3. Introduce Your Pet</div>
                     <div class="topic-meta">Describe your lovely pet (Bong the Poodle dog)</div>
+                    <span id="status-2" class="topic-status"></span>
                 </div>
                 <span>➔</span>
             </div>
@@ -319,6 +330,7 @@
                 <div>
                     <div>4. Member of Your Family</div>
                     <div class="topic-meta">Introduce an important person in your family (Your mother)</div>
+                    <span id="status-3" class="topic-status"></span>
                 </div>
                 <span>➔</span>
             </div>
@@ -326,10 +338,13 @@
                 <div>
                     <div>5. Introduce Your Hometown</div>
                     <div class="topic-meta">Describe your peaceful hometown (Hung Yen province)</div>
+                    <span id="status-4" class="topic-status"></span>
                 </div>
                 <span>➔</span>
             </div>
         </div>
+        <!-- Nút Reset dữ liệu thực hành nếu cần -->
+        <button class="btn-action" style="margin-top: 25px; background-color: #6b7280; font-size: 14px; padding: 8px 15px;" onclick="resetAllProgress()">🔄 Xóa lịch sử làm bài</button>
     </div>
 
 
@@ -392,7 +407,7 @@
         {
             prompt: "Your foreign friend wants to know about a historical site in Vietnam. Write a letter (about 120–150 words) to introduce a historical site in your country.",
             sample: `Dear Ronaldo,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about a famous historical site in Vietnam.\n\nOne of the most popular historical sites in my country is Ho Chi Minh Mausoleum in Hanoi. It is a special place where people can learn more about President Ho Chi Minh, a great leader of Vietnam.\n\nFirstly, the mausoleum is large and beautiful. Every year, many visitors come here to pay respect to him. Moreover, there are many interesting places nearby, such as Ba Dinh Square and Ho Chi Minh Museum.\n\nBesides, this site helps young people understand more about Vietnamese history. Therefore, it is an important place for both local people and tourists.\n\nThat is all for now. Have you ever visited a historical site in your country? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nBinh`,
-            translation: `Thân gửi Ronaldo,\n\nBạn khỏe không? Mình hy vọng bạn đang có khoảng thời gian tốt đẹp. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một di tích lịch sử nổi tiếng ở Việt Nam.\n\nMột trong những di tích lịch sử phổ biến nhất ở đất nước mình là Lăng Chủ tịch Hồ Chí Minh tại Hà Nội. Đây là một nơi đặc biệt nơi mọi người có thể tìm hiểu thêm về Chủ tịch Hồ Chí Minh, một vị lãnh tụ vĩ đại của Việt Nam.\n\nTrước hết, lăng rất lớn và đẹp. Mỗi năm, nhiều du khách đến đây để tỏ lòng kính trọng đối với Người. Hơn nữa, có rất nhiều địa điểm thú vị gần đó, chẳng hạn như Quảng trường Ba Đình và Bảo tàng Hồ Chí Minh.\n\nBên cạnh đó, di tích này giúp giới trẻ hiểu thêm về lịch sử Việt Nam. Vì vậy, nó là một địa điểm quan trọng đối với cả người dân địa phương và khách du lịch.\n\nBây giờ thế thôi nhé. Bạn đã từng đến thăm một di tích lịch sử nào ở nước bạn chưa? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nChúc mọi điều tốt đẹp,\n\nBình`,
+            translation: `Thân gửi Ronaldo,\n\nBạn khỏe không? Mình hy vọng bạn đang có khoảng thời gian tốt đẹp. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một di tích lịch sử nổi tiếng ở Việt Nam.\n\nMột trong những di tích lịch sử phổ biến nhất ở đất nước mình là Lăng Chủ tịch Hồ Chí Minh tại Hà Nội. Đây là một nơi đặc biệt nơi mọi người có thể tìm hiểu thêm về Chủ tịch Hồ Chí Minh, một vị lãnh tụ vĩ đại của Việt Nam.\n\nTrước hết, lăng rất lớn và đẹp. Mỗi năm, many du khách đến đây để tỏ lòng kính trọng đối với Người. Hơn nữa, có rất nhiều địa điểm thú vị gần đó, chẳng hạn như Quảng trường Ba Đình và Bảo tàng Hồ Chí Minh.\n\nBên cạnh đó, di tích này giúp giới trẻ hiểu thêm về lịch sử Việt Nam. Vì vậy, nó là một địa điểm quan trọng đối với cả người dân địa phương và khách du lịch.\n\nBây giờ thế thôi nhé. Bạn đã từng đến thăm một di tích lịch sử nào ở nước bạn chưa? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nChúc mọi điều tốt đẹp,\n\nBình`,
             grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• One of the most + adj + N số nhiều<br>• Đại từ quan hệ: place where + mệnh đề<br>• help + sb + V nguyên mẫu<br>• both A and B: Cả A và B<br>• Hiện tại hoàn thành: Have you ever + V3/ed?<br><div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, Such as, That is all for now.`
         },
         {
@@ -421,6 +436,30 @@
     let level2LinesData = [];  
     let wrongPool = [];        
 
+    // Tải trạng thái ban đầu khi mở trang khách
+    window.onload = function() {
+        renderMenuStatus();
+    };
+
+    // HIỂN THỊ KẾT QUẢ ĐÃ LƯU TRÊN MENU CHỦ ĐỀ
+    function renderMenuStatus() {
+        dataset.forEach((_, index) => {
+            let statusSpan = document.getElementById(`status-${index}`);
+            let scoreLvl1 = localStorage.getItem(`topic_${index}_lvl1`);
+            let scoreLvl2 = localStorage.getItem(`topic_${index}_lvl2`);
+            
+            let statusText = "";
+            if (scoreLvl1) statusText += `⭐ Cấp 1: ${scoreLvl1} `;
+            if (scoreLvl2) statusText += `| 🏆 Cấp 2: ${scoreLvl2}`;
+            
+            if (statusText) {
+                statusSpan.innerHTML = statusText;
+            } else {
+                statusSpan.innerHTML = "";
+            }
+        });
+    }
+
     // MỞ CHỦ ĐỀ VÀ CHUYỂN SANG KHÔNG GIAN HỌC TẬP
     function openTopic(index) {
         currentTopicIndex = index;
@@ -431,8 +470,11 @@
 
     // QUAY LẠI MÀN HÌNH MENU CHỌN CHỦ ĐỀ RIÊNG BIỆT
     function backToMainMenu() {
+        // Lưu dữ liệu nháp của bài đang làm trước khi thoát ra ngoài menu
+        saveDraftProgress();
         document.getElementById('study-practice-screen').style.display = 'none';
         document.getElementById('menu-screen').style.display = 'block';
+        renderMenuStatus();
     }
 
     function switchSubTab(tabName) {
@@ -448,6 +490,9 @@
 
     // CHUYỂN ĐỔI LEVEL TỰ DO
     function changeLevelMode(levelNum) {
+        // Trước khi đổi level, lưu lại dữ liệu nháp của level cũ
+        if (currentLevel > 0) saveDraftProgress();
+
         currentLevel = levelNum;
         document.querySelectorAll('.level-tab').forEach((tab, idx) => {
             if(idx === levelNum) tab.classList.add('active');
@@ -474,7 +519,7 @@
         }
     }
 
-    // LEVEL 1: THUẬT TOÁN ẨN TỪ SO LE THÔNG MINH (KÔNG BAO GIỜ BỊ DÍNH LIỀN)
+    // LEVEL 1: THUẬT TOÁN ẨN TỪ SO LE THÔNG MINH
     function startLevel1(forceWords = null) {
         document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết";
         document.getElementById('level-display-badge').style.backgroundColor = '#a0522d';
@@ -482,14 +527,19 @@
         document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
-        let tokens = text.split(/(\s+)/); // Giữ lại khoảng trắng và dấu xuống dòng
+        let tokens = text.split(/(\s+)/);
         
         let chosenIndices = [];
 
+        // Kiểm tra xem cấu trúc form của topic này đã từng được sinh ra và lưu nháp chưa
+        let structureKey = `structure_topic_${currentTopicIndex}_lvl1`;
+        let savedStructure = localStorage.getItem(structureKey);
+
         if(forceWords) {
             chosenIndices = forceWords;
+        } else if (savedStructure) {
+            chosenIndices = JSON.parse(savedStructure);
         } else {
-            // Lọc ra danh sách các vị trí hợp lệ có thể ẩn từ (độ dài > 2 ký tự)
             let validPositions = [];
             tokens.forEach((token, idx) => {
                 if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
@@ -497,17 +547,17 @@
                 }
             });
 
-            // Tiến hành chọn lọc so le cách quãng ngẫu nhiên
-            let lastPickedIdx = -5; // Đảm bảo khoảng cách từ đầu tiên luôn thỏa mãn
+            let lastPickedIdx = -5;
             for(let i = 0; i < validPositions.length; i++) {
                 let currentTokenIdx = validPositions[i];
-                // Chỉ ẩn nếu vị trí này cách vị trí ẩn trước đó ít nhất 2 token (ngăn cách bởi từ khác)
                 if (currentTokenIdx - lastPickedIdx > 2 && Math.random() > 0.4) {
                     chosenIndices.push(currentTokenIdx);
                     lastPickedIdx = currentTokenIdx;
                 }
-                if(chosenIndices.length >= 13) break; // Khống chế số lượng từ trống
+                if(chosenIndices.length >= 13) break;
             }
+            // Lưu lại khung cấu trúc đề bài này để không bị thay đổi từ ngẫu nhiên khi quay lại
+            localStorage.setItem(structureKey, JSON.stringify(chosenIndices));
         }
 
         level1BlanksData = [];
@@ -535,6 +585,9 @@
         document.getElementById('result-feedback-box').style.display = 'none';
         document.getElementById('btn-redo-errors').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
+
+        // Khôi phục nội dung đang gõ dở (nếu có)
+        loadDraftProgress();
     }
 
     // LEVEL 2: ẨN CÂU
@@ -548,17 +601,22 @@
         let sentences = text.split(/(?<=[.!?])\s*\n*|(?<=\n)/);
         sentences = sentences.filter(s => s.trim().length > 0);
 
-        let sentenceIndices = [];
-        sentences.forEach((s, i) => {
-            if(s.trim().length > 10) sentenceIndices.push(i);
-        });
-
         let chosenLineIndices = [];
+        let structureKey = `structure_topic_${currentTopicIndex}_lvl2`;
+        let savedStructure = localStorage.getItem(structureKey);
+
         if(forceLines) {
             chosenLineIndices = forceLines;
+        } else if (savedStructure) {
+            chosenLineIndices = JSON.parse(savedStructure);
         } else {
+            let sentenceIndices = [];
+            sentences.forEach((s, i) => {
+                if(s.trim().length > 10) sentenceIndices.push(i);
+            });
             sentenceIndices.sort(() => Math.random() - 0.5);
             chosenLineIndices = sentenceIndices.slice(0, Math.ceil(sentenceIndices.length * 0.4));
+            localStorage.setItem(structureKey, JSON.stringify(chosenLineIndices));
         }
 
         level2LinesData = [];
@@ -587,13 +645,57 @@
         document.getElementById('result-feedback-box').style.display = 'none';
         document.getElementById('btn-redo-errors').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
+
+        // Khôi phục nội dung đang gõ dở (nếu có)
+        loadDraftProgress();
     }
 
-    // CHẤM ĐIỂM TỰ ĐỘNG
+    // LƯU BÀI LÀM NHÁP ĐANG GÕ DỞ VÀO LOCALSTORAGE
+    function saveDraftProgress() {
+        if (currentLevel === 1) {
+            let draftAnswers = [];
+            document.querySelectorAll('.blank-input').forEach(input => {
+                draftAnswers.push(input.value);
+            });
+            localStorage.setItem(`draft_${currentTopicIndex}_lvl1`, JSON.stringify(draftAnswers));
+        } else if (currentLevel === 2) {
+            let draftAnswers = [];
+            document.querySelectorAll('.blank-textarea').forEach(box => {
+                draftAnswers.push(box.value);
+            });
+            localStorage.setItem(`draft_${currentTopicIndex}_lvl2`, JSON.stringify(draftAnswers));
+        }
+    }
+
+    // TẢI LẠI BÀI LÀM NHÁP TỪ LOCALSTORAGE
+    function loadDraftProgress() {
+        if (currentLevel === 1) {
+            let savedDraft = localStorage.getItem(`draft_${currentTopicIndex}_lvl1`);
+            if (savedDraft) {
+                let draftAnswers = JSON.parse(savedDraft);
+                document.querySelectorAll('.blank-input').forEach((input, idx) => {
+                    if (draftAnswers[idx] !== undefined) input.value = draftAnswers[idx];
+                });
+            }
+        } else if (currentLevel === 2) {
+            let savedDraft = localStorage.getItem(`draft_${currentTopicIndex}_lvl2`);
+            if (savedDraft) {
+                let draftAnswers = JSON.parse(savedDraft);
+                document.querySelectorAll('.blank-textarea').forEach((box, idx) => {
+                    if (draftAnswers[idx] !== undefined) box.value = draftAnswers[idx];
+                });
+            }
+        }
+    }
+
+    // CHẤM ĐIỂM TỰ ĐỘNG & LƯU ĐIỂM CHÍNH THỨC
     function gradePractice() {
         let feedbackHTML = "";
         let correctCount = 0;
         wrongPool = [];
+
+        // Đồng bộ lưu bản nháp hiện tại trước
+        saveDraftProgress();
 
         if(currentLevel === 1) {
             let inputs = document.querySelectorAll('.blank-input');
@@ -613,13 +715,18 @@
                 }
             });
 
+            // Tiến hành lưu điểm cao nhất vào localStorage
+            let scoreString = `${correctCount}/${level1BlanksData.length}`;
+            localStorage.setItem(`topic_${currentTopicIndex}_lvl1`, scoreString);
+
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
             if(wrongPool.length > 0) {
                 feedbackHTML += `<span style="color:#b91c1c;">Có từ chưa đúng, hãy nhấn nút đỏ để sửa lại nhé!</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn gõ đúng toàn bộ từ khuyết! 🥳</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn gõ đúng toàn bộ từ khuyết! 🥳 (Đã lưu kết quả)</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
+                localStorage.removeItem(`draft_${currentTopicIndex}_lvl1`); // Xoá nháp vì đã hoàn thành 100%
             }
         } 
         else if(currentLevel === 2) {
@@ -640,6 +747,10 @@
                 }
             });
 
+            // Tiến hành lưu điểm vào localStorage
+            let scoreString = `${correctCount}/${level2LinesData.length}`;
+            localStorage.setItem(`topic_${currentTopicIndex}_lvl2`, scoreString);
+
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu.<br>`;
             if(wrongPool.length > 0) {
                 feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#4a2711;"><b>Gợi ý đáp án đúng:</b><br>`;
@@ -651,8 +762,9 @@
                 feedbackHTML += `</div>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá tốt! Bạn đã thuộc lòng và gõ lại đúng 100% rồi! 🏆</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá tốt! Bạn đã thuộc lòng và gõ lại đúng 100% rồi! 🏆 (Đã lưu kết quả)</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
+                localStorage.removeItem(`draft_${currentTopicIndex}_lvl2`); // Xoá nháp vì đã hoàn thành 100%
             }
         }
 
@@ -671,6 +783,15 @@
             startLevel2(originalWrong);
         }
         document.getElementById('btn-redo-errors').style.display = 'none';
+    }
+
+    // RESET TOÀN BỘ TIẾN ĐỘ THỰC HÀNH HỌC TẬP
+    function resetAllProgress() {
+        if (confirm("Bạn có chắc chắn muốn xoá toàn bộ lịch sử điểm và bài gõ nháp không?")) {
+            localStorage.clear();
+            renderMenuStatus();
+            alert("Đã reset toàn bộ tiến độ thành công!");
+        }
     }
 </script>
 
