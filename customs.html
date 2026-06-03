@@ -6,9 +6,9 @@
     <title>VSTEP B1 - Customs & Traditions</title>
     <style>
         :root {
-            --primary-color: #ff8fa3; /* Hồng hoa đào nhạt, dịu mắt */
-            --dark-color: #d9383a;    /* Đỏ bao lì xì truyền thống */
-            --bg-color: #fff0f2;      /* Nền hồng kem siêu nhẹ, chống mỏi mắt */
+            --primary-color: #ff8fa3; 
+            --dark-color: #d9383a;    
+            --bg-color: #fff0f2;      
         }
 
         body {
@@ -25,7 +25,6 @@
             overflow-x: hidden;
         }
 
-        /* Hiệu ứng hoa đào rơi nhẹ nhàng ở nền ngày Tết */
         .petal {
             position: absolute;
             background-color: #ffb7c5;
@@ -47,7 +46,6 @@
             100% { transform: translateX(0) rotate(50deg); }
         }
 
-        /* Khung chứa giao diện chính hình bao lì xì/hộp quà Tết */
         .main-box {
             background-color: white;
             padding: 30px;
@@ -61,108 +59,21 @@
             position: relative;
         }
 
-        /* Icon ngày Tết đầu trang */
-        .tet-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        h2 {
-            color: var(--dark-color);
-            margin: 5px 0;
-            font-size: 24px;
-        }
-
-        .question { 
-            font-size: 19px; 
-            font-weight: bold; 
-            color: #333; 
-            margin: 25px 0 20px 0; 
-            line-height: 1.4;
-        }
-
-        .options { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-        }
-
-        .btn-option { 
-            padding: 14px; 
-            border: 2px solid #ffe5e9; 
-            border-radius: 12px; 
-            background-color: #fff; 
-            cursor: pointer; 
-            font-size: 16px; 
-            transition: background-color 0.2s, border-color 0.2s; 
-            font-weight: 500; 
-            color: #444;
-            text-align: center;
-        }
-
-        .btn-option:hover { 
-            background-color: #fff5f6; 
-            border-color: var(--primary-color); 
-        }
-
-        .score { 
-            margin-top: 20px; 
-            font-size: 15px; 
-            color: #777; 
-        }
-
-        .btn-back {
-            margin-top: 20px;
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 14px;
-        }
-
-        /* 2 ô vuông lớn ở màn hình kết thúc */
-        .result-buttons {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .btn-result {
-            padding: 18px;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-
-        .btn-next-topic {
-            background-color: #fff5f6;
-            border-color: var(--primary-color);
-            color: var(--dark-color);
-        }
-
-        .btn-next-topic:hover {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: #ff6b8b;
-        }
-
-        .btn-redo-wrong {
-            background-color: #fff0f2;
-            border-color: #ffb6c1;
-            color: #c94c4c;
-        }
-
-        .btn-redo-wrong:hover {
-            background-color: #d9383a;
-            color: white;
-            border-color: #b32426;
-        }
+        .tet-icon { font-size: 45px; margin-bottom: 10px; display: inline-block; }
+        h2 { color: var(--dark-color); margin: 5px 0; font-size: 24px; }
+        .question { font-size: 19px; font-weight: bold; color: #333; margin: 25px 0 20px 0; line-height: 1.4; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .btn-option { padding: 14px; border: 2px solid #ffe5e9; border-radius: 12px; background-color: #fff; cursor: pointer; font-size: 16px; transition: background-color 0.2s, border-color 0.2s; font-weight: 500; color: #444; text-align: center; }
+        .btn-option:hover { background-color: #fff5f6; border-color: var(--primary-color); }
+        .score { margin-top: 20px; font-size: 15px; color: #777; }
+        .btn-back { margin-top: 20px; background: none; border: none; color: #888; cursor: pointer; text-decoration: underline; font-size: 14px; }
+        
+        .result-buttons { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 25px; }
+        .btn-result { padding: 18px; border-radius: 16px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+        .btn-next-topic { background-color: #fff5f6; border-color: var(--primary-color); color: var(--dark-color); }
+        .btn-next-topic:hover { background-color: var(--primary-color); color: white; border-color: #ff6b8b; }
+        .btn-redo-wrong { background-color: #fff0f2; border-color: #ffb6c1; color: #c94c4c; }
+        .btn-redo-wrong:hover { background-color: #d9383a; color: white; border-color: #b32426; }
     </style>
 </head>
 <body>
@@ -190,7 +101,6 @@
 </div>
 
 <script>
-    // DATA 35 TỪ VỰNG CHỦ ĐỀ CUSTOMS AND TRADITIONS ĐẦY ĐỦ CHÍNH XÁC
     const vocabularyData = [
         { word: "Shape (v)", mean: "Định hình / Hình thành" },
         { word: "Unique (adj)", mean: "Độc đáo / Duy nhất" },
@@ -220,7 +130,7 @@
         { word: "Avoid (v)", mean: "Tránh / Né tránh" },
         { word: "Prevent (v)", mean: "Ngăn chặn" },
         { word: "Milestone (n)", mean: "Cột mốc quan trọng" },
-        { word: "Ceremony (n)", mean: "Nhi lễ" },
+        { word: "Ceremony (n)", mean: "Nghi lễ" },
         { word: "Ritual (n)", mean: "Nghi thức" },
         { word: "Funeral (n)", mean: "Đám tang" },
         { word: "Strict (adj)", mean: "Nghiêm ngặt" },
@@ -229,13 +139,8 @@
         { word: "Social behavior (n)", mean: "Hành vi xã hội" }
     ];
 
-    let currentQuestions = [];
-    let wrongQuestions = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let isRedoMode = false;
+    let currentQuestions = [], wrongQuestions = [], currentQuestionIndex = 0, score = 0, isRedoMode = false;
 
-    // Phát âm thanh phần cứng: Tinh tinh (Đúng) và Tè tè bíp trầm ngắn (Sai)
     function playSound(type) {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -244,7 +149,6 @@
             let gain = ctx.createGain();
             osc.connect(gain);
             gain.connect(ctx.destination);
-
             if (type === 'click' || type === 'correct') {
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(type === 'correct' ? 1050 : 880, ctx.currentTime);
@@ -261,7 +165,6 @@
         } catch(e) {}
     }
 
-    // Hiệu ứng những cánh hoa đào rơi nhẹ lãng mạn nền Tết
     function createPetals() {
         const container = document.getElementById('petal-container');
         for (let i = 0; i < 12; i++) {
@@ -277,7 +180,6 @@
     }
     createPetals();
 
-    // Khởi tạo bài tập xáo trộn ngẫu nhiên câu hỏi
     function initQuiz() {
         currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
         wrongQuestions = [];
@@ -291,30 +193,19 @@
         let q = currentQuestions[currentQuestionIndex];
         document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
         document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
-
-        // TỰ ĐỘNG TẠO ĐÁP ÁN NHIỄU BỐC NGẪU NHIÊN TỪ KHO TỪ VỰNG
         let options = [q.word];
         let allWords = vocabularyData.map(item => item.word).filter(w => w !== q.word);
         allWords.sort(() => Math.random() - 0.5);
-        
-        for (let i = 0; i < 3; i++) {
-            if (allWords[i]) options.push(allWords[i]);
-        }
+        for (let i = 0; i < 3; i++) { if (allWords[i]) options.push(allWords[i]); }
         options.sort(() => Math.random() - 0.5);
-
         let optionsHTML = "";
-        options.forEach(opt => {
-            optionsHTML += `<button class="btn-option" onclick="checkAnswer('${opt}', '${q.word}', this)">${opt}</button>`;
-        });
+        options.forEach(opt => { optionsHTML += `<button class="btn-option" onclick="checkAnswer('${opt}', '${q.word}', this)">${opt}</button>`; });
         document.getElementById('options-container').innerHTML = optionsHTML;
     }
 
     function checkAnswer(selected, correct, btn) {
-        const buttons = document.querySelectorAll('.btn-option');
-        buttons.forEach(b => b.disabled = true);
-
+        document.querySelectorAll('.btn-option').forEach(b => b.disabled = true);
         let q = currentQuestions[currentQuestionIndex];
-
         if (selected === correct) {
             playSound('correct');
             btn.style.backgroundColor = '#d4edda';
@@ -324,34 +215,23 @@
             playSound('wrong');
             btn.style.backgroundColor = '#f8d7da';
             btn.style.borderColor = '#f5c6cb';
-            if (!wrongQuestions.some(item => item.word === q.word)) {
-                wrongQuestions.push(q);
-            }
+            if (!wrongQuestions.some(item => item.word === q.word)) wrongQuestions.push(q);
         }
-
-        // Chuyển sang câu tiếp theo đứng yên nhẹ nhàng sau 0.7 giây
         setTimeout(() => {
             currentQuestionIndex++;
-            if (currentQuestionIndex < currentQuestions.length) {
-                showQuestion();
-            } else {
-                showResult();
-            }
+            if (currentQuestionIndex < currentQuestions.length) showQuestion();
+            else showResult();
         }, 700);
     }
 
     function showResult() {
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('result-screen').style.display = 'block';
-
-        let summaryText = "";
-        if (isRedoMode) {
-            summaryText = `Lượt sửa câu sai hoàn tất! Còn lại <b>${wrongQuestions.length}</b> câu chưa thuộc.`;
-        } else {
-            summaryText = `Tuyệt vời! Bạn đã hoàn thành bài học với số điểm <b>${score}/${currentQuestions.length}</b> câu đúng.`;
+        if (!isRedoMode) {
+            saveToGlobalHistory("Reading", "Customs & Traditions", "Trắc nghiệm từ vựng", `${score}/${currentQuestions.length}`);
         }
+        let summaryText = isRedoMode ? `Lượt sửa câu sai hoàn tất! Còn lại <b>${wrongQuestions.length}</b> câu chưa thuộc.` : `Tuyệt vời! Bạn đã hoàn thành bài học với số điểm <b>${score}/${currentQuestions.length}</b> câu đúng.`;
         document.getElementById('result-summary').innerHTML = summaryText;
-
         let redoBtn = document.getElementById('btn-redo');
         if (wrongQuestions.length === 0) {
             redoBtn.style.display = 'none';
@@ -362,16 +242,22 @@
         }
     }
 
+    function saveToGlobalHistory(kyNang, chuDe, capDo, diemSo) {
+        let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+        let now = new Date();
+        let timeString = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        history.unshift({ thoiGian: timeString, kyNang, chuDe, capDo, diemSo });
+        localStorage.setItem('vstep_learning_history', JSON.stringify(history));
+    }
+
     function startRedoWrong() {
         playSound('click');
         currentQuestions = [...wrongQuestions];
         wrongQuestions = [];
         currentQuestionIndex = 0;
         isRedoMode = true;
-
         document.getElementById('result-screen').style.display = 'none';
         document.getElementById('quiz-screen').style.display = 'block';
-        
         showQuestion();
     }
 
@@ -380,7 +266,6 @@
         window.location.href = 'reading.html';
     }
 
-    // Tự động chạy ngay khi mở trang
     initQuiz();
 </script>
 
