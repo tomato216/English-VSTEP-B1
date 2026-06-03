@@ -10,10 +10,11 @@
             --dark-color: #4a2711;
             --bg-color: #fcf8f2;
             --accent-color: #cd853f;
+            --success-color: #16a34a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             margin: 0;
             padding: 20px;
@@ -26,11 +27,11 @@
 
         .main-box {
             background-color: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(74, 39, 17, 0.12);
             width: 100%;
-            max-width: 650px;
+            max-width: 750px;
             border: 3px solid #e6ccb2;
             box-sizing: border-box;
         }
@@ -39,9 +40,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #f4ebe1;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
         }
 
         .btn-top-back {
@@ -56,30 +57,84 @@
             gap: 5px;
         }
 
-        .topic-selector {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
+        /* Hệ thống 5 ô chọn chủ đề trực quan */
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .topic-card {
+            background-color: #fffbf7;
             border: 2px solid #e6ccb2;
-            font-size: 15px;
+            border-radius: 10px;
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 13px;
             font-weight: bold;
             color: var(--dark-color);
-            background-color: #fffbf7;
-            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topic-card:hover {
+            background-color: #f4ebe1;
+            transform: translateY(-2px);
+        }
+
+        .topic-card.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--dark-color);
+            box-shadow: 0 4px 10px rgba(160, 82, 45, 0.3);
         }
 
         .prompt-box {
             background-color: #fffbf7;
             border-left: 5px solid var(--primary-color);
-            padding: 12px;
-            border-radius: 4px;
-            font-weight: bold;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
             color: var(--dark-color);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 15px;
+            line-height: 1.5;
         }
 
-        /* Hệ thống Tab hiển thị nội dung */
+        /* Hệ thống chọn Cấp độ tự do */
+        .level-switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: #f4ebe1;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .level-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            color: #6d594f;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .level-tab.active {
+            background-color: white;
+            color: var(--dark-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Hệ thống Tab nội dung tài liệu học */
         .tab-container {
             display: flex;
             gap: 5px;
@@ -109,33 +164,33 @@
         .tab-content {
             border: 2px solid #e6ccb2;
             border-radius: 0 0 12px 12px;
-            padding: 20px;
+            padding: 22px;
             background: white;
             margin-top: -17px;
             margin-bottom: 20px;
-            min-height: 150px;
+            min-height: 180px;
         }
 
+        /* Khung hiển thị chữ mượt mà, chống lỗi font tiếng Việt */
         .letter-display {
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.6;
+            line-height: 1.7;
             white-space: pre-line;
             color: #2b1d15;
-            font-size: 15px;
+            font-size: 16px;
         }
 
-        /* Giao diện làm bài tập gõ chữ */
+        /* Khu vực điền từ khuyết */
         .interactive-workspace {
-            line-height: 2.2;
+            line-height: 2.3;
             font-size: 16px;
-            color: #333;
+            color: #2b1d15;
             text-align: justify;
         }
 
-        /* Ô nhập liệu từ trống */
+        /* Định dạng ô trống gọn gàng (Số) */
         .blank-input {
-            width: 110px;
-            padding: 2px 8px;
+            width: 75px;
+            padding: 2px 5px;
             border: none;
             border-bottom: 2px solid var(--accent-color);
             background-color: #fffdfa;
@@ -145,6 +200,7 @@
             color: #b91c1c;
             text-align: center;
             outline: none;
+            margin: 0 3px;
         }
 
         .blank-input:focus {
@@ -152,23 +208,25 @@
             border-bottom-color: var(--dark-color);
         }
 
-        /* Ô nhập liệu câu trống Level 2 */
+        /* Level 2: Câu trống */
         .sentence-block {
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .blank-textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid var(--accent-color);
             border-radius: 8px;
             font-family: inherit;
             font-size: 15px;
+            line-height: 1.5;
             resize: none;
             box-sizing: border-box;
+            background-color: #fffdfa;
         }
 
         .btn-action {
@@ -182,110 +240,103 @@
             cursor: pointer;
             width: 100%;
             transition: background 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .btn-action:hover {
             background-color: var(--dark-color);
         }
 
-        /* Khung hiển thị kết quả lỗi sai */
         .review-box {
             background-color: #fef2f2;
             border: 1px solid #fca5a5;
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px;
             margin-top: 15px;
             text-align: left;
-        }
-
-        .review-item {
-            margin-bottom: 8px;
-            border-bottom: 1px dashed #fee2e2;
-            padding-bottom: 5px;
-            font-size: 14px;
+            line-height: 1.6;
         }
 
         .level-badge {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
             color: white;
             background-color: var(--accent-color);
-            margin-bottom: 10px;
         }
 
-        .grammar-section {
-            margin-bottom: 15px;
-        }
         .grammar-title {
             font-weight: bold;
             color: var(--primary-color);
-            margin-top: 10px;
+            margin-top: 12px;
+            margin-bottom: 6px;
         }
     </style>
 </head>
 <body>
 
 <div class="main-box">
-    <!-- TOP NAV NAVIGATION -->
+    <!-- TOP NAV -->
     <div class="top-nav">
-        <button class="btn-top-back" onclick="window.location.href='informal_letter.html'">⬅ Quay lại Menu</button>
-        <div id="level-display-badge" class="level-badge">Chế độ: Đọc Bài Mẫu</div>
+        <button class="btn-top-back" onclick="window.location.href='informal_letter.html'">⬅ Menu chính</button>
+        <div id="level-display-badge" class="level-badge">Đang Đọc Ghi Nhớ</div>
     </div>
 
-    <!-- BỘ CHỌN CHỦ ĐỀ ĐỀ BÀI -->
-    <select id="topicDropdown" class="topic-selector" onchange="loadTopic()">
-        <option value="0">Đề 1: Traditional festival in your country (Tết)</option>
-        <option value="1">Đề 2: Historical site in Vietnam (Lăng Bác)</option>
-        <option value="2">Đề 3: Introduce your pet (Chú chó Bông)</option>
-        <option value="3">Đề 4: Member of your family (Người mẹ)</option>
-        <option value="4">Đề 5: Introduce your hometown (Hưng Yên)</option>
-    </select>
+    <!-- 5 Ô CHỌN CHỦ ĐỀ TRỰC QUAN -->
+    <div class="topic-grid">
+        <div class="topic-card active" onclick="selectTopicCard(0)">Chủ đề 1<br>Lễ hội Tết</div>
+        <div class="topic-card" onclick="selectTopicCard(1)">Chủ đề 2<br>Lăng Bác</div>
+        <div class="topic-card" onclick="selectTopicCard(2)">Chủ đề 3<br>Thú cưng</div>
+        <div class="topic-card" onclick="selectTopicCard(3)">Chủ đề 4<br>Người mẹ</div>
+        <div class="topic-card" onclick="selectTopicCard(4)">Chủ đề 5<br>Quê hương</div>
+    </div>
 
     <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
 
-    <!-- KHU VỰC CHẾ ĐỘ ĐỌC BÀI MẪU (TAB VIEW) -->
+    <!-- KHU VỰC CHỌN CẤP ĐỘ LUYỆN TẬP TỰ DO -->
+    <div class="level-switcher">
+        <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Đọc & Xem Cấu Trúc</button>
+        <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp Độ 1 (Gõ Từ)</button>
+        <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp Độ 2 (Gõ Câu)</button>
+    </div>
+
+    <!-- CHẾ ĐỘ 0: TÀI LIỆU HỌC TẬP -->
     <div id="study-zone">
         <div class="tab-container">
-            <button class="tab-btn active" onclick="switchTab('sample')">📝 Bài Mẫu</button>
-            <button class="tab-btn" onclick="switchTab('translation')">🇻🇳 Bản Dịch</button>
-            <button class="tab-btn" onclick="switchTab('grammar')">📐 Ngữ Pháp & Từ Nối</button>
+            <button id="btn-sub-sample" class="tab-btn active" onclick="switchSubTab('sample')">📝 Bài Mẫu</button>
+            <button id="btn-sub-trans" class="tab-btn" onclick="switchSubTab('translation')">🇻🇳 Bản Dịch</button>
+            <button id="btn-sub-gram" class="tab-btn" onclick="switchSubTab('grammar')">📐 Ngữ Pháp</button>
         </div>
         
         <div class="tab-content">
             <div id="tab-sample" class="letter-display"></div>
-            <div id="tab-translation" class="letter-display" style="display:none; color: #555; font-style: italic;"></div>
-            <div id="tab-grammar" style="display:none;"></div>
+            <div id="tab-translation" class="letter-display" style="display:none; color: #444;"></div>
+            <div id="tab-grammar" style="display:none; line-height: 1.6;"></div>
         </div>
-
-        <button class="btn-action" onclick="startLevel1()">🔥 Bắt đầu Luyện tập Cấp độ 1</button>
+        <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Từ Vựng Khuyết ➔</button>
     </div>
 
-    <!-- KHU VỰC THỰC HÀNH TƯƠNG TÁC (LEVEL 1 & LEVEL 2) -->
+    <!-- CHẾ ĐỘ THỰC HÀNH (LEVEL 1 & LEVEL 2) -->
     <div id="practice-zone" style="display: none;">
         <div id="workspace-container" class="interactive-workspace"></div>
         
         <div id="result-feedback-box" class="review-box" style="display: none;"></div>
         
-        <div style="margin-top: 15px; display: flex; gap: 10px;">
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
             <button id="btn-submit-practice" class="btn-action" onclick="gradePractice()">Chấm Điểm Bài Làm</button>
             <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Câu Sai</button>
-            <button id="btn-next-level" class="btn-action" style="display:none; background-color: #16a34a;" onclick="askBeforeLevel2()">Tiến tới Level 2 ➔</button>
-            <button id="btn-back-to-study" class="btn-action" style="display:none; background-color: #4b5563;" onclick="resetToStudyMode()">Quay lại Đọc hiểu</button>
+            <button id="btn-next-level" class="btn-action" style="display:none; background-color: var(--success-color);" onclick="askBeforeLevel2()">Lên Level 2 ➔</button>
         </div>
     </div>
 </div>
 
 <script>
-    // DỮ LIỆU TOÀN BỘ 5 BÀI MẪU NGỮ PHÁP DỊCH NGHĨA KHÔNG THIẾU MỘT CHỮ
     const dataset = [
         {
             prompt: "Write a letter introduce about a traditional festival in your country",
             sample: `Dear Putin,\n\nHow are you? So, I hope everything is fine for you. I am very happy to receive your letter. I am writing this letter to tell you about a traditional festival in my country.\n\nYou know, I live in Vietnam, a beautiful country with kind people. Not only that, we have a unique Lunar New Year called Tết. Firstly, people clean their houses and go Tet shopping like Christmas in your country, they buy many things, such as food, decorations and clothes, etc.\n\nMoreover, Tet is also a special occasion for family members to gather together to give each other best wishes. During Tet, we enjoy traditional food like Chung cake, sticky rice and boiled chicken. Besides, children are given lucky money by adults, which is a symbol of luck and success.\n\nThat is all for now. How about traditional holidays in your country? I am looking forward to hearing from you soon.\n\nTake care,\n\nBinh`,
-            translation: `Thân gửi Putin,\n\nBạn khỏe không? Mình hy vọng mọi thứ đều tốt đẹp với bạn. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một lễ hội truyền thống ở đất nước mình.\n\nBạn biết đấy, mình sống ở Việt Nam, một đất nước xinh đẹp với những con người nhân hậu. Không chỉ vậy, chúng mình còn có một Tết Nguyên Đán độc đáo gọi là Tết. Đầu tiên, mọi người dọn dẹp nhà cửa và đi sắm Tết giống như Giáng sinh ở nước bạn vậy, họ mua nhiều thứ như thức ăn, đồ trang trí và quần áo, v.v.\n\nHơn nữa, Tết cũng là dịp đặc biệt để các thành viên trong gia đình quây quần bên nhau, trao cho nhau những lời chúc tốt đẹp nhất. Trong suốt dịp Tết, chúng mình thưởng thức những món ăn truyền thống như bánh Chưng, xôi và gà luộc. Ngoài ra, trẻ em được người lớn tặng tiền lì xì, đây là biểu tượng của sự may mắn và thành công.\n\nHiện tại thế thôi nhé. Còn các ngày lễ truyền thống ở nước bạn thì sao? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nGiữ gìn sức khỏe nhé,\n\nBình`,
+            translation: `Thân gửi Putin,\n\nBạn khỏe không? Mình hy vọng mọi thứ đều tốt đẹp với bạn. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một lễ hội truyền thống ở đất nước mình.\n\nBạn biết đấy, mình sống ở Việt Nam, một đất nước xinh đẹp với những con người nhân hậu. Không chỉ vậy, chúng mình còn có một Tết Nguyên Đán độc đáo gọi là Tết. Đầu tiên, mọi người dọn dẹp nhà cửa và đi sắm Tết giống như Giáng sinh ở nước bạn vậy, họ mua nhiều thứ như thức ăn, đồ trang trí và quần áo, v.v.\n\nHơn nữa, Tết cũng là dịp đặc biệt để các thành viên trong gia đình quây quyển bên nhau, trao cho nhau những lời chúc tốt đẹp nhất. Trong suốt dịp Tết, chúng mình thưởng thức những món ăn truyền thống như bánh Chưng, xôi và gà luộc. Ngoài ra, trẻ em được người lớn tặng tiền lì xì, đây là biểu tượng của sự may mắn và thành công.\n\nHiện tại thế thôi nhé. Còn các ngày lễ truyền thống ở nước bạn thì sao? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nGiữ gìn sức khỏe nhé,\n\nBình`,
             grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
             • I hope + mệnh đề (I hope everything is fine for you.)<br>
             • be happy + to V (I am happy to receive your letter.)<br>
@@ -351,71 +402,69 @@
     ];
 
     let currentTopicIndex = 0;
-    let currentLevel = 0; // 0: Đọc hiểu, 1: Từ trống, 2: Câu trống
-    let level1BlanksData = []; // Lưu trữ đáp án đúng cho level 1
-    let level2LinesData = [];  // Lưu trữ đáp án đúng cho level 2
-    let wrongPool = [];        // Lưu các câu/từ sai để làm lại
+    let currentLevel = 0; 
+    let level1BlanksData = []; 
+    let level2LinesData = [];  
+    let wrongPool = [];        
 
-    function playSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            let osc = ctx.createOscillator();
-            let gain = ctx.createGain();
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.frequency.setValueAtTime(900, ctx.currentTime);
-            gain.gain.setValueAtTime(0.03, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-            osc.start(); osc.stop(ctx.currentTime + 0.08);
-        } catch(e){}
+    function selectTopicCard(index) {
+        document.querySelectorAll('.topic-card').forEach((card, idx) => {
+            if(idx === index) card.classList.add('active');
+            else card.classList.remove('active');
+        });
+        currentTopicIndex = index;
+        changeLevelMode(currentLevel); // Giữ nguyên cấp độ hiện tại khi đổi bài
     }
 
-    function loadTopic() {
-        currentTopicIndex = parseInt(document.getElementById('topicDropdown').value);
-        resetToStudyMode();
-    }
-
-    function switchTab(tabName) {
+    function switchSubTab(tabName) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+        if(tabName === 'sample') document.getElementById('btn-sub-sample').classList.add('active');
+        if(tabName === 'translation') document.getElementById('btn-sub-trans').classList.add('active');
+        if(tabName === 'grammar') document.getElementById('btn-sub-gram').classList.add('active');
+
         document.getElementById('tab-sample').style.display = tabName === 'sample' ? 'block' : 'none';
         document.getElementById('tab-translation').style.display = tabName === 'translation' ? 'block' : 'none';
         document.getElementById('tab-grammar').style.display = tabName === 'grammar' ? 'block' : 'none';
     }
 
-    function resetToStudyMode() {
-        currentLevel = 0;
-        document.getElementById('level-display-badge').innerText = "Chế độ: Đọc Bài Mẫu";
-        document.getElementById('level-display-badge').style.backgroundColor = '#cd853f';
-        
+    // TỰ DO CHUYỂN ĐỔI CẤP ĐỘ KHÔNG RÀNG BUỘC
+    function changeLevelMode(levelNum) {
+        currentLevel = levelNum;
+        document.querySelectorAll('.level-tab').forEach((tab, idx) => {
+            if(idx === levelNum) tab.classList.add('active');
+            else tab.classList.remove('active');
+        });
+
         let data = dataset[currentTopicIndex];
         document.getElementById('prompt-text-display').innerText = data.prompt;
-        document.getElementById('tab-sample').innerText = data.sample;
-        document.getElementById('tab-translation').innerText = data.translation;
-        document.getElementById('tab-grammar').innerHTML = data.grammar;
 
-        document.getElementById('study-zone').style.display = 'block';
-        document.getElementById('practice-zone').style.display = 'none';
-        document.getElementById('result-feedback-box').style.display = 'none';
-        document.getElementById('btn-redo-errors').style.display = 'none';
-        document.getElementById('btn-next-level').style.display = 'none';
-        document.getElementById('btn-back-to-study').style.display = 'none';
-        document.getElementById('btn-submit-practice').style.display = 'block';
+        if(levelNum === 0) {
+            document.getElementById('level-display-badge').innerText = "Đang Đọc Ghi Nhớ";
+            document.getElementById('level-display-badge').style.backgroundColor = '#cd853f';
+            document.getElementById('tab-sample').innerText = data.sample;
+            document.getElementById('tab-translation').innerText = data.translation;
+            document.getElementById('tab-grammar').innerHTML = data.grammar;
+            
+            document.getElementById('study-zone').style.display = 'block';
+            document.getElementById('practice-zone').style.display = 'none';
+            switchSubTab('sample');
+        } else if(levelNum === 1) {
+            startLevel1();
+        } else if(levelNum === 2) {
+            startLevel2();
+        }
     }
 
-    // LEVEL 1: ĐIỀN TỪ VÀO CHỖ TRỐNG (10-15 TỪ NGẪU NHIÊN CHỌN TỪ TOÀN BÀI)
+    // LEVEL 1: ĐIỀN TỪ (HIỂN THỊ DẠNG SỐ (1), (2)...)
     function startLevel1(forceWords = null) {
-        playSound();
-        currentLevel = 1;
         document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết";
         document.getElementById('level-display-badge').style.backgroundColor = '#a0522d';
         document.getElementById('study-zone').style.display = 'none';
         document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
-        // Tách từ nhưng giữ cấu trúc xuống dòng
         let tokens = text.split(/(\s+)/);
         
-        // Lọc ra các chỉ số token là từ thực sự (có ký tự chữ cái) để làm trống
         let wordIndices = [];
         tokens.forEach((token, idx) => {
             if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
@@ -423,7 +472,6 @@
             }
         });
 
-        // Chọn ngẫu nhiên khoảng 12 từ để ẩn
         let chosenIndices = [];
         if(forceWords) {
             chosenIndices = forceWords;
@@ -437,9 +485,7 @@
 
         tokens.forEach((token, idx) => {
             if(chosenIndices.includes(idx)) {
-                // Tách phần ký tự đặc biệt/dấu câu ở rìa từ nếu có (ví dụ: Putin, hoặc Tết.)
                 let cleanWord = token.replace(/[^a-zA-ZÀ-ỹ]/g, "");
-                let rawWord = token;
                 
                 level1BlanksData.push({
                     index: idx,
@@ -447,37 +493,29 @@
                     originalToken: token
                 });
 
-                let placeholderStr = `Từ ${level1BlanksData.length}`;
-                // Giữ lại cấu trúc dấu câu hiển thị bên cạnh ô input
+                let placeholderStr = `(${level1BlanksData.length})`;
                 let inputHTML = token.replace(cleanWord, `<input type="text" class="blank-input" data-blankidx="${level1BlanksData.length - 1}" placeholder="${placeholderStr}">`);
                 htmlContent += inputHTML;
             } else {
-                // Thay thế ký tự xuống dòng bằng thẻ break để hiển thị định dạng thư đẹp mắt
                 htmlContent += token.replace(/\n/g, "<br>");
             }
         });
 
         document.getElementById('workspace-container').innerHTML = htmlContent;
         document.getElementById('result-feedback-box').style.display = 'none';
+        document.getElementById('btn-redo-errors').style.display = 'none';
+        document.getElementById('btn-next-level').style.display = 'none';
+        document.getElementById('btn-submit-practice').style.display = 'block';
     }
 
-    // LEVEL 2: ĐIỀN CÂU THEO ĐOẠN (ẨN 30% - 50% SỐ CÂU ĐỘNG)
-    function askBeforeLevel2() {
-        playSound();
-        if(confirm("Chúc mừng bạn vượt qua Cấp độ 1! 🎉\nBạn có muốn đọc lại bài mẫu một lượt trước khi bước vào thử thách Điền Câu Cấp độ 2 không?")) {
-            resetToStudyMode();
-        } else {
-            startLevel2();
-        }
-    }
-
+    // LEVEL 2: ĐIỀN CÂU
     function startLevel2(forceLines = null) {
-        currentLevel = 2;
         document.getElementById('level-display-badge').innerText = "Cấp độ 2: Thử Thách Điền Câu";
         document.getElementById('level-display-badge').style.backgroundColor = '#16a34a';
+        document.getElementById('study-zone').style.display = 'none';
+        document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
-        // Chia bài viết thành các câu dựa vào dấu chấm, hỏi chấm, xuống dòng
         let sentences = text.split(/(?<=[.!?])\s*\n*|(?<=\n)/);
         sentences = sentences.filter(s => s.trim().length > 0);
 
@@ -486,7 +524,6 @@
             if(s.trim().length > 10) sentenceIndices.push(i);
         });
 
-        // Ẩn ngẫu nhiên khoảng 35% số câu có nghĩa
         let chosenLineIndices = [];
         if(forceLines) {
             chosenLineIndices = forceLines;
@@ -508,8 +545,8 @@
                 });
                 
                 htmlContent += `<div class="sentence-block">
-                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại nguyên câu khuyết số ${level2LinesData.length} tại đây]:</span>
-                    <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập trọn vẹn cả câu..."></textarea>
+                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại trọn vẹn câu khuyết (${level2LinesData.length}) tại đây]:</span>
+                    <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập câu tại đây..."></textarea>
                 </div>`;
             } else {
                 htmlContent += `<p style="margin:5px 0; display:inline;">${formattedDisplay} </p>`;
@@ -519,13 +556,21 @@
 
         document.getElementById('workspace-container').innerHTML = htmlContent;
         document.getElementById('result-feedback-box').style.display = 'none';
+        document.getElementById('btn-redo-errors').style.display = 'none';
         document.getElementById('btn-next-level').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
     }
 
-    // HỆ THỐNG CHẤM ĐIỂM BÀI LÀM TỰ ĐỘNG
+    function askBeforeLevel2() {
+        if(confirm("Chúc mừng bạn hoàn thành xuất sắc! 🎉\nBạn có muốn đọc lại bài mẫu một lượt để ghi nhớ câu trước khi lên Level 2 không?")) {
+            changeLevelMode(0);
+        } else {
+            changeLevelMode(2);
+        }
+    }
+
+    // CHẤM ĐIỂM TỰ ĐỘNG
     function gradePractice() {
-        playSound();
         let feedbackHTML = "";
         let correctCount = 0;
         wrongPool = [];
@@ -544,16 +589,16 @@
                 } else {
                     input.style.backgroundColor = '#fee2e2';
                     input.style.borderColor = '#ef4444';
-                    wrongPool.push(target.index); // Lưu chỉ số từ sai
+                    wrongPool.push(target.index);
                 }
             });
 
-            feedbackHTML = `<b>Kết quả Level 1:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ khuyết.<br>`;
+            feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ khuyết.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<span style="color:#b91c1c;">Bạn có một số từ chưa chính xác. Đừng lo lắng, hãy làm lại nhé!</span>`;
+                feedbackHTML += `<span style="color:#b91c1c;">Có một vài từ chưa chuẩn xác, bạn hãy bấm nút đỏ bên dưới để thử sức lại nhé!</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt hảo! Bộ nhớ từ vựng của bạn siêu chuẩn! 🥳</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn đã vượt qua 100% từ khuyết! 🥳</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
                 document.getElementById('btn-next-level').style.display = 'block';
             }
@@ -572,24 +617,23 @@
                 } else {
                     box.style.backgroundColor = '#fee2e2';
                     box.style.borderColor = '#ef4444';
-                    wrongPool.push(target.index); // Lưu chỉ số câu sai
+                    wrongPool.push(target.index);
                 }
             });
 
-            feedbackHTML = `<b>Kết quả Level 2:</b> Khớp chính xác <b>${correctCount}/${level2LinesData.length}</b> câu hoàn chỉnh.<br>`;
+            feedbackHTML = `<b>Kết quả chấm điểm:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<div style="margin-top:10px; font-size:13px; color:#4a2711;"><b>Gợi ý đáp án đúng cho câu sai:</b><br>`;
+                feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#4a2711;"><b>Gợi ý đáp án đúng cho các câu bị sai:</b><br>`;
                 level2LinesData.forEach((item, i) => {
                     if(wrongPool.includes(item.index)) {
-                        feedbackHTML += `• Câu ${i+1}: <i>"${item.correctText}"</i><br>`;
+                        feedbackHTML += `• Ô số (${i+1}): <span style="color:#16a34a; font-weight:600;">"${item.correctText}"</span><br>`;
                     }
                 });
                 feedbackHTML += `</div>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Xuất sắc vượt qua thử thách viết! Bạn đã làm chủ hoàn toàn bài luận này! 🔴❤️</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá đỉnh! Bạn đã nhớ chuẩn xác hoàn toàn cấu trúc câu bài viết này! 🏆</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
-                document.getElementById('btn-back-to-study').style.display = 'block';
             }
         }
 
@@ -598,11 +642,10 @@
         fBox.style.display = 'block';
     }
 
-    // CHỨC NĂNG LÀM LẠI CÁC CÂU HOẶC TỪ ĐÃ GÕ SAI
+    // LÀM LẠI CÂU SAI
     function redoWrongAnswers() {
         if(wrongPool.length === 0) return;
         let originalWrong = [...wrongPool];
-        
         if(currentLevel === 1) {
             startLevel1(originalWrong);
         } else if(currentLevel === 2) {
@@ -611,8 +654,8 @@
         document.getElementById('btn-redo-errors').style.display = 'none';
     }
 
-    // Khởi chạy bài học ban đầu
-    loadTopic();
+    // Khởi động trang ở chế độ đọc bài 1
+    changeLevelMode(0);
 </script>
 
 </body>
