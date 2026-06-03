@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSTEP B1 - Health & Fitness Vocabulary</title>
+    <style>
+        :root {
+            --primary-color: #ff6b6b; /* Hồng đỏ energetic, tràn đầy sức sống */
+            --dark-color: #7a1b1b;    /* Đỏ mận đậm chín chắn */
+            --bg-color: #fff5f5;      /* Nền hồng đào siêu nhẹ, dịu mắt và ấm áp */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng các điểm sáng năng lượng rơi nhẹ nhàng ở phông nền */
+        .petal {
+            position: absolute;
+            background-color: #ffc9c9;
+            border-radius: 50%;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: fade 5s infinite linear, float 5s infinite ease-in-out;
+        }
+
+        @keyframes fade {
+            0% { top: -10px; opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(40px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Khung chứa giao diện chính của bài học */
+        .main-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(122, 27, 27, 0.06);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            border: 2px solid #ffc9c9;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Icon sức khỏe và thể thao */
+        .health-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h2 {
+            color: var(--dark-color);
+            margin: 5px 0;
+            font-size: 24px;
+        }
+
+        .question { 
+            font-size: 19px; 
+            font-weight: bold; 
+            color: #7a1b1b; 
+            margin: 25px 0 20px 0; 
+            line-height: 1.4;
+        }
+
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+
+        .btn-option { 
+            padding: 14px; 
+            border: 2px solid #fff5f5; 
+            border-radius: 12px; 
+            background-color: #fff; 
+            cursor: pointer; 
+            font-size: 16px; 
+            transition: background-color 0.15s, border-color 0.15s; 
+            font-weight: 500; 
+            color: #9c2c2c;
+            text-align: center;
+        }
+
+        .btn-option:hover { 
+            background-color: #fff5f5; 
+            border-color: var(--primary-color); 
+        }
+
+        .score { 
+            margin-top: 20px; 
+            font-size: 15px; 
+            color: #9c2c2c; 
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            background: none;
+            border: none;
+            color: #9c2c2c;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* Khung chứa nút kết quả ở màn hình cuối */
+        .result-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-result {
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .btn-next-topic {
+            background-color: #fff5f5;
+            border-color: #ffc9c9;
+            color: #9c2c2c;
+        }
+
+        .btn-next-topic:hover {
+            background-color: #ff6b6b;
+            color: white;
+            border-color: #7a1b1b;
+        }
+
+        .btn-redo-wrong {
+            background-color: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .btn-redo-wrong:hover {
+            background-color: #ef4444;
+            color: white;
+            border-color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+
+<div id="petal-container"></div>
+
+<!-- MÀN HÌNH LÀM BÀI TẬP CỐ ĐỊNH -->
+<div id="quiz-screen" class="main-box">
+    <div class="health-icon">💪🥗</div>
+    <div style="color: var(--dark-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">CHỦ ĐỀ: HEALTH & FITNESS</div>
+    <div class="question" id="question-text">Đang tải câu hỏi...</div>
+    <div class="options" id="options-container"></div>
+    <div class="score" id="score-text"></div>
+    <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
+</div>
+
+<!-- MÀN HÌNH KẾT THÚC BÀI HỌC -->
+<div id="result-screen" class="main-box" style="display: none;">
+    <div class="health-icon">🏅✨</div>
+    <h2>Kết Quả Luyện Tập</h2>
+    <div class="question" id="result-summary"></div>
+    
+    <div class="result-buttons">
+        <button class="btn-result btn-next-topic" onclick="goToMenu()">🔄 Đổi sang chủ đề khác</button>
+        <button class="btn-result btn-redo-wrong" id="btn-redo" onclick="startRedoWrong()">🔥 Làm lại các câu sai</button>
+    </div>
+</div>
+
+<script>
+    // DATA TOÀN BỘ 34 TỪ VỰNG CHỦ ĐỀ HEALTH AND FITNESS KHÔNG THIẾU TỪ NÀO
+    const vocabularyData = [
+        { word: "Maintain good health (v)", mean: "Duy trì sức khỏe tốt" },
+        { word: "Proper nutrition (n)", mean: "Dinh dưỡng hợp lý / Đúng cách" },
+        { word: "Balanced diet (n)", mean: "Chế độ ăn uống cân bằng / Hợp lý" },
+        { word: "Vitamins and minerals (n)", mean: "Vitamin và khoáng chất" },
+        { word: "Sugary drinks (n)", mean: "Đồ uống có đường" },
+        { word: "Obesity (n)", mean: "Bệnh béo phì" },
+        { word: "Condition (n)", mean: "Tình trạng / Điều kiện (sức khỏe)" },
+        { word: "Stay in shape (v)", mean: "Giữ dáng / Giữ cơ thể cân đối" },
+        { word: "Lose weight (v)", mean: "Giảm cân" },
+        { word: "Chronic disease (n)", mean: "Bệnh mãn tính (bệnh kéo dài, khó chữa dứt điểm)" },
+        { word: "Diabetes (n)", mean: "Bệnh tiểu đường" },
+        { word: "Processed foods (n)", mean: "Thực phẩm chế biến sẵn" },
+        { word: "Food additives (n)", mean: "Chất phụ gia thực phẩm" },
+        { word: "Immunity (n)", mean: "Hệ miễn dịch / Sức đề kháng" },
+        { word: "Fight off (v)", mean: "Chống lại / Đánh bại (bệnh tật)" },
+        { word: "Common illness (n)", mean: "Bệnh thông thường (cảm, cúm...)" },
+        { word: "Suffer from (v)", mean: "Chịu đựng / Bị mắc (bệnh gì)" },
+        { word: "Painful headache (n)", mean: "Đau đầu dữ dội" },
+        { word: "Run a high fever (v)", mean: "Bị sốt cao" },
+        { word: "Catch a cold (v)", mean: "Bị cảm lạnh" },
+        { word: "Injury (n)", mean: "Chấn thương" },
+        { word: "Rest (n/v)", mean: "Sự nghỉ ngơi / Nghỉ ngơi" },
+        { word: "Recovery (n)", mean: "Sự hồi phục" },
+        { word: "Heal (v)", mean: "Chữa lành / Lành vết thương" },
+        { word: "Relaxation (n)", mean: "Sự thư giãn / Nghỉ ngơi" },
+        { word: "Prevent sickness (v)", mean: "Phòng ngừa bệnh tật" },
+        { word: "Cure (v)", mean: "Chữa khỏi / Điều trị khỏi" },
+        { word: "Instantly (adv)", mean: "Ngay lập tức" },
+        { word: "Sickness (n)", mean: "Bệnh tật / Sự ốm đau" },
+        { word: "Disappear (v)", mean: "Biến mất" },
+        { word: "Refers to (v)", mean: "Ám chỉ / Thay thế cho từ nào" },
+        { word: "Symptom (n)", mean: "Triệu chứng (của bệnh)" },
+        { word: "In conclusion / To sum up (adv)", mean: "Tóm lại / Kết luận" },
+        { word: "Advise (v)", mean: "Khuyên bảo / Đưa ra lời khuyên" }
+    ];
+
+    let currentQuestions = [];
+    let wrongQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let isRedoMode = false;
+
+    // Âm thanh phần cứng: Tiếng tinh tinh trong trẻo (khi đúng) và tiếng bíp trầm ngắn (khi sai)
+    function playSound(type) {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'click' || type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(type === 'correct' ? 900 : 800, ctx.currentTime);
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+                osc.start(); osc.stop(ctx.currentTime + 0.1);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth'; 
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+                osc.start(); osc.stop(ctx.currentTime + 0.18);
+            }
+        } catch(e) {}
+    }
+
+    // Hiệu ứng hạt bụi sáng bay nhẹ phông nền
+    function createPetals() {
+        const container = document.getElementById('petal-container');
+        for (let i = 0; i < 8; i++) {
+            let petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 6 + 6 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+            container.appendChild(petal);
+        }
+    }
+    createPetals();
+
+    function initQuiz() {
+        currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
+        wrongQuestions = [];
+        currentQuestionIndex = 0;
+        score = 0;
+        isRedoMode = false;
+        showQuestion();
+    }
+
+    function showQuestion() {
+        let q = currentQuestions[currentQuestionIndex];
+        document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
+        document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
+
+        let options = [q.word];
+        let allWords = vocabularyData.map(item => item.word).filter(w => w !== q.word);
+        allWords.sort(() => Math.random() - 0.5);
+        
+        for (let i = 0; i < 3; i++) {
+            if (allWords[i]) options.push(allWords[i]);
+        }
+        options.sort(() => Math.random() - 0.5);
+
+        let optionsHTML = "";
+        options.forEach(opt => {
+            optionsHTML += `<button class="btn-option" onclick="checkAnswer('${opt}', '${q.word}', this)">${opt}</button>`;
+        });
+        document.getElementById('options-container').innerHTML = optionsHTML;
+    }
+
+    function checkAnswer(selected, correct, btn) {
+        const buttons = document.querySelectorAll('.btn-option');
+        buttons.forEach(b => b.disabled = true);
+
+        let q = currentQuestions[currentQuestionIndex];
+
+        if (selected === correct) {
+            playSound('correct');
+            btn.style.backgroundColor = '#dcfce7';
+            btn.style.borderColor = '#86efac';
+            if (!isRedoMode) score++;
+        } else {
+            playSound('wrong');
+            btn.style.backgroundColor = '#fee2e2';
+            btn.style.borderColor = '#fca5a5';
+            if (!wrongQuestions.some(item => item.word === q.word)) {
+                wrongQuestions.push(q);
+            }
+        }
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 700);
+    }
+
+    function showResult() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        let summaryText = "";
+        if (isRedoMode) {
+            summaryText = `Lượt ôn tập hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa vững vàng.`;
+        } else {
+            summaryText = `Hoàn thành! Bạn đạt số điểm <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Sức khỏe.`;
+        }
+        document.getElementById('result-summary').innerHTML = summaryText;
+
+        let redoBtn = document.getElementById('btn-redo');
+        if (wrongQuestions.length === 0) {
+            redoBtn.style.display = 'none';
+            document.getElementById('result-summary').innerHTML += "<br><span style='color: #b91c1c; font-weight: bold; font-size: 15px;'>Sức khỏe vàng! Bạn đã thuộc trọn vẹn 100% từ vựng! 🔴❤️</span>";
+        } else {
+            redoBtn.style.display = 'block';
+            redoBtn.innerText = `🔥 Làm lại ${wrongQuestions.length} câu sai`;
+        }
+    }
+
+    function startRedoWrong() {
+        playSound('click');
+        currentQuestions = [...wrongQuestions];
+        wrongQuestions = [];
+        currentQuestionIndex = 0;
+        isRedoMode = true;
+
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        
+        showQuestion();
+    }
+
+    function goToMenu() {
+        playSound('click');
+        window.location.href = 'reading.html';
+    }
+
+    initQuiz();
+</script>
+
+</body>
+</html>
