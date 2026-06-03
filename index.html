@@ -92,41 +92,38 @@
         <button class="btn-menu" onclick="selectSkill('writing')">✍️ Kỹ năng Writing</button>
     </div>
 
-    <div class="footer-cats">🐱 Luyện tập cùng mèo béo 🐾</div>
+    <div class="footer-cats">🐾🐱 Luyện tập cùng mèo béo 🐱🐾</div>
 </div>
 
 <script>
-    // Hàm tạo âm thanh tinh tinh/reng reng "bất tử" bằng code
-    function playSound(type) {
+    // Hàm tạo âm thanh tinh tinh khi bấm nút
+    function playSound() {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             if (!AudioContext) return;
             const ctx = new AudioContext();
             
-            if (type === 'click') {
-                // Tiếng "tinh tinh" trong trẻo khi bấm nút
-                let osc = ctx.createOscillator();
-                let gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, ctx.currentTime); // Nốt cao
-                gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.1);
-            }
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime); // Nốt cao vui tai
+            gain.gain.setValueAtTime(0.05, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.1);
         } catch(e) { console.log(e); }
     }
 
     function selectSkill(skill) {
-        playSound('click');
-        // Chờ âm thanh phát xong một chút rồi chuyển trang
+        playSound();
+        // Chờ âm thanh phát xong 0.15 giây rồi chuyển trang
         setTimeout(() => {
             if (skill === 'reading') {
-                window.location.href = 'reading.html'; // Chuyển sang file bài tập đọc
+                window.location.href = 'reading.html'; // Chuyển sang file đọc
             } else if (skill === 'writing') {
-                alert("Tính năng ôn tập Writing đang được phát triển, quay lại sau bạn nhé! ✍️");
+                window.location.href = 'writing.html'; // Chuyển sang file viết (Sẽ tạo sau)
             }
         }, 150);
     }
