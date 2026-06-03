@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSTEP B1 - Writing Skills</title>
+    <style>
+        :root {
+            --primary-color: #a0522d; /* Nâu gỗ sồi cổ điển (Sienna) */
+            --dark-color: #4a2711;    /* Nâu đậm màu mực bút máy */
+            --bg-color: #fcf8f2;      /* Nền giấy kem mộc mạc, dịu mắt */
+            --accent-color: #cd853f;  /* Vàng nâu da thuộc của sổ tay */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng các nốt nhạc hoặc bụi mực bay nhẹ ở phông nền */
+        .petal {
+            position: absolute;
+            background-color: #e6ccb2;
+            border-radius: 50%;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: fade 6s infinite linear, float 6s infinite ease-in-out;
+        }
+
+        @keyframes fade {
+            0% { top: -10px; opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Khung chứa giao diện chính */
+        .main-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(74, 39, 17, 0.12);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 3px solid #e6ccb2;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Icon cây bút lông vũ / viết lách */
+        .writing-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: writeAnimation 3s infinite ease-in-out;
+        }
+
+        @keyframes writeAnimation {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-15deg) translateY(-5px); }
+        }
+
+        h2 {
+            color: var(--dark-color);
+            margin: 5px 0;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .prompt-text {
+            color: #6d594f;
+            font-size: 15px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        /* Từng phân mục lớn (Letter / Paragraph) */
+        .section-container {
+            background-color: #fdfbf7;
+            border: 2px dashed #ddc4b1;
+            border-radius: 16px;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-top: 0;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        /* Lưới chứa các nút bấm */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Nút dạng bài viết đơn cột */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .btn-sub {
+            background-color: white;
+            border: 2px solid #e6ccb2;
+            border-radius: 12px;
+            padding: 12px 8px;
+            font-size: 14px;
+            color: #5c3d2e;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-sub:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            margin-top: 15px;
+            background: none;
+            border: none;
+            color: #8c7365;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            color: var(--dark-color);
+        }
+    </style>
+</head>
+<body>
+
+<div id="petal-container"></div>
+
+<div class="main-box">
+    <div class="writing-icon">✒️📜</div>
+    <h2>VSTEP Writing Master</h2>
+    <div class="prompt-text">"The secret of getting ahead is getting started." ✨</div>
+    
+    <div class="section-container">
+        <div class="section-title">✉️ Task 1: Letter / Email Writing</div>
+        <div class="sub-grid">
+            <button class="btn-sub" onclick="tryNavigate('informal_letter.html')">👋 Informal Letter</button>
+            <button class="btn-sub" onclick="tryNavigate('formal_letter.html')">💼 Formal Letter</button>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-title">📝 Task 2: Paragraph Writing</div>
+        <div class="sub-grid">
+            <button class="btn-sub" onclick="tryNavigate('advantage_disadvantage.html')">⚖️ Pros & Cons</button>
+            <button class="btn-sub" onclick="tryNavigate('cause_solution.html')">🔍 Cause - Solution</button>
+            <button class="btn-sub" onclick="tryNavigate('benefits.html')">🌟 Benefits</button>
+            <button class="btn-sub" onclick="tryNavigate('effects.html')">⚡ Effects</button>
+        </div>
+    </div>
+    
+    <button class="btn-back" onclick="goToMainMenu()">⬅ Quay lại Menu chính (index.html)</button>
+</div>
+
+<script>
+    // Hàm phát âm thanh tinh tinh đặc trưng khi bấm nút
+    function playClickSound() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime); // Tiếng tinh tinh trong trẻo
+            gain.gain.setValueAtTime(0.04, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+            osc.start(); 
+            osc.stop(ctx.currentTime + 0.1);
+        } catch(e) {
+            console.log("Audio không hỗ trợ.");
+        }
+    }
+
+    // Hàm kiểm tra file tự động thông minh bằng phương thức HEAD request
+    function tryNavigate(pageUrl) {
+        playClickSound();
+        
+        // Sử dụng fetch bản nhẹ (HEAD) để kiểm tra xem file có thực sự tồn tại trên host/repo không
+        fetch(pageUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                // Nếu file tồn tại (status 200), rẽ hướng trang ngay lập tức
+                setTimeout(() => {
+                    window.location.href = pageUrl;
+                }, 100);
+            } else {
+                // Nếu file chưa được tạo (status 404), hiển thị thông báo phát triển
+                alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau khi file được bổ sung nhé!");
+            }
+        })
+        .catch(error => {
+            // Đề phòng trường hợp chạy local offline không nhận diện được HEAD, vẫn thông báo an toàn
+            alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau khi file được bổ sung nhé!");
+        });
+    }
+
+    // Hàm quay lại trang chủ index.html của toàn hệ thống
+    function goToMainMenu() {
+        playClickSound();
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 100);
+    }
+
+    // Tạo hiệu ứng hạt bụi mực rơi nhẹ lãng mạn ở nền
+    function createPetals() {
+        const container = document.getElementById('petal-container');
+        for (let i = 0; i < 10; i++) {
+            let petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 8 + 6 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+            container.appendChild(petal);
+        }
+    }
+    createPetals();
+</script>
+
+</body>
+</html>
