@@ -166,7 +166,6 @@
 
 <div id="petal-container"></div>
 
-<!-- MÀN HÌNH LÀM BÀI TẬP CỐ ĐỊNH (VÀO THẲNG KHÔNG CẦN CHỌN) -->
 <div id="quiz-screen" class="main-box">
     <div class="giraffe-icon">🦒✨</div>
     <div style="color: var(--dark-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">CHỦ ĐỀ: ANIMALS</div>
@@ -176,7 +175,6 @@
     <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
-<!-- MÀN HÌNH KẾT THÚC (2 LỰA CHỌN Ô VUÔNG LỚN) -->
 <div id="result-screen" class="main-box" style="display: none;">
     <div class="giraffe-icon">🎉🦒</div>
     <h2>Kết Quả Luyện Tập</h2>
@@ -241,7 +239,6 @@
     let score = 0;
     let isRedoMode = false;
 
-    // Hàm tạo âm thanh tinh tinh (khi đúng) và bíp trầm ngắn (khi sai)
     function playSound(type) {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -267,7 +264,6 @@
         } catch(e) {}
     }
 
-    // Tạo hiệu ứng cánh hoa rơi nhẹ nhàng ở nền
     function createPetals() {
         const container = document.getElementById('petal-container');
         for (let i = 0; i < 12; i++) {
@@ -284,7 +280,6 @@
     createPetals();
 
     function initQuiz() {
-        // Trộn ngẫu nhiên câu hỏi ngay khi mở trang
         currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
         wrongQuestions = [];
         currentQuestionIndex = 0;
@@ -298,7 +293,6 @@
         document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
         document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
 
-        // Tạo 3 đáp án nhiễu ngẫu nhiên
         let options = [q.word];
         let allWords = vocabularyData.map(item => item.word).filter(w => w !== q.word);
         allWords.sort(() => Math.random() - 0.5);
@@ -354,6 +348,10 @@
             summaryText = `Bạn đã hoàn thành lượt sửa câu sai! Còn lại <b>${wrongQuestions.length}</b> câu chưa thuộc.`;
         } else {
             summaryText = `Chúc mừng bạn! Bạn đã hoàn thành chủ đề với số điểm <b>${score}/${currentQuestions.length}</b> câu đúng.`;
+            
+            // LƯU LỊCH SỬ CHÍNH THỨC KHI HOÀN THÀNH LƯỢT CHƠI GỐC
+            let scoreString = `${score}/${currentQuestions.length}`;
+            saveToGlobalHistory("Reading", "Animals", "Trắc nghiệm từ vựng", scoreString);
         }
         document.getElementById('result-summary').innerHTML = summaryText;
 
@@ -365,6 +363,24 @@
             redoBtn.style.display = 'block';
             redoBtn.innerText = `🔥 Làm lại ${wrongQuestions.length} câu sai`;
         }
+    }
+
+    // HÀM LƯU TRỮ LỊCH SỬ ĐỒNG BỘ HỆ THỐNG
+    function saveToGlobalHistory(kyNang, chuDe, capDo, diemSo) {
+        let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+        let now = new Date();
+        let timeString = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        
+        let newLog = {
+            thoiGian: timeString,
+            kyNang: kyNang,
+            chuDe: chuDe,
+            capDo: capDo,
+            diemSo: diemSo
+        };
+        
+        history.unshift(newLog);
+        localStorage.setItem('vstep_learning_history', JSON.stringify(history));
     }
 
     function startRedoWrong() {
@@ -385,7 +401,6 @@
         window.location.href = 'reading.html';
     }
 
-    // Chạy trò chơi ngay lập tức khi load trang
     initQuiz();
 </script>
 
