@@ -8,13 +8,14 @@
         :root {
             --primary-color: #0284c7;
             --dark-color: #0f172a;
-            --bg-color: #f0f9ff;
-            --accent-color: #0ea5e9;
+            --bg-color: #f8fafc;
+            --accent-color: #38bdf8;
             --success-color: #16a34a;
+            --border-color: #cbd5e1;
         }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             background-color: var(--bg-color);
             margin: 0;
             padding: 20px;
@@ -29,14 +30,13 @@
             background-color: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
             width: 100%;
-            max-width: 780px;
-            border: 3px solid #e0f2fe;
+            max-width: 800px;
+            border: 2px solid #e2e8f0;
             box-sizing: border-box;
         }
 
-        /* TIÊU ĐỀ TRANG MENU CHỦ ĐỀ */
         .menu-title {
             text-align: center;
             color: var(--dark-color);
@@ -45,7 +45,7 @@
             font-weight: bold;
         }
 
-        /* KHUNG CHỦ ĐỀ RIÊNG BIỆT */
+        /* 3 Ô CHỦ ĐỀ DẠNG BÀI NÀY */
         .menu-grid {
             display: flex;
             flex-direction: column;
@@ -53,7 +53,7 @@
         }
 
         .menu-card {
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             padding: 18px 20px;
@@ -68,7 +68,7 @@
         }
 
         .menu-card:hover {
-            background-color: #f0fdf4;
+            background-color: #f0f9ff;
             border-color: var(--primary-color);
             transform: translateX(5px);
         }
@@ -103,7 +103,7 @@
         }
 
         .prompt-box {
-            background-color: #f8fafc;
+            background-color: #f0f9ff;
             border-left: 5px solid var(--primary-color);
             padding: 15px;
             border-radius: 6px;
@@ -114,7 +114,7 @@
             line-height: 1.5;
         }
 
-        /* CHỌN LEVEL LUYỆN TẬP */
+        /* THANH ĐIỀU HƯỚNG LEVEL TỰ DO */
         .level-switcher {
             display: flex;
             gap: 10px;
@@ -144,7 +144,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        /* TAB XEM TÀI LIỆU */
+        /* GIAO DIỆN 3 MỤC LÝ THUYẾT */
         .tab-container {
             display: flex;
             gap: 5px;
@@ -153,13 +153,13 @@
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
-            border: 2px solid #cbd5e1;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
             border-bottom: none;
             background-color: #f1f5f9;
             cursor: pointer;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
@@ -167,36 +167,36 @@
 
         .tab-btn.active {
             background-color: white;
-            color: var(--dark-color);
-            border-color: #cbd5e1 #cbd5e1 white #cbd5e1;
+            color: var(--primary-color);
+            border-color: #e2e8f0 #e2e8f0 white #e2e8f0;
         }
 
         .tab-content {
-            border: 2px solid #cbd5e1;
+            border: 2px solid #e2e8f0;
             border-radius: 0 0 12px 12px;
             padding: 22px;
             background: white;
             margin-top: -17px;
             margin-bottom: 20px;
-            min-height: 200px;
+            min-height: 250px;
         }
 
-        .letter-display {
+        .text-display {
             line-height: 1.7;
             white-space: pre-line;
-            color: #0f172a;
-            font-size: 16px;
+            color: #334155;
+            font-size: 15px;
         }
 
-        /* VÙNG THỰC HÀNH GÕ CHỮ */
+        /* KHU VỰC THỰC HÀNH */
         .interactive-workspace {
-            line-height: 2.5;
+            line-height: 2.4;
             font-size: 16px;
             color: #0f172a;
             text-align: justify;
         }
 
-        /* Ô TRỐNG ĐIỀN TỪ SO LE CẤP ĐỘ 1 */
+        /* Ô TRỐNG CẤP ĐỘ 1 */
         .blank-input {
             width: 80px;
             padding: 2px 5px;
@@ -214,10 +214,10 @@
 
         .blank-input:focus {
             background-color: #f0f9ff;
-            border-bottom-color: var(--dark-color);
+            border-bottom-color: var(--primary-color);
         }
 
-        /* CÂU KHUYẾT CẤP ĐỘ 2 */
+        /* CẤP ĐỘ 2 CÂU KHUYẾT */
         .sentence-block {
             margin-bottom: 15px;
             display: flex;
@@ -272,47 +272,67 @@
             font-size: 12px;
             font-weight: bold;
             color: white;
-            background-color: var(--accent-color);
+            background-color: #64748b;
         }
 
-        .grammar-title {
+        .section-header {
             font-weight: bold;
             color: var(--primary-color);
-            margin-top: 12px;
-            margin-bottom: 6px;
+            margin-top: 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+        
+        .sub-text {
+            color: #64748b;
+            font-style: italic;
+            font-size: 13px;
+            margin-bottom: 10px;
         }
 
-        .structure-box {
-            background-color: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
             font-size: 14px;
         }
+        th { background-color: #f1f5f9; }
     </style>
 </head>
 <body>
 
 <div class="main-box">
 
-    <!-- ================= MÀN HÌNH CHỌN CHỦ ĐỀ RIÊNG BIỆT (MENU) ================= -->
+    <!-- ================= MÀN HÌNH CHỌN CHỦ ĐỀ RIÊNG BIỆT ================= -->
     <div id="menu-screen">
-        <button class="btn-top-back" style="margin-bottom:15px;" onclick="window.location.href='essay_menu.html'">⬅ Quay lại Menu Viết Luận</button>
-        <div class="menu-title">Select an Advantage & Disadvantage Topic</div>
+        <button class="btn-top-back" style="margin-bottom:25px;" onclick="window.location.href='writing.html'">⬅ Quay lại Menu Writing</button>
+        <div class="menu-title">Advantage – Disadvantage Essay Topics</div>
         
         <div class="menu-grid">
             <div class="menu-card" onclick="openTopic(0)">
                 <div>
-                    <div>1. Using Public Transport (Option 1)</div>
-                    <div class="topic-meta">Paragraph about benefits and drawbacks of public transport (Focus: money, environment, time)</div>
+                    <div>1. Public Transport</div>
+                    <div class="topic-meta">Discuss the benefits and drawbacks of using public transport (money, environment, time, comfort...)</div>
                 </div>
                 <span>➔</span>
             </div>
             <div class="menu-card" onclick="openTopic(1)">
                 <div>
-                    <div>2. Using Public Transport (Option 2)</div>
-                    <div class="topic-meta">Paragraph about benefits and drawbacks of public transport (Focus: traffic jams, passenger comfort)</div>
+                    <div>2. Plastic Bags</div>
+                    <div class="topic-meta">Discuss the benefits and drawbacks of using plastic bags in daily life.</div>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="menu-card" onclick="openTopic(2)">
+                <div>
+                    <div>3. Keeping Animals in Zoos</div>
+                    <div class="topic-meta">Discuss the advantages and disadvantages of keeping wild animals in zoos.</div>
                 </div>
                 <span>➔</span>
             </div>
@@ -320,49 +340,44 @@
     </div>
 
 
-    <!-- ================= KHÔNG GIAN LUYỆN TẬP CHI TIẾT ================= -->
+    <!-- ================= KHÔNG GIAN HỌC TẬP VÀ THỰC HÀNH CHI TIẾT ================= -->
     <div id="study-practice-screen" style="display: none;">
-        <!-- ĐIỀU HƯỚNG TẬP TRUNG -->
+        
+        <!-- TOP NAV -->
         <div class="top-nav">
             <button class="btn-top-back" onclick="backToMainMenu()">⬅ Chọn Chủ Đề Khác</button>
-            <div id="level-display-badge" class="level-badge">Đang Đọc Ghi Nhớ</div>
+            <div id="level-display-badge" class="level-badge">Đang Xem Học Liệu</div>
         </div>
 
         <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
 
-        <!-- THANH CHỌN CẤP ĐỘ LUYỆN TẬP -->
+        <!-- THANH CHỌN CHẾ ĐỘ CHÍNH -->
         <div class="level-switcher">
-            <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Đọc & Xem Cấu Trúc</button>
-            <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp Độ 1 (Gõ Từ So Le)</button>
-            <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp Độ 2 (Gõ Câu Khuyết)</button>
+            <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Học Lý Thuyết & Bài Mẫu</button>
+            <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp độ 1</button>
+            <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp độ 2</button>
         </div>
 
-        <!-- CHẾ ĐỘ 0: TÀI LIỆU HỌC TẬP -->
+        <!-- CHẾ ĐỘ LÝ THUYẾT: HIỂN THỊ ĐỦ 3 MỤC THEO YÊU CẦU -->
         <div id="study-zone">
-            <!-- Khung cấu trúc chung cố định giúp học viên luôn bám sát form -->
-            <div class="structure-box">
-                <b>💡 Khung Cấu Trúc Chung Nên Thuộc:</b><br>
-                • <b>Mở đoạn:</b> <i>[Topic] brings both benefits and drawbacks to users.</i><br>
-                • <b>Lợi ích:</b> <i>On the one hand, there are some clear benefits. First of all,... Furthermore,...</i><br>
-                • <b>Tác hại:</b> <i>On the other hand, there are several drawbacks. Moreover,... As a result,...</i><br>
-                • <b>Kết đoạn:</b> <i>In conclusion, although..., I believe that the advantages are more significant...</i>
-            </div>
-
             <div class="tab-container">
-                <button id="btn-sub-sample" class="tab-btn active" onclick="switchSubTab('sample')">📝 Bài Mẫu</button>
-                <button id="btn-sub-trans" class="tab-btn" onclick="switchSubTab('translation')">🇻🇳 Bản Dịch</button>
-                <button id="btn-sub-gram" class="tab-btn" onclick="switchSubTab('grammar')">📐 Cấu Trúc & Từ Nối</button>
+                <button id="btn-sub-structure" class="tab-btn active" onclick="switchSubTab('structure')">📐 1. Cấu trúc</button>
+                <button id="btn-sub-connectors" class="tab-btn" onclick="switchSubTab('connectors')">🔗 2. Từ nối</button>
+                <button id="btn-sub-sample" class="tab-btn" onclick="switchSubTab('sample')">📝 3. Thực hành bài mẫu</button>
             </div>
             
             <div class="tab-content">
-                <div id="tab-sample" class="letter-display"></div>
-                <div id="tab-translation" class="letter-display" style="display:none; color: #334155;"></div>
-                <div id="tab-grammar" style="display:none; line-height: 1.6;"></div>
+                <!-- MỤC 1: CẤU TRÚC -->
+                <div id="tab-structure" class="text-display"></div>
+                <!-- MỤC 2: TỪ NỐI -->
+                <div id="tab-connectors" class="text-display" style="display:none;"></div>
+                <!-- MỤC 3: BÀI MẪU + NGỮ PHÁP -->
+                <div id="tab-sample" class="text-display" style="display:none;"></div>
             </div>
-            <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Từ Vựng Khuyết ➔</button>
+            <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Điền Từ Khuyết (Cấp độ 1) ➔</button>
         </div>
 
-        <!-- CHẾ ĐỘ THỰC HÀNH (LEVEL 1 & LEVEL 2) -->
+        <!-- CHẾ ĐỘ THỰC HÀNH (CẤP ĐỘ 1 & CẤP ĐỘ 2) -->
         <div id="practice-zone" style="display: none;">
             <div id="workspace-container" class="interactive-workspace"></div>
             
@@ -370,7 +385,7 @@
             
             <div style="margin-top: 20px; display: flex; gap: 10px;">
                 <button id="btn-submit-practice" class="btn-action" onclick="gradePractice()">Chấm Điểm Bài Làm</button>
-                <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Câu Sai</button>
+                <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Các Câu Sai</button>
             </div>
         </div>
     </div>
@@ -378,38 +393,74 @@
 </div>
 
 <script>
+    // HỆ THỐNG DỮ LIỆU ĐƯỢC CHUẨN HÓA TOÀN DIỆN
     const dataset = [
         {
-            prompt: "Write a paragraph (at least 120 words) about the advantages and disadvantages of using public transport. (Focus: money, environment, time)",
-            sample: `Using public transport brings both benefits and drawbacks to users. On the one hand, there are some clear benefits. First of all, it helps people save a lot of money. Buying a bus ticket is much cheaper than buying gas for a motorbike or a car. Furthermore, using public transport such as buses or trains can protect the environment because it reduces air pollution. On the other hand, there are several drawbacks. However, it also causes some annoying problems. It often takes more time because you have to wait for the bus. Moreover, public transport is sometimes very crowded and noisy during rush hours. As a result, many people feel tired and uncomfortable. In conclusion, although public transport has some negative points, I believe that its advantages are more significant for our lives.`,
-            translation: `Việc sử dụng phương tiện công cộng mang lại cả lợi ích và hạn chế cho người dùng. Một mặt, có những lợi ích rất rõ ràng. Trước hết, nó giúp mọi người tiết kiệm được rất nhiều tiền. Mua vé xe buýt rẻ hơn nhiều so với mua xăng cho xe máy hoặc ô tô. Hơn nữa, việc sử dụng các phương tiện công cộng như xe buýt hoặc tàu hỏa có thể bảo vệ môi trường vì nó làm giảm ô nhiễm không khí. Mặt khác, có một vài hạn chế. Tuy nhiên, nó cũng gây ra một số vấn đề phiền toái. Nó thường tốn nhiều thời gian hơn vì bạn phải đợi xe buýt. Hơn nữa, phương tiện công cộng đôi khi rất đông đúc và ồn ào trong giờ cao điểm. Kết quả là, nhiều người cảm thấy mệt mỏi và không thoải mái. Kết luận lại, mặc dù phương tiện công cộng có một số điểm tiêu cực, tôi tin rằng lợi ích của nó vẫn quan trọng hơn đối với cuộc sống của chúng ta.`,
-            grammar: `<div class="grammar-title">Ngữ pháp cốt lõi:</div>
-            • <b>Using + N/V-ing + V:</b> Using public transport brings... (Việc sử dụng phương tiện...)<br>
-            • <b>help + sb + V:</b> It helps people save money (Giúp ai làm gì)<br>
-            • <b>much + so sánh hơn + than:</b> much cheaper than (Rẻ hơn nhiều so với)<br>
-            • <b>take + time:</b> It takes more time (Tốn nhiều thời gian hơn)<br>
-            • <b>have to + V / wait for + N:</b> have to wait for the bus (Phải đợi xe buýt)<br>
-            • <b>feel + adj:</b> feel tired and uncomfortable (Cảm thấy mệt mỏi...)<br><br>
-            <div class="grammar-title">Từ nối đắt giá trong bài:</div>
-            • <b>Mở ý:</b> On the one hand, First of all, Furthermore, such as<br>
-            • <b>Chuyển ý phản biện:</b> On the other hand, However, Moreover, As a result<br>
-            • <b>Kết luận:</b> In conclusion, although, I believe that`
+            prompt: "Write a paragraph (at least 120 words) about the advantages and disadvantages of using public transport.",
+            sample: "Using public transport brings both benefits and drawbacks to users. On the one hand, there are some clear benefits. First of all, it helps people save a lot of money. Buying a bus ticket is much cheaper than buying gas for a motorbike or a car. Furthermore, using public transport such as buses or trains can protect the environment because it reduces air pollution. On the other hand, there are several drawbacks. However, it also causes some annoying problems. It often takes more time because you have to wait for the bus. Moreover, public transport is sometimes very crowded and noisy during rush hours. As a result, many people feel tired and uncomfortable. In conclusion, although public transport has some negative points, I believe that its advantages are more significant for our lives.",
+            grammar: `<div class="section-header">Cấu trúc ngữ pháp trọng tâm:</div>
+            • <b>Using + N/V-ing + V:</b> Using public transport brings... (Việc sử dụng PTCC mang lại...)<br>
+            • <b>both A and B:</b> both benefits and drawbacks (cả lợi ích lẫn tác hại)<br>
+            • <b>help + sb + V:</b> It helps people save money. (giúp mọi người tiết kiệm tiền)<br>
+            • <b>much + so sánh hơn + than:</b> much cheaper than (rẻ hơn nhiều so với...)<br>
+            • <b>because + mệnh đề:</b> because it reduces air pollution (bởi vì nó giảm ô nhiễm...)<br>
+            • <b>take + time + to V / have to V:</b> you have to wait for the bus (bạn phải chờ xe buýt)<br>
+            • <b>feel + adj:</b> feel tired and uncomfortable (cảm thấy mệt mỏi và không thoải mái)`
         },
         {
-            prompt: "Write a paragraph (120–150 words) about the advantages and disadvantages of using public transport. (Focus: traffic jams, passenger comfort)",
-            sample: `Using public transport brings both advantages and disadvantages to people. On the one hand, there are several benefits. First of all, it helps people save money because bus and train tickets are cheaper than using private vehicles. Furthermore, public transport can reduce traffic jams and air pollution. As a result, the environment becomes cleaner. On the other hand, there are some drawbacks. It often takes more time because people have to wait for buses or trains. Moreover, public transport is sometimes crowded, especially during rush hours. This can make passengers feel uncomfortable. In conclusion, although public transport has some disadvantages, I believe that its advantages are more important for society and the environment.`,
-            translation: `Việc sử dụng phương tiện công cộng mang lại cả lợi ích và tác hại cho người dân. Một mặt, có một số lợi ích. Trước hết, nó giúp mọi người tiết kiệm tiền vì vé xe buýt và tàu hỏa rẻ hơn so với việc sử dụng phương tiện cá nhân. Hơn nữa, phương tiện công cộng có thể giảm ùn tắc giao thông và ô nhiễm không khí. Kết quả là, môi trường trở nên sạch sẽ hơn. Mặt khác, có một số hạn chế. Nó thường tốn nhiều thời gian hơn vì người dân phải đợi xe buýt hoặc tàu hỏa. Hơn nữa, phương tiện công cộng đôi khi đông đúc, đặc biệt là trong giờ cao điểm. Điều này có thể làm cho hành khách cảm thấy không thoải mái. Kết luận lại, mặc dù phương tiện công cộng có một số nhược điểm, tôi tin rằng lợi ích của nó quan trọng hơn đối với xã hội và môi trường.`,
-            grammar: `<div class="grammar-title">Ngữ pháp cốt lõi:</div>
-            • <b>bring + N:</b> bring advantages and disadvantages (Mang lại điểm tốt/xấu)<br>
-            • <b>both A and B:</b> cả A và B<br>
-            • <b>can + V / reduce + N:</b> can reduce traffic jams (Có thể giảm ùn tắc)<br>
-            • <b>make + sb + adj:</b> make passengers feel uncomfortable (Làm hành khách cảm thấy không thoải mái)<br><br>
-            <div class="grammar-title">Từ nối nên học thuộc:</div>
-            • <b>Mặt lợi ích:</b> On the one hand, First of all, Furthermore, As a result<br>
-            • <b>Mặt hạn chế:</b> On the other hand, Moreover, because<br>
-            • <b>Kết đoạn vững vàng:</b> In conclusion, although, I believe that`
+            prompt: "Some people think that using plastic bags is convenient in daily life. Write a paragraph (120–150 words) about the benefits and drawbacks of using plastic bags.",
+            sample: "Using plastic bags brings both benefits and drawbacks to people. On the one hand, there are some clear benefits. First of all, plastic bags are cheap and easy to use. People can carry food, clothes, and many other things conveniently. Furthermore, plastic bags are light and can be found in almost every shop or supermarket. On the other hand, there are several drawbacks. However, plastic bags are harmful to the environment because they take a long time to break down. Moreover, many people throw them away carelessly, which causes pollution in rivers, lakes, and streets. As a result, animals and plants may be affected. In conclusion, although plastic bags are convenient, I believe that their negative effects on the environment are more serious.",
+            grammar: `<div class="section-header">Cấu trúc ngữ pháp trọng tâm:</div>
+            • <b>be harmful to + N:</b> plastic bags are harmful to the environment (túi nilon có hại cho môi trường)<br>
+            • <b>take + time + to V:</b> they take a long time to break down (chúng mất thời gian dài để phân hủy)<br>
+            • <b>Mệnh đề quan hệ rút gọn/bổ trợ:</b> , which causes pollution... (, điều này gây ô nhiễm...)<br>
+            • <b>may + V (nguyên thể):</b> may be affected (có thể bị ảnh hưởng)`
+        },
+        {
+            prompt: "Many zoos keep wild animals for people to visit. Write a paragraph (120–150 words) about the benefits and drawbacks of keeping animals in zoos.",
+            sample: "Keeping animals in zoos brings both benefits and drawbacks. On the one hand, there are some clear benefits. First of all, zoos help protect many rare animals. Some animals can live in a safe place and receive good care from zoo workers. Furthermore, zoos give people a chance to learn more about different kinds of animals and their lives. On the other hand, there are several drawbacks. However, animals in zoos do not live in their natural environment. Moreover, some zoos have limited space, so animals may feel bored or unhappy. As a result, they cannot live as freely as they do in the wild. In conclusion, although keeping animals in zoos has some disadvantages, I believe that zoos play an important role in protecting animals and educating people.",
+            grammar: `<div class="section-header">Cấu trúc ngữ pháp trọng tâm:</div>
+            • <b>Keeping + N + V:</b> Keeping animals in zoos brings... (Việc nuôi nhốt động vật...)<br>
+            • <b>give sb a chance to V:</b> give people a chance to learn more (cho mọi người cơ hội tìm hiểu thêm)<br>
+            • <b>as + adv + as:</b> cannot live as freely as they do in the wild (không thể sống tự do như ngoài tự nhiên)<br>
+            • <b>play an important role in + V-ing/N:</b> play an important role in protecting animals (đóng vai trò quan trọng trong việc bảo vệ động vật)`
         }
     ];
+
+    // NỘI DUNG MỤC CẤU TRÚC CHUNG & TỪ NỐI (DÙNG CHUNG CỐ ĐỊNH)
+    const generalStructureContent = `
+        <div class="section-header">1. Mở đoạn (chọn 1 trong 3 mẫu câu)</div>
+        • <b>[Tên chủ đề] has both advantages and disadvantages for our modern lives.</b><br>
+        • <b>There are both positive and negative effects of [Tên chủ đề] on our society.</b><br>
+        • <b>Using / Doing [Tên chủ đề] brings both benefits and drawbacks to users.</b><br>
+
+        <div class="section-header">2. Thân đoạn - Mặt Lợi ích (Advantage)</div>
+        • <i>Câu dẫn dắt (chọn 1):</i> On the one hand, there are some clear benefits. / First of all, it brings many advantages. / To begin with, we cannot deny its benefits.<br>
+        • <i>Phần phát triển:</i> Lấy tiếp từ 1 – 2 câu ví dụ hoặc phân tích cụ thể bổ trợ.
+
+        <div class="section-header">3. Thân đoạn - Mặt Tác hại (Disadvantage)</div>
+        • <i>Câu dẫn dắt (chọn 1):</i> On the other hand, there are several drawbacks. / However, it also causes serious problems. / Despite the advantages, it has some negative points.<br>
+        • <i>Phần phát triển:</i> Lấy tiếp từ 1 – 2 câu ví dụ hoặc phân tích cụ thể bổ trợ.
+
+        <div class="section-header">4. Kết đoạn (chọn 1 trong 2 mẫu câu)</div>
+        • <b>In conclusion, although [Tên chủ đề] is useful, we should reduce using it to protect ourselves.</b><br>
+        • <b>All in all, despite some drawbacks, I believe that the advantages of [Tên chủ đề] are more significant.</b>
+    `;
+
+    const generalConnectorsContent = `
+        <div class="section-header">Bảng từ nối chuyên dụng hệ thống bài viết Essay</div>
+        <div class="sub-text">Lưu ý: Các từ nối này đứng đầu câu, sau từ nối bắt buộc phải có dấu phẩy (,) và một mệnh đề đầy đủ.</div>
+        <table>
+            <tr><th>Từ nối (Tiếng Anh)</th><th>Ý nghĩa cốt lõi</th></tr>
+            <tr><td><b>Furthermore, / Moreover, / In addition,</b></td><td>Hơn nữa,... / Ngoài ra,...</td></tr>
+            <tr><td><b>Besides, / What is more,</b></td><td>Bên cạnh đó,... / Thêm vào đó,...</td></tr>
+            <tr><td><b>Firstly, / First of all, / To begin with,</b></td><td>Đầu tiên là / Trước hết là...</td></tr>
+            <tr><td><b>However,</b></td><td>Tuy nhiên,...</td></tr>
+            <tr><td><b>Therefore, / As a result,</b></td><td>Vì vậy,... / Kết quả là,...</td></tr>
+            <tr><td><b>For example, / For instance,</b></td><td>Ví dụ như... / Chẳng hạn...</td></tr>
+            <tr><td><b>Last but not least, / Finally,</b></td><td>Cuối cùng là...</td></tr>
+        </table>
+    `;
 
     let currentTopicIndex = 0;
     let currentLevel = 0; 
@@ -421,7 +472,7 @@
         currentTopicIndex = index;
         document.getElementById('menu-screen').style.display = 'none';
         document.getElementById('study-practice-screen').style.display = 'block';
-        changeLevelMode(0);
+        changeLevelMode(0); 
     }
 
     function backToMainMenu() {
@@ -431,13 +482,13 @@
 
     function switchSubTab(tabName) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if(tabName === 'structure') document.getElementById('btn-sub-structure').classList.add('active');
+        if(tabName === 'connectors') document.getElementById('btn-sub-connectors').classList.add('active');
         if(tabName === 'sample') document.getElementById('btn-sub-sample').classList.add('active');
-        if(tabName === 'translation') document.getElementById('btn-sub-trans').classList.add('active');
-        if(tabName === 'grammar') document.getElementById('btn-sub-gram').classList.add('active');
 
+        document.getElementById('tab-structure').style.display = tabName === 'structure' ? 'block' : 'none';
+        document.getElementById('tab-connectors').style.display = tabName === 'connectors' ? 'block' : 'none';
         document.getElementById('tab-sample').style.display = tabName === 'sample' ? 'block' : 'none';
-        document.getElementById('tab-translation').style.display = tabName === 'translation' ? 'block' : 'none';
-        document.getElementById('tab-grammar').style.display = tabName === 'grammar' ? 'block' : 'none';
     }
 
     function changeLevelMode(levelNum) {
@@ -451,15 +502,17 @@
         document.getElementById('prompt-text-display').innerText = data.prompt;
 
         if(levelNum === 0) {
-            document.getElementById('level-display-badge').innerText = "Đang Đọc Ghi Nhớ";
-            document.getElementById('level-display-badge').style.backgroundColor = '#0ea5e9';
-            document.getElementById('tab-sample').innerText = data.sample;
-            document.getElementById('tab-translation').innerText = data.translation;
-            document.getElementById('tab-grammar').innerHTML = data.grammar;
+            document.getElementById('level-display-badge').innerText = "Đang Học Lý Thuyết";
+            document.getElementById('level-display-badge').style.backgroundColor = '#64748b';
+            
+            // Đổ dữ liệu vào 3 mục lý thuyết học tập độc lập
+            document.getElementById('tab-structure').innerHTML = generalStructureContent;
+            document.getElementById('tab-connectors').innerHTML = generalConnectorsContent;
+            document.getElementById('tab-sample').innerHTML = `<div style="font-weight:bold; color:var(--dark-color); margin-bottom:8px;">Bài viết Essay Mẫu chuẩn:</div><div style="background:#f8fafc; padding:15px; border-radius:8px; line-height:1.6; border:1px solid #cbd5e1; margin-bottom:15px;">${data.sample}</div>` + data.grammar;
             
             document.getElementById('study-zone').style.display = 'block';
             document.getElementById('practice-zone').style.display = 'none';
-            switchSubTab('sample');
+            switchSubTab('structure');
         } else if(levelNum === 1) {
             startLevel1();
         } else if(levelNum === 2) {
@@ -467,15 +520,15 @@
         }
     }
 
-    // THUẬT TOÁN ẨN TỪ SO LE CHO NGHỊ LUẬN (TUYỆT ĐỐI KHÔNG TRỐNG LIỀN KỀ)
+    // CẤP ĐỘ 1: THUẬT TOÁN ĐẢO LỘN TRỘN TỪ ĐỀU KHẮP TOÀN BÀI (KHÔNG DỒN CỤC, CÁCH QUÃNG SO LE)
     function startLevel1(forceWords = null) {
-        document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết So Le";
-        document.getElementById('level-display-badge').style.backgroundColor = '#0284c7';
+        document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền từ khuyết đảo ngẫu nhiên toàn bài";
+        document.getElementById('level-display-badge').style.backgroundColor = varName('--primary-color', '#0284c7');
         document.getElementById('study-zone').style.display = 'none';
         document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
-        let tokens = text.split(/(\s+)/);
+        let tokens = text.split(/(\s+)/); // Phân tách giữ nguyên khoảng trắng phục vụ định dạng
         
         let chosenIndices = [];
 
@@ -484,20 +537,22 @@
         } else {
             let validPositions = [];
             tokens.forEach((token, idx) => {
+                // Chỉ nhắm vào các từ có nghĩa thực tế, độ dài chữ viết > 2 ký tự toàn bài
                 if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
                     validPositions.push(idx);
                 }
             });
 
-            let lastPickedIdx = -5; 
+            // Thuật toán quét ngẫu nhiên trộn đảo đều từ đầu bài tới cuối bài theo chu kỳ so le cách quãng
+            let lastPickedIdx = -5;
             for(let i = 0; i < validPositions.length; i++) {
                 let currentTokenIdx = validPositions[i];
-                // Điều kiện so le cách quãng nghiêm ngặt (Token hiện tại - Token trước đó > 2)
+                // Khoảng trống so le đảm bảo cách nhau tối thiểu 2 tokens chữ để phân bổ rải đều toàn bài mẫu
                 if (currentTokenIdx - lastPickedIdx > 2 && Math.random() > 0.35) {
                     chosenIndices.push(currentTokenIdx);
                     lastPickedIdx = currentTokenIdx;
                 }
-                if(chosenIndices.length >= 15) break; 
+                if(chosenIndices.length >= 15) break; // Khống chế số lượng ô trống tối đa vừa vặn
             }
         }
 
@@ -507,7 +562,6 @@
         tokens.forEach((token, idx) => {
             if(chosenIndices.includes(idx)) {
                 let cleanWord = token.replace(/[^a-zA-Z]/g, "");
-                
                 level1BlanksData.push({
                     index: idx,
                     correctClean: cleanWord.toLowerCase().trim(),
@@ -518,7 +572,7 @@
                 let inputHTML = token.replace(cleanWord, `<input type="text" class="blank-input" data-blankidx="${level1BlanksData.length - 1}" placeholder="${placeholderStr}">`);
                 htmlContent += inputHTML;
             } else {
-                htmlContent += token.replace(/\n/g, "<br>");
+                htmlContent += token;
             }
         });
 
@@ -528,28 +582,28 @@
         document.getElementById('btn-submit-practice').style.display = 'block';
     }
 
-    // LEVEL 2: ẨN CÂU THEO KHUNG ĐOẠN VĂN
+    // CẤP ĐỘ 2: ĐIỀN CÂU KHUYẾT XÁO TRỘN ĐỀU KHẮP CÁC PHẦN (MỞ, THÂN, KẾT)
     function startLevel2(forceLines = null) {
-        document.getElementById('level-display-badge').innerText = "Cấp độ 2: Thử Thách Câu Khuyết";
+        document.getElementById('level-display-badge').innerText = "Cấp độ 2: Điền câu khuyết rải đều toàn bài";
         document.getElementById('level-display-badge').style.backgroundColor = '#16a34a';
         document.getElementById('study-zone').style.display = 'none';
         document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
+        // Sử dụng regex phân tách câu toàn diện đảm bảo không bỏ sót câu chào hay câu cuối bài
         let sentences = text.split(/(?<=[.!?])\s+/);
-
-        let sentenceIndices = [];
-        sentences.forEach((s, i) => {
-            if(s.trim().length > 15) sentenceIndices.push(i);
-        });
+        sentences = sentences.filter(s => s.trim().length > 0);
 
         let chosenLineIndices = [];
         if(forceLines) {
             chosenLineIndices = forceLines;
         } else {
+            let sentenceIndices = [];
+            sentences.forEach((s, i) => { if(s.trim().length > 10) sentenceIndices.push(i); });
+            
+            // Xáo trộn mảng câu toàn bài ngẫu nhiên để câu khuyết phân bổ đều bất kể vị trí đầu hay cuối bài
             sentenceIndices.sort(() => Math.random() - 0.5);
-            // Chọn ngẫu nhiên khoảng 40% số lượng câu trong bài để ẩn câu
-            chosenLineIndices = sentenceIndices.slice(0, Math.ceil(sentenceIndices.length * 0.4));
+            chosenLineIndices = sentenceIndices.slice(0, Math.ceil(sentenceIndices.length * 0.45));
         }
 
         level2LinesData = [];
@@ -564,8 +618,8 @@
                 });
                 
                 htmlContent += `<div class="sentence-block">
-                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Hoàn thành câu khuyết (${level2LinesData.length})]:</span>
-                    <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập câu tại đây..."></textarea>
+                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại câu khuyết (${level2LinesData.length})]:</span>
+                    <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập lại toàn bộ câu này..."></textarea>
                 </div>`;
             } else {
                 htmlContent += `<p style="margin:5px 0; display:inline;">${sentence} </p>`;
@@ -578,7 +632,7 @@
         document.getElementById('btn-submit-practice').style.display = 'block';
     }
 
-    // CHẤM ĐIỂM TỰ ĐỘNG
+    // HỆ THỐNG KIỂM TRA CHẤM ĐIỂM
     function gradePractice() {
         let feedbackHTML = "";
         let correctCount = 0;
@@ -602,12 +656,12 @@
                 }
             });
 
-            feedbackHTML = `<b>Kết quả chấm điểm từ vựng:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
+            feedbackHTML = `<b>Kết quả chấm điểm:</b> Bạn đã điền chính xác <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<span style="color:#b91c1c;">Một số từ nối hoặc từ khóa chưa chuẩn xác, ấn nút đỏ để sửa lại nhé!</span>`;
+                feedbackHTML += `<span style="color:#b91c1c;">Hãy nhấn nút màu đỏ bên dưới để luyện tập lại những từ chưa chính xác.</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt hảo! Trí nhớ từ vựng cấu trúc của bạn rất tốt! 🥳</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá tuyệt vời! Bạn đã hoàn thành đúng 100% từ vựng của bài mẫu! 🎉</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
             }
         } 
@@ -629,18 +683,18 @@
                 }
             });
 
-            feedbackHTML = `<b>Kết quả chấm điểm cấu trúc câu:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu hoàn chỉnh.<br>`;
+            feedbackHTML = `<b>Kết quả chấm điểm:</b> Bạn viết chính xác <b>${correctCount}/${level2LinesData.length}</b> câu cấu trúc.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#0f172a;"><b>Gợi ý câu đúng từ bài mẫu:</b><br>`;
+                feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#0f172a;"><b>Đáp án gợi ý xem lại:</b><br>`;
                 level2LinesData.forEach((item, i) => {
                     if(wrongPool.includes(item.index)) {
-                        feedbackHTML += `• Ô câu số (${i+1}): <span style="color:#16a34a; font-weight:600;">"${item.correctText}"</span><br>`;
+                        feedbackHTML += `• Ô câu số (${i+1}): <span style="color:#16a34a; font-weight:bold;">"${item.correctText}"</span><br>`;
                     }
                 });
                 feedbackHTML += `</div>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá đỉnh! Bạn đã gõ lại chính xác cấu trúc bài luận phản biện rồi! 🏆</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt đỉnh! Bạn đã thuộc làu và gõ lại đúng toàn bộ các câu cốt lõi! 🏆</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
             }
         }
@@ -650,6 +704,7 @@
         fBox.style.display = 'block';
     }
 
+    // LÀM LẠI CÂU SAI
     function redoWrongAnswers() {
         if(wrongPool.length === 0) return;
         let originalWrong = [...wrongPool];
@@ -660,6 +715,9 @@
         }
         document.getElementById('btn-redo-errors').style.display = 'none';
     }
+
+    // Hàm phụ trợ hỗ trợ giao diện CSS biến đổi màu sắc linh hoạt
+    function varName(name, fallback) { return fallback; }
 </script>
 
 </body>
