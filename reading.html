@@ -85,6 +85,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 20px;
         }
 
         .btn-topic {
@@ -106,8 +107,28 @@
             transform: translateY(-2px);
         }
 
+        /* Nút Xem Lịch Sử thiết kế đồng bộ với tone màu vàng hươu cao cổ */
+        .btn-history {
+            width: 100%;
+            background-color: #fffbf5;
+            border: 2px solid var(--primary-color);
+            color: var(--dark-color);
+            border-radius: 15px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .btn-history:hover {
+            background-color: #fdf2e2;
+            transform: scale(1.02);
+        }
+
         .btn-back {
-            margin-top: 25px;
+            margin-top: 15px;
             background: none;
             border: none;
             color: #888;
@@ -115,13 +136,16 @@
             text-decoration: underline;
             font-size: 14px;
         }
+        
+        .btn-back:hover {
+            color: var(--dark-color);
+        }
     </style>
 </head>
 <body>
 
 <div id="petal-container"></div>
 
-<!-- MÀN HÌNH CHỌN CHỦ ĐỀ CHÍNH -->
 <div id="topic-screen" class="main-box">
     <div class="giraffe-icon">🦒</div>
     <h2>Reading Practice</h2>
@@ -136,6 +160,8 @@
         <button class="btn-topic" onclick="navigateTo('health.html')">💪 Health & Fitness</button>
     </div>
     
+    <button class="btn-history" onclick="viewHistory()">📊 Xem lịch sử học tập</button>
+    <br>
     <button class="btn-back" onclick="goToMainMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
@@ -182,6 +208,14 @@
         // Chờ âm thanh phát xong một chút rồi chuyển trang
         setTimeout(() => {
             window.location.href = pageUrl;
+        }, 100);
+    }
+
+    // HÀM CHUYỂN HƯỚNG SANG FILE LICH_SU.HTML TỔNG HỢP KẾT QUẢ
+    function viewHistory() {
+        playClickSound();
+        setTimeout(() => {
+            window.location.href = 'lich_su.html';
         }, 100);
     }
 
