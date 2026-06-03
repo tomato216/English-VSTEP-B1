@@ -448,7 +448,7 @@
     `;
 
     const generalConnectorsContent = `
-        <div class="section-header">Bảng từ nối chuyên dụng hệ thống bài viết Essay</div>
+        <div class="section-header">Bảng từ nối</div>
         <div class="sub-text">Lưu ý: Các từ nối này đứng đầu câu, sau từ nối bắt buộc phải có dấu phẩy (,) và một mệnh đề đầy đủ.</div>
         <table>
             <tr><th>Từ nối (Tiếng Anh)</th><th>Ý nghĩa</th></tr>
@@ -508,7 +508,7 @@
             // Đổ dữ liệu vào 3 mục lý thuyết học tập độc lập
             document.getElementById('tab-structure').innerHTML = generalStructureContent;
             document.getElementById('tab-connectors').innerHTML = generalConnectorsContent;
-            document.getElementById('tab-sample').innerHTML = `<div style="font-weight:bold; color:var(--dark-color); margin-bottom:8px;">Bài viết Essay Mẫu chuẩn:</div><div style="background:#f8fafc; padding:15px; border-radius:8px; line-height:1.6; border:1px solid #cbd5e1; margin-bottom:15px;">${data.sample}</div>` + data.grammar;
+            document.getElementById('tab-sample').innerHTML = `<div style="font-weight:bold; color:var(--dark-color); margin-bottom:8px;">Bài Mẫu:</div><div style="background:#f8fafc; padding:15px; border-radius:8px; line-height:1.6; border:1px solid #cbd5e1; margin-bottom:15px;">${data.sample}</div>` + data.grammar;
             
             document.getElementById('study-zone').style.display = 'block';
             document.getElementById('practice-zone').style.display = 'none';
