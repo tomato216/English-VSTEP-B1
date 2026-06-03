@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhật Ký Học Tập VSTEP</title>
+    <style>
+        :root {
+            --primary-color: #8b5a2b; /* Nâu đất ấm áp */
+            --bg-color: #fcf8f2;      /* Nền kem nhạt dịu mắt */
+            --border-color: #e6ccb2;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-color); 
+            padding: 20px; 
+            margin: 0; 
+        }
+
+        .container { 
+            max-width: 850px; 
+            margin: 30px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 24px rgba(139, 90, 43, 0.08); 
+            border: 3px solid #fcdfa8;
+        }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h2 { color: var(--primary-color); margin: 0; font-size: 24px; }
+        
+        .user-welcome {
+            font-size: 16px;
+            color: #5c3d2e;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .edit-name-btn {
+            background: none;
+            border: none;
+            color: #0284c7;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        /* Bộ lọc kỹ năng */
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+        .filter-btn { padding: 8px 16px; border: 2px solid #cbd5e1; background: white; border-radius: 8px; cursor: pointer; font-weight: 600; color: #475569; }
+        .filter-btn.active { background-color: #f4b251; color: white; border-color: var(--primary-color); }
+        
+        /* Bảng dữ liệu */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: left; }
+        th, td { padding: 14px; border-bottom: 1px solid #e2e8f0; font-size: 15px; }
+        th { background-color: #fffbf5; color: var(--primary-color); font-weight: bold; border-bottom: 2px solid var(--border-color); }
+        tr:hover { background-color: #fdfbf7; }
+        
+        /* Nhãn kỹ năng */
+        .badge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; color: white; display: inline-block; }
+        .bg-reading { background-color: #f4b251; } /* Màu vàng hươu cao cổ */
+        .bg-writing { background-color: #a0522d; } /* Màu nâu sồi */
+        .bg-level { background-color: #64748b; font-weight: normal; }
+
+        .btn-action { padding: 10px 18px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none; font-size: 14px; }
+        .btn-back { background-color: #e6ccb2; color: #5c3d2e; border: 1px solid #cbd5e1; }
+        .btn-clear { background-color: #ef4444; color: white; float: right; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="margin-bottom: 25px;">
+        <button class="btn-action btn-back" onclick="window.history.back()">⬅ Quay lại học tập</button>
+        <button class="btn-action btn-clear" onclick="xoaLichSu()">Xóa lịch sử</button>
+    </div>
+
+    <div class="header-area">
+        <div>
+            <h2>📊 Nhật Ký Tiến Độ Học Tập</h2>
+            <span id="welcome-text" class="user-welcome">Xin chào người học ẩn danh!</span>
+            <button class="edit-name-btn" onclick="doiTenNguoiHoc()">(Đổi tên)</button>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="locDuLieu('ALL', this)">Tất cả bài đã làm</button>
+        <button class="filter-btn" onclick="locDuLieu('Reading', this)">📖 Lịch sử Reading</button>
+        <button class="filter-btn" onclick="locDuLieu('Writing', this)">✍️ Lịch sử Writing</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Thời gian</th>
+                <th>Kỹ năng</th>
+                <th>Chủ đề bài học</th>
+                <th>Phân loại / Cấp độ</th>
+                <th>Kết quả đạt được</th>
+            </tr>
+        </thead>
+        <tbody id="data-rows">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    let danhSachGoc = [];
+
+    // Hàm kiểm tra và hiển thị tên người học
+    function xuLyTenNguoiHoc() {
+        let tenLuuTru = localStorage.getItem('vstep_user_name');
+        if (!tenLuuTru) {
+            // Nếu chưa có tên, chủ động hỏi nhẹ nhàng một lần
+            tenLuuTru = prompt("Chào bạn! Hãy nhập tên hoặc biệt danh của bạn để hệ thống cá nhân hóa nhật ký học tập nhé:", "Người học ẩn danh");
+            if (!tenLuuTru || tenLuuTru.trim() === "") {
+                tenLuuTru = "Người học ẩn danh";
+            }
+            localStorage.setItem('vstep_user_name', tenLuuTru);
+        }
+        document.getElementById('welcome-text').innerText = `Học viên: ${tenLuuTru} ✨`;
+    }
+
+    function doiTenNguoiHoc() {
+        let tenMoi = prompt("Nhập tên mới của bạn:");
+        if (tenMoi && tenMoi.trim() !== "") {
+            localStorage.setItem('vstep_user_name', tenMoi.trim());
+            document.getElementById('welcome-text').innerText = `Học viên: ${tenMoi.trim()} ✨`;
+        }
+    }
+
+    function taiLichSu() {
+        xuLyTenNguoiHoc();
+        // Lấy kho dữ liệu tổng hợp chung
+        danhSachGoc = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+        hienThiBang(danhSachGoc);
+    }
+
+    function hienThiBang(danhSach) {
+        let tbody = document.getElementById('data-rows');
+        
+        if(danhSach.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#64748b; padding: 40px; font-style: italic;">Bạn chưa thực hiện bài làm nào. Kết quả luyện tập sẽ tự động lưu về đây!</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = danhSach.map(item => {
+            let bKyNang = item.kyNang === "Reading" ? "bg-reading" : "bg-writing";
+            return `
+                <tr>
+                    <td style="color: #64748b; font-size: 14px;">${item.thoiGian}</td>
+                    <td><span class="badge ${bKyNang}">${item.kyNang}</span></td>
+                    <td style="font-weight: 500; color: #0f172a;">${item.chuDe}</td>
+                    <td><span class="badge bg-level">${item.capDo}</span></td>
+                    <td style="font-weight: bold; color: #b91c1c; font-size: 16px;">${item.diemSo}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function locDuLieu(boLoc, element) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+
+        if(boLoc === 'ALL') {
+            hienThiBang(danhSachGoc);
+        } else {
+            let ketQuaLoc = danhSachGoc.filter(item => item.kyNang === boLoc);
+            hienThiBang(ketQuaLoc);
+        }
+    }
+
+    function xoaLichSu() {
+        if(confirm("Bạn có chắc chắn muốn xóa sạch toàn bộ lịch sử luyện tập không?")) {
+            localStorage.removeItem('vstep_learning_history');
+            taiLichSu();
+        }
+    }
+
+    window.onload = taiLichSu;
+</script>
+
+</body>
+</html>
