@@ -144,8 +144,29 @@
             transform: translateY(-2px);
         }
 
+        /* Nút Xem Lịch Sử độc lập đồng bộ giao diện */
+        .btn-history {
+            width: 100%;
+            background-color: #fdfbf7;
+            border: 2px solid var(--accent-color);
+            color: var(--dark-color);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-history:hover {
+            background-color: #f5ebe0;
+            transform: scale(1.02);
+        }
+
         .btn-back {
-            margin-top: 15px;
+            margin-top: 10px;
             background: none;
             border: none;
             color: #8c7365;
@@ -187,6 +208,8 @@
         </div>
     </div>
     
+    <button class="btn-history" onclick="viewHistory()">📊 Xem lịch sử học tập</button>
+    <br>
     <button class="btn-back" onclick="goToMainMenu()">⬅ Quay lại Menu chính (index.html)</button>
 </div>
 
@@ -233,6 +256,14 @@
             // Đề phòng trường hợp chạy local offline không nhận diện được HEAD, vẫn thông báo an toàn
             alert("Nội dung này đang được phát triển, tinh tinh! 🐒 Hãy quay lại sau nhé!");
         });
+    }
+
+    // HÀM CHUYỂN HƯỚNG SANG FILE LICH_SU.HTML CỦA BẠN
+    function viewHistory() {
+        playClickSound();
+        setTimeout(() => {
+            window.location.href = 'lich_su.html';
+        }, 100);
     }
 
     // Hàm quay lại trang chủ index.html của toàn hệ thống
