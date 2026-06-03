@@ -688,7 +688,7 @@
         }
     }
 
-    // CHẤM ĐIỂM TỰ ĐỘNG & LƯU ĐIỂM CHÍNH THỨC
+    // CHẤM ĐIỂM TỰ ĐỘNG & LƯU ĐIỂM CHÍNH THỨC (ĐÃ TÍCH HỢP ĐỒNG BỘ SANG TRANG LỊCH SỬ)
     function gradePractice() {
         let feedbackHTML = "";
         let correctCount = 0;
@@ -696,6 +696,10 @@
 
         // Đồng bộ lưu bản nháp hiện tại trước
         saveDraftProgress();
+
+        let currentTopic = dataset[currentTopicIndex];
+        // Rút gọn bớt tiêu đề đề bài để hiển thị trên dòng bảng lịch sử cho vừa vặn
+        let shortTitle = currentTopic.prompt.length > 45 ? currentTopic.prompt.substring(0, 42) + "..." : currentTopic.prompt;
 
         if(currentLevel === 1) {
             let inputs = document.querySelectorAll('.blank-input');
@@ -715,9 +719,12 @@
                 }
             });
 
-            // Tiến hành lưu điểm cao nhất vào localStorage
+            // Tiến hành lưu điểm cao nhất vào localStorage cục bộ
             let scoreString = `${correctCount}/${level1BlanksData.length}`;
             localStorage.setItem(`topic_${currentTopicIndex}_lvl1`, scoreString);
+
+            // ĐẨY DỮ LIỆU SANG MẢNG LỊCH SỬ TỔNG
+            saveToGlobalHistory("Writing", shortTitle, "Cấp độ 1: Từ khuyết", scoreString);
 
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
             if(wrongPool.length > 0) {
@@ -734,7 +741,7 @@
             textareas.forEach(box => {
                 let lIdx = parseInt(box.getAttribute('data-lineidx'));
                 let target = level2LinesData[lIdx];
-                let userVal = box.value.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().trim();
+                let userVal = box.value.replace(/[^a-zA-0-9]/g, "").toLowerCase().trim();
 
                 if(userVal === target.cleanText) {
                     correctCount++;
@@ -747,9 +754,12 @@
                 }
             });
 
-            // Tiến hành lưu điểm vào localStorage
+            // Tiến hành lưu điểm vào localStorage cục bộ
             let scoreString = `${correctCount}/${level2LinesData.length}`;
             localStorage.setItem(`topic_${currentTopicIndex}_lvl2`, scoreString);
+
+            // ĐẨY DỮ LIỆU SANG MẢNG LỊCH SỬ TỔNG
+            saveToGlobalHistory("Writing", shortTitle, "Cấp độ 2: Điền câu", scoreString);
 
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu.<br>`;
             if(wrongPool.length > 0) {
@@ -773,6 +783,25 @@
         fBox.style.display = 'block';
     }
 
+    // HÀM BỔ SUNG ĐỒNG BỘ: Định dạng thời gian thời gian thực và ghi vào vstep_learning_history
+    function saveToGlobalHistory(kyNang, chuDe, capDo, diemSo) {
+        let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+        let now = new Date();
+        let timeString = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        
+        let newLog = {
+            thoiGian: timeString,
+            kyNang: kyNang,
+            chuDe: chuDe,
+            capDo: capDo,
+            diemSo: diemSo
+        };
+        
+        // Đưa log mới lên đầu danh sách
+        history.unshift(newLog);
+        localStorage.setItem('vstep_learning_history', JSON.stringify(history));
+    }
+
     // LÀM LẠI CÂU SAI
     function redoWrongAnswers() {
         if(wrongPool.length === 0) return;
@@ -785,12 +814,23 @@
         document.getElementById('btn-redo-errors').style.display = 'none';
     }
 
-    // RESET TOÀN BỘ TIẾN ĐỘ THỰC HÀNH HỌC TẬP
+    // RESET TOÀN BỘ TIẾN ĐỘ THỰC HÀNH HỌC TẬP (Cập nhật dọn sạch đồng bộ)
     function resetAllProgress() {
         if (confirm("Bạn có chắc chắn muốn xoá toàn bộ lịch sử điểm và bài gõ nháp không?")) {
-            localStorage.clear();
+            // Xóa mảng lịch sử tổng hợp chung
+            localStorage.removeItem('vstep_learning_history');
+            
+            // Xóa sạch các key điểm lẻ cục bộ
+            for(let i = 0; i < dataset.length; i++) {
+                localStorage.removeItem(`topic_${i}_lvl1`);
+                localStorage.removeItem(`topic_${i}_lvl2`);
+                localStorage.removeItem(`structure_topic_${i}_lvl1`);
+                localStorage.removeItem(`structure_topic_${i}_lvl2`);
+                localStorage.removeItem(`draft_${i}_lvl1`);
+                localStorage.removeItem(`draft_${i}_lvl2`);
+            }
             renderMenuStatus();
-            alert("Đã reset toàn bộ tiến độ thành công!");
+            alert("Đã xóa sạch bộ nhớ tiến độ của trang này!");
         }
     }
 </script>
