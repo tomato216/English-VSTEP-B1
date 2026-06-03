@@ -5,69 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VSTEP B1 - Reading Vocabulary</title>
     <style>
-        :root { --primary-color: #f4b251; --dark-color: #8b5a2b; --bg-color: #fdf8f2; }
-        body { font-family: sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh; }
-        .main-box { background-color: white; padding: 30px; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; max-width: 480px; text-align: center; border: 3px solid #fcdfa8; }
-        .btn-topic { background-color: #fffbf5; border: 2px solid #fcdfa8; border-radius: 15px; padding: 15px; margin: 8px; width: 40%; cursor: pointer; font-weight: bold; color: var(--dark-color); }
-        .btn-option { padding: 12px; margin: 5px 0; width: 100%; border: 2px solid #eee; border-radius: 10px; cursor: pointer; background: white; }
-        .btn-option:hover { background-color: #fffbf5; border-color: var(--primary-color); }
+        :root {
+            --primary-color: #f4b251; /* Vàng hươu cao cổ chủ đạo */
+            --dark-color: #8b5a2b;    /* Nâu đất ấm áp */
+            --bg-color: #fdf8f2;      /* Nền kem nhạt dịu mắt */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng cánh hoa rơi nhẹ nhàng ở nền của menu */
+        .petal {
+            position: absolute;
+            background-color: #fcdfa8;
+            border-radius: 150% 0 150% 150%;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: fade 6s infinite linear, float 6s infinite ease-in-out;
+        }
+
+        @keyframes fade {
+            0% { top: -10px; opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(60px) rotate(30deg); }
+            100% { transform: translateX(0) rotate(60deg); }
+        }
+
+        /* Khung chứa giao diện chính */
+        .main-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(139, 90, 43, 0.15);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            border: 3px solid #fcdfa8;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Hình minh họa hươu cao cổ nhỏ ở đầu menu */
+        .giraffe-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h2 {
+            color: var(--dark-color);
+            margin: 5px 0;
+            font-size: 24px;
+        }
+
+        .prompt-text {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* Lưới hiển thị các nút chủ đề */
+        .topic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-topic {
+            background-color: #fffbf5;
+            border: 2px solid #fcdfa8;
+            border-radius: 15px;
+            padding: 15px 10px;
+            font-size: 15px;
+            color: var(--dark-color);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .btn-topic:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            margin-top: 25px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-<div id="app" class="main-box">
-    <div id="content">
-        <h2>Reading Vocabulary</h2>
-        <div id="topic-list">
-            <!-- Nút chủ đề sẽ tự tạo -->
-        </div>
+<div id="petal-container"></div>
+
+<!-- MÀN HÌNH CHỌN CHỦ ĐỀ CHÍNH -->
+<div id="topic-screen" class="main-box">
+    <div class="giraffe-icon">🦒</div>
+    <h2>Reading Practice</h2>
+    <div class="prompt-text">Hôm nay bạn muốn ôn tập từ vựng chủ đề nào? ✨</div>
+    
+    <div class="topic-grid">
+        <button class="btn-topic" onclick="navigateTo('animals.html')">🐾 Animals</button>
+        <button class="btn-topic" onclick="navigateTo('customs.html')">🎎 Customs & Traditions</button>
+        <button class="btn-topic" onclick="navigateTo('history.html')">📜 History</button>
+        <button class="btn-topic" onclick="navigateTo('transport.html')">🚗 Transport</button>
+        <button class="btn-topic" onclick="navigateTo('environment.html')">🌱 Environment</button>
+        <button class="btn-topic" onclick="navigateTo('health.html')">💪 Health & Fitness</button>
     </div>
+    
+    <button class="btn-back" onclick="goToMainMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
 <script>
-    // --- CHỈ CẦN THÊM TỪ VÀO ĐÂY SAU NÀY ---
-    const vocabularyData = {
-        animals: [
-            { word: "Species", mean: "Loài" },
-            { word: "Biodiversity", mean: "Đa dạng sinh học" }
-            // Thêm các từ animals của bạn ở đây...
-        ],
-        customs: [
-            { word: "Unique", mean: "Độc đáo" },
-            { word: "Lunar New Year", mean: "Tết Âm lịch" }
-            // Thêm các từ customs ở đây...
-        ],
-        history: [],
-        transport: [],
-        environment: [],
-        health: []
-    };
+    // Hàm phát âm thanh tinh tinh đặc trưng khi click chọn chủ đề
+    function playClickSound() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
 
-    const topics = [
-        { id: 'animals', name: '🐾 Animals' },
-        { id: 'customs', name: '🎎 Customs' },
-        { id: 'history', name: '📜 History' },
-        { id: 'transport', name: '🚗 Transport' },
-        { id: 'environment', name: '🌱 Environment' },
-        { id: 'health', name: '💪 Health' }
-    ];
-
-    function showTopics() {
-        let html = `<h2>Chọn chủ đề</h2>`;
-        topics.forEach(t => {
-            html += `<button class="btn-topic" onclick="startQuiz('${t.id}')">${t.name}</button>`;
-        });
-        document.getElementById('content').innerHTML = html;
-    }
-
-    function startQuiz(topicId) {
-        if (!vocabularyData[topicId] || vocabularyData[topicId].length === 0) {
-            alert("Chủ đề này chưa có từ vựng!"); return;
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime); // Tần số âm click tiêu chuẩn
+            gain.gain.setValueAtTime(0.04, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+            osc.start(); 
+            osc.stop(ctx.currentTime + 0.1);
+        } catch(e) {
+            console.log("Audio không hỗ trợ hoặc cần tương tác người dùng trước.");
         }
-        // Logic quiz... (bạn có thể giữ nguyên phần xử lý logic cũ ở đây)
     }
 
-    showTopics();
+    // Tạo hiệu ứng cánh hoa rơi ở nền
+    function createPetals() {
+        const container = document.getElementById('petal-container');
+        for (let i = 0; i < 12; i++) {
+            let petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 10 + 8 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDelay = Math.random() * 6 + 's';
+            petal.style.animationDuration = Math.random() * 4 + 5 + 's';
+            container.appendChild(petal);
+        }
+    }
+    
+    // Hàm chuyển hướng trang đến file tương ứng theo yêu cầu
+    function navigateTo(pageUrl) {
+        playClickSound();
+        // Chờ âm thanh phát xong một chút rồi chuyển trang
+        setTimeout(() => {
+            window.location.href = pageUrl;
+        }, 100);
+    }
+
+    // Hàm quay lại trang chủ index.html của toàn hệ thống
+    function goToMainMenu() {
+        playClickSound();
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 100);
+    }
+
+    // Khởi chạy hiệu ứng nền khi trang tải xong
+    createPetals();
 </script>
+
 </body>
 </html>
