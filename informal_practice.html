@@ -36,6 +36,52 @@
             box-sizing: border-box;
         }
 
+        /* TIÊU ĐỀ TRANG MENU */
+        .menu-title {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* 5 Ô CHỦ ĐỀ TRANG RIÊNG CHUYÊN NGHIỆP */
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-card {
+            background-color: #fffbf7;
+            border: 2px solid #e6ccb2;
+            border-radius: 12px;
+            padding: 18px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .menu-card:hover {
+            background-color: #f4ebe1;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .menu-card .topic-meta {
+            font-size: 13px;
+            color: #8b7355;
+            font-weight: normal;
+            margin-top: 4px;
+        }
+
+        /* THANH ĐIỀU HƯỚNG KHI ĐÃ VÀO BÀI HỌC */
         .top-nav {
             display: flex;
             justify-content: space-between;
@@ -57,42 +103,6 @@
             gap: 5px;
         }
 
-        /* Hệ thống 5 ô chọn chủ đề trực quan */
-        .topic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .topic-card {
-            background-color: #fffbf7;
-            border: 2px solid #e6ccb2;
-            border-radius: 10px;
-            padding: 12px 10px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--dark-color);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .topic-card:hover {
-            background-color: #f4ebe1;
-            transform: translateY(-2px);
-        }
-
-        .topic-card.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--dark-color);
-            box-shadow: 0 4px 10px rgba(160, 82, 45, 0.3);
-        }
-
         .prompt-box {
             background-color: #fffbf7;
             border-left: 5px solid var(--primary-color);
@@ -105,7 +115,7 @@
             line-height: 1.5;
         }
 
-        /* Hệ thống chọn Cấp độ tự do */
+        /* THANH CHỌN LEVEL TỰ DO */
         .level-switcher {
             display: flex;
             gap: 10px;
@@ -126,6 +136,7 @@
             color: #6d594f;
             border-radius: 8px;
             transition: all 0.2s;
+            text-align: center;
         }
 
         .level-tab.active {
@@ -134,7 +145,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        /* Hệ thống Tab nội dung tài liệu học */
+        /* TAB XEM TÀI LIỆU */
         .tab-container {
             display: flex;
             gap: 5px;
@@ -171,7 +182,6 @@
             min-height: 180px;
         }
 
-        /* Khung hiển thị chữ mượt mà, chống lỗi font tiếng Việt */
         .letter-display {
             line-height: 1.7;
             white-space: pre-line;
@@ -179,15 +189,15 @@
             font-size: 16px;
         }
 
-        /* Khu vực điền từ khuyết */
+        /* KHU VỰC THỰC HÀNH GÕ CHỮ */
         .interactive-workspace {
-            line-height: 2.3;
+            line-height: 2.4;
             font-size: 16px;
             color: #2b1d15;
             text-align: justify;
         }
 
-        /* Định dạng ô trống gọn gàng (Số) */
+        /* Ô TRỐNG SỐ ĐỊNH DẠNG (1), (2) GỌN GÀNG */
         .blank-input {
             width: 75px;
             padding: 2px 5px;
@@ -208,7 +218,7 @@
             border-bottom-color: var(--dark-color);
         }
 
-        /* Level 2: Câu trống */
+        /* LEVEL 2 CÂU KHUYẾT */
         .sentence-block {
             margin-bottom: 15px;
             display: flex;
@@ -277,58 +287,98 @@
 <body>
 
 <div class="main-box">
-    <!-- TOP NAV -->
-    <div class="top-nav">
-        <button class="btn-top-back" onclick="window.location.href='informal_letter.html'">⬅ Menu chính</button>
-        <div id="level-display-badge" class="level-badge">Đang Đọc Ghi Nhớ</div>
-    </div>
 
-    <!-- 5 Ô CHỌN CHỦ ĐỀ TRỰC QUAN -->
-    <div class="topic-grid">
-        <div class="topic-card active" onclick="selectTopicCard(0)">Chủ đề 1<br>Lễ hội Tết</div>
-        <div class="topic-card" onclick="selectTopicCard(1)">Chủ đề 2<br>Lăng Bác</div>
-        <div class="topic-card" onclick="selectTopicCard(2)">Chủ đề 3<br>Thú cưng</div>
-        <div class="topic-card" onclick="selectTopicCard(3)">Chủ đề 4<br>Người mẹ</div>
-        <div class="topic-card" onclick="selectTopicCard(4)">Chủ đề 5<br>Quê hương</div>
-    </div>
-
-    <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
-
-    <!-- KHU VỰC CHỌN CẤP ĐỘ LUYỆN TẬP TỰ DO -->
-    <div class="level-switcher">
-        <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Đọc & Xem Cấu Trúc</button>
-        <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp Độ 1 (Gõ Từ)</button>
-        <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp Độ 2 (Gõ Câu)</button>
-    </div>
-
-    <!-- CHẾ ĐỘ 0: TÀI LIỆU HỌC TẬP -->
-    <div id="study-zone">
-        <div class="tab-container">
-            <button id="btn-sub-sample" class="tab-btn active" onclick="switchSubTab('sample')">📝 Bài Mẫu</button>
-            <button id="btn-sub-trans" class="tab-btn" onclick="switchSubTab('translation')">🇻🇳 Bản Dịch</button>
-            <button id="btn-sub-gram" class="tab-btn" onclick="switchSubTab('grammar')">📐 Ngữ Pháp</button>
-        </div>
+    <!-- ================= TRANG MÀN HÌNH MENU RIÊNG BIỆT ================= -->
+    <div id="menu-screen">
+        <button class="btn-top-back" style="margin-bottom:15px;" onclick="window.location.href='informal_letter.html'">⬅ Quay lại Menu Viết Thư</button>
+        <div class="menu-title">Select an Informal Letter Topic</div>
         
-        <div class="tab-content">
-            <div id="tab-sample" class="letter-display"></div>
-            <div id="tab-translation" class="letter-display" style="display:none; color: #444;"></div>
-            <div id="tab-grammar" style="display:none; line-height: 1.6;"></div>
-        </div>
-        <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Từ Vựng Khuyết ➔</button>
-    </div>
-
-    <!-- CHẾ ĐỘ THỰC HÀNH (LEVEL 1 & LEVEL 2) -->
-    <div id="practice-zone" style="display: none;">
-        <div id="workspace-container" class="interactive-workspace"></div>
-        
-        <div id="result-feedback-box" class="review-box" style="display: none;"></div>
-        
-        <div style="margin-top: 20px; display: flex; gap: 10px;">
-            <button id="btn-submit-practice" class="btn-action" onclick="gradePractice()">Chấm Điểm Bài Làm</button>
-            <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Câu Sai</button>
-            <button id="btn-next-level" class="btn-action" style="display:none; background-color: var(--success-color);" onclick="askBeforeLevel2()">Lên Level 2 ➔</button>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="openTopic(0)">
+                <div>
+                    <div>1. Traditional Festival</div>
+                    <div class="topic-meta">Introduce a traditional festival in your country (Tet Holiday)</div>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="menu-card" onclick="openTopic(1)">
+                <div>
+                    <div>2. Historical Site</div>
+                    <div class="topic-meta">Introduce a famous historical site in Vietnam (Ho Chi Minh Mausoleum)</div>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="menu-card" onclick="openTopic(2)">
+                <div>
+                    <div>3. Introduce Your Pet</div>
+                    <div class="topic-meta">Describe your lovely pet (Bong the Poodle dog)</div>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="menu-card" onclick="openTopic(3)">
+                <div>
+                    <div>4. Member of Your Family</div>
+                    <div class="topic-meta">Introduce an important person in your family (Your mother)</div>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="menu-card" onclick="openTopic(4)">
+                <div>
+                    <div>5. Introduce Your Hometown</div>
+                    <div class="topic-meta">Describe your peaceful hometown (Hung Yen province)</div>
+                </div>
+                <span>➔</span>
+            </div>
         </div>
     </div>
+
+
+    <!-- ================= TRANG KHÔNG GIAN LUYỆN TẬP CHI TIẾT ================= -->
+    <div id="study-practice-screen" style="display: none;">
+        <!-- TOP NAV -->
+        <div class="top-nav">
+            <button class="btn-top-back" onclick="backToMainMenu()">⬅ Chọn Chủ Đề Khác</button>
+            <div id="level-display-badge" class="level-badge">Đang Đọc Ghi Nhớ</div>
+        </div>
+
+        <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
+
+        <!-- THANH CHỌN CẤP ĐỘ LUYỆN TẬP TỰ DO -->
+        <div class="level-switcher">
+            <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Đọc & Xem Cấu Trúc</button>
+            <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp Độ 1 (Gõ Từ So Le)</button>
+            <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp Độ 2 (Gõ Câu Khuyết)</button>
+        </div>
+
+        <!-- CHẾ ĐỘ 0: TÀI LIỆU HỌC TẬP -->
+        <div id="study-zone">
+            <div class="tab-container">
+                <button id="btn-sub-sample" class="tab-btn active" onclick="switchSubTab('sample')">📝 Bài Mẫu</button>
+                <button id="btn-sub-trans" class="tab-btn" onclick="switchSubTab('translation')">🇻🇳 Bản Dịch</button>
+                <button id="btn-sub-gram" class="tab-btn" onclick="switchSubTab('grammar')">📐 Ngữ Pháp</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="tab-sample" class="letter-display"></div>
+                <div id="tab-translation" class="letter-display" style="display:none; color: #444;"></div>
+                <div id="tab-grammar" style="display:none; line-height: 1.6;"></div>
+            </div>
+            <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Từ Vựng Khuyết ➔</button>
+        </div>
+
+        <!-- CHẾ ĐỘ THỰC HÀNH (LEVEL 1 & LEVEL 2) -->
+        <div id="practice-zone" style="display: none;">
+            <div id="workspace-container" class="interactive-workspace"></div>
+            
+            <div id="result-feedback-box" class="review-box" style="display: none;"></div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button id="btn-submit-practice" class="btn-action" onclick="gradePractice()">Chấm Điểm Bài Làm</button>
+                <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Câu Sai</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -336,68 +386,32 @@
         {
             prompt: "Write a letter introduce about a traditional festival in your country",
             sample: `Dear Putin,\n\nHow are you? So, I hope everything is fine for you. I am very happy to receive your letter. I am writing this letter to tell you about a traditional festival in my country.\n\nYou know, I live in Vietnam, a beautiful country with kind people. Not only that, we have a unique Lunar New Year called Tết. Firstly, people clean their houses and go Tet shopping like Christmas in your country, they buy many things, such as food, decorations and clothes, etc.\n\nMoreover, Tet is also a special occasion for family members to gather together to give each other best wishes. During Tet, we enjoy traditional food like Chung cake, sticky rice and boiled chicken. Besides, children are given lucky money by adults, which is a symbol of luck and success.\n\nThat is all for now. How about traditional holidays in your country? I am looking forward to hearing from you soon.\n\nTake care,\n\nBinh`,
-            translation: `Thân gửi Putin,\n\nBạn khỏe không? Mình hy vọng mọi thứ đều tốt đẹp với bạn. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một lễ hội truyền thống ở đất nước mình.\n\nBạn biết đấy, mình sống ở Việt Nam, một đất nước xinh đẹp với những con người nhân hậu. Không chỉ vậy, chúng mình còn có một Tết Nguyên Đán độc đáo gọi là Tết. Đầu tiên, mọi người dọn dẹp nhà cửa và đi sắm Tết giống như Giáng sinh ở nước bạn vậy, họ mua nhiều thứ như thức ăn, đồ trang trí và quần áo, v.v.\n\nHơn nữa, Tết cũng là dịp đặc biệt để các thành viên trong gia đình quây quyển bên nhau, trao cho nhau những lời chúc tốt đẹp nhất. Trong suốt dịp Tết, chúng mình thưởng thức những món ăn truyền thống như bánh Chưng, xôi và gà luộc. Ngoài ra, trẻ em được người lớn tặng tiền lì xì, đây là biểu tượng của sự may mắn và thành công.\n\nHiện tại thế thôi nhé. Còn các ngày lễ truyền thống ở nước bạn thì sao? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nGiữ gìn sức khỏe nhé,\n\nBình`,
-            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
-            • I hope + mệnh đề (I hope everything is fine for you.)<br>
-            • be happy + to V (I am happy to receive your letter.)<br>
-            • be writing + to V (I am writing this letter to tell you about...)<br>
-            • Not only that, + mệnh đề (Not only that, we have a unique Lunar New Year.)<br>
-            • such as + N (such as food, decorations and clothes.)<br>
-            • occasion for sb + to V (a special occasion for family members to gather together.)<br>
-            • enjoy + N/V-ing (We enjoy traditional food.)<br>
-            • Bị động: S + be + V3/ed + by + O (Children are given lucky money by adults.)<br>
-            • Mệnh đề quan hệ: which + V (..., which is a symbol of luck and success.)<br>
-            • During + N (During Tet...)<br>
-            • look forward to + V-ing (I am looking forward to hearing from you soon.)<br>
-            • How about + N/V-ing? (How about traditional holidays in your country?)<br>
-            <div class="grammar-title">Từ nối dùng trong bài:</div> So, Firstly, Not only that, Moreover, Besides, During Tet, That is all for now, How about...?`
+            translation: `Thân gửi Putin,\n\nBạn khỏe không? Mình hy vọng mọi thứ đều tốt đẹp với bạn. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một lễ hội truyền thống ở đất nước mình.\n\nBạn biết đấy, mình sống ở Việt Nam, một đất nước xinh đẹp với những con người nhân hậu. Không chỉ vậy, chúng mình còn có một Tết Nguyên Đán độc đáo gọi là Tết. Đầu tiên, mọi người dọn dẹp nhà cửa và đi sắm Tết giống như Giáng sinh ở nước bạn vậy, họ mua nhiều thứ như thức ăn, đồ trang trí và quần áo, v.v.\n\nHơn nữa, Tết cũng là dịp đặc biệt để các thành viên trong gia đình quây quần bên nhau, trao cho nhau những lời chúc tốt đẹp nhất. Trong suốt dịp Tết, chúng mình thưởng thức những món ăn truyền thống như bánh Chưng, xôi và gà luộc. Ngoài ra, trẻ em được người lớn tặng tiền lì xì, đây là biểu tượng của sự may mắn và thành công.\n\nHiện tại thế thôi nhé. Còn các ngày lễ truyền thống ở nước bạn thì sao? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nGiữ gìn sức khỏe nhé,\n\nBình`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• I hope + mệnh đề<br>• be happy + to V<br>• be writing + to V<br>• Not only that, + mệnh đề<br>• such as + N<br>• occasion for sb + to V<br>• enjoy + N/V-ing<br>• Bị động: S + be + V3/ed + by + O<br>• Mệnh đề quan hệ: which + V<br>• look forward to + V-ing<br><div class="grammar-title">Từ nối dùng trong bài:</div> So, Firstly, Not only that, Moreover, Besides, During Tet, That is all for now.`
         },
         {
             prompt: "Your foreign friend wants to know about a historical site in Vietnam. Write a letter (about 120–150 words) to introduce a historical site in your country.",
             sample: `Dear Ronaldo,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about a famous historical site in Vietnam.\n\nOne of the most popular historical sites in my country is Ho Chi Minh Mausoleum in Hanoi. It is a special place where people can learn more about President Ho Chi Minh, a great leader of Vietnam.\n\nFirstly, the mausoleum is large and beautiful. Every year, many visitors come here to pay respect to him. Moreover, there are many interesting places nearby, such as Ba Dinh Square and Ho Chi Minh Museum.\n\nBesides, this site helps young people understand more about Vietnamese history. Therefore, it is an important place for both local people and tourists.\n\nThat is all for now. Have you ever visited a historical site in your country? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nBinh`,
             translation: `Thân gửi Ronaldo,\n\nBạn khỏe không? Mình hy vọng bạn đang có khoảng thời gian tốt đẹp. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một di tích lịch sử nổi tiếng ở Việt Nam.\n\nMột trong những di tích lịch sử phổ biến nhất ở đất nước mình là Lăng Chủ tịch Hồ Chí Minh tại Hà Nội. Đây là một nơi đặc biệt nơi mọi người có thể tìm hiểu thêm về Chủ tịch Hồ Chí Minh, một vị lãnh tụ vĩ đại của Việt Nam.\n\nTrước hết, lăng rất lớn và đẹp. Mỗi năm, nhiều du khách đến đây để tỏ lòng kính trọng đối với Người. Hơn nữa, có rất nhiều địa điểm thú vị gần đó, chẳng hạn như Quảng trường Ba Đình và Bảo tàng Hồ Chí Minh.\n\nBên cạnh đó, di tích này giúp giới trẻ hiểu thêm về lịch sử Việt Nam. Vì vậy, nó là một địa điểm quan trọng đối với cả người dân địa phương và khách du lịch.\n\nBây giờ thế thôi nhé. Bạn đã từng đến thăm một di tích lịch sử nào ở nước bạn chưa? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nChúc mọi điều tốt đẹp,\n\nBình`,
-            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
-            • One of the most + adj + N số nhiều (One of the most popular historical sites...)<br>
-            • Đại từ quan hệ: place where + mệnh đề (place where people can learn...)<br>
-            • help + sb + V nguyên mẫu (helps young people understand...)<br>
-            • both A and B: Cả A và B (for both local people and tourists.)<br>
-            • Hiện tại hoàn thành: Have you ever + V3/ed? (Have you ever visited...)<br>
-            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, Such as, That is all for now, Have you ever...?`
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• One of the most + adj + N số nhiều<br>• Đại từ quan hệ: place where + mệnh đề<br>• help + sb + V nguyên mẫu<br>• both A and B: Cả A và B<br>• Hiện tại hoàn thành: Have you ever + V3/ed?<br><div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, Such as, That is all for now.`
         },
         {
             prompt: "Your foreign friend wants to know about your pet. Write a letter (120–150 words) to introduce your pet.",
             sample: `Dear Trump,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my pet.\n\nI have a lovely dog named Bong. She is a white Poodle with soft and fluffy fur. She is small, cute, and very friendly. Firstly, Bong likes playing with balls and running around the yard. Moreover, she is very smart and can understand some simple commands.\n\nBesides, Bong always stays with me when I am at home. She makes me happy whenever I feel tired or stressed. I often take her for a walk in the park every evening. Therefore, she is not only my pet but also my best friend.\n\nThat is all for now. Do you have a pet in your home? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nAn`,
             translation: `Thân gửi Trump,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về thú cưng của mình.\n\nMình có một chú chó rất đáng yêu tên là Bông. Nó là một chú chó Poodle màu trắng với bộ lông mềm mại và bồng bềnh. Nó nhỏ nhắn, dễ thương và rất thân thiện. Đầu tiên, Bông thích chơi với bóng và chạy quanh sân. Hơn nữa, nó rất thông minh và có thể hiểu được một số câu lệnh đơn giản.\n\nNgoài ra, Bông luôn ở bên cạnh mình khi mình ở nhà. Nó làm mình vui vẻ mỗi khi mình cảm thấy mệt mỏi hay căng thẳng. Mình thường dẫn nó đi dạo trong công viên mỗi buổi tối. Vì vậy, nó không chỉ là thú cưng mà còn là người bạn thân nhất của mình.\n\nBây giờ vậy thôi nhé. Bạn có nuôi thú cưng trong nhà không? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nThân ái,\n\nAn`,
-            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
-            • Rút gọn mệnh đề: named + tên (a lovely dog named Bong)<br>
-            • like + V-ing (likes playing with balls)<br>
-            • make + sb + adj (makes me happy)<br>
-            • take sb for a walk: Dẫn ai đi dạo (take her for a walk)<br>
-            • not only A but also B: Không những A mà còn B (not only my pet but also my best friend.)<br>
-            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• Rút gọn mệnh đề: named + tên<br>• like + V-ing<br>• make + sb + adj<br>• take sb for a walk: Dẫn ai đi dạo<br>• not only A but also B: Không những A mà còn B<br><div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
         },
         {
             prompt: "Your foreign friend wants to know about a member of your family. Write a letter (120–150 words) to introduce one of them.",
             sample: `Dear Pepsi,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my mother.\n\nMy mother is the most important person in my family. She is 45 years old and works as a teacher. She is kind, hardworking, and friendly. Firstly, she always takes care of our family and helps me with many things. Moreover, she works very hard every day to support our family.\n\nBesides, my mother often gives me useful advice when I have problems. She always encourages me to study hard and become a good person. Therefore, I love and respect her very much.\n\nThat is all for now. How about your mother? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nMinh`,
             translation: `Thân gửi Pepsi,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về mẹ của mình.\n\nMẹ là người quan trọng nhất trong gia đình mình. Mẹ 45 tuổi và làm nghề giáo viên. Mẹ rất hiền từ, chăm chỉ và thân thiện. Đầu tiên, mẹ luôn chăm sóc cho gia đình và giúp đỡ mình nhiều thứ. Hơn nữa, mẹ làm việc rất vất vả mỗi ngày để nuôi nấng gia đình mình.\n\nBên cạnh đó, mẹ thường cho mình những lời khuyên bổ ích khi mình gặp rắc rối. Mẹ luôn khuyến khích mình học tập chăm chỉ và trở thành một người tốt. Vì vậy, mình rất yêu thương và kính trọng mẹ.\n\nHiện tại thế thôi nhé. Còn mẹ của bạn thì sao? Mình rất mong sớm nhận được thư từ bạn.\n\nThân ái,\n\nMinh`,
-            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
-            • So sánh nhất: the most + adj dài + N (the most important person)<br>
-            • work as + nghề nghiệp: làm nghề gì (works as a teacher)<br>
-            • take care of + sb: chăm sóc ai (takes care of our family)<br>
-            • help sb with sth: giúp ai việc gì (helps me with many things)<br>
-            • encourage sb to V: khuyến khích ai làm gì (encourages me to study hard)<br>
-            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• So sánh nhất: the most + adj dài + N<br>• work as + nghề nghiệp: làm nghề gì<br>• take care of + sb: chăm sóc ai<br>• help sb with sth: giúp ai việc gì<br>• encourage sb to V: khuyến khích ai làm gì<br><div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
         },
         {
             prompt: "Your foreign friend wants to know about your hometown. Write a letter (120–150 words) to introduce your hometown.",
             sample: `Dear Messi,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my hometown.\n\nMy hometown is Hung Yen, a peaceful province in the north of Vietnam. It is famous for its long history, beautiful countryside, and friendly people. Firstly, Hung Yen has many interesting places to visit, such as temples, pagodas, and traditional villages. Moreover, the weather is pleasant, and the environment is quiet and clean.\n\nBesides, Hung Yen is well known for its delicious food and fresh fruits, especially longan, which is a popular local specialty. Many visitors come here every year to enjoy the local culture and food. Therefore, I am very proud of my hometown.\n\nThat is all for now. What is your hometown like? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nPhuc`,
             translation: `Thân gửi Messi,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về quê hương của mình.\n\nQuê hương mình là Hưng Yên, một tỉnh thành thanh bình ở miền Bắc Việt Nam. Nơi đây nổi tiếng với lịch sử lâu đời, vùng nông thôn xinh đẹp và những con người thân thiện. Trước hết, Hưng Yên có nhiều địa điểm thú vị để tham quan như đền, chùa và các làng nghề truyền thống. Hơn nữa, thời tiết rất dễ chịu, môi trường thì yên tĩnh và sạch sẽ.\n\nBên cạnh đó, Hưng Yên còn nổi tiếng với những món ăn ngon và trái cây tươi, đặc biệt là nhãn lồng, một sản vật địa phương phổ biến. Nhiều du khách đến đây hàng năm để thưởng thức văn hóa và ẩm thực địa phương. Vì vậy, mình rất tự hào về quê hương của mình.\n\nHiện tại thế thôi nhé. Quê hương của bạn như thế nào? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nThân ái,\n\nPhúc`,
-            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
-            • be famous for / be well known for + N: nổi tiếng vì cái gì<br>
-            • S + be + proud of + N: tự hào về điều gì (proud of my hometown)<br>
-            • come + nơi chốn + to V: đến đâu để làm gì (come here every year to enjoy...)<br>
-            • What + is + S + like?: Ai/Cái gì trông như thế nào? (What is your hometown like?)<br>
-            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, such as, That is all for now.`
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>• be famous for / be well known for + N<br>• S + be + proud of + N<br>• come + nơi chốn + to V<br>• What + is + S + like?: Ai/Cái gì trông như thế nào?<br><div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, such as, That is all for now.`
         }
     ];
 
@@ -407,13 +421,18 @@
     let level2LinesData = [];  
     let wrongPool = [];        
 
-    function selectTopicCard(index) {
-        document.querySelectorAll('.topic-card').forEach((card, idx) => {
-            if(idx === index) card.classList.add('active');
-            else card.classList.remove('active');
-        });
+    // MỞ CHỦ ĐỀ VÀ CHUYỂN SANG KHÔNG GIAN HỌC TẬP
+    function openTopic(index) {
         currentTopicIndex = index;
-        changeLevelMode(currentLevel); // Giữ nguyên cấp độ hiện tại khi đổi bài
+        document.getElementById('menu-screen').style.display = 'none';
+        document.getElementById('study-practice-screen').style.display = 'block';
+        changeLevelMode(0); // Luôn mặc định mở chế độ đọc hiểu trước
+    }
+
+    // QUAY LẠI MÀN HÌNH MENU CHỌN CHỦ ĐỀ RIÊNG BIỆT
+    function backToMainMenu() {
+        document.getElementById('study-practice-screen').style.display = 'none';
+        document.getElementById('menu-screen').style.display = 'block';
     }
 
     function switchSubTab(tabName) {
@@ -427,7 +446,7 @@
         document.getElementById('tab-grammar').style.display = tabName === 'grammar' ? 'block' : 'none';
     }
 
-    // TỰ DO CHUYỂN ĐỔI CẤP ĐỘ KHÔNG RÀNG BUỘC
+    // CHUYỂN ĐỔI LEVEL TỰ DO
     function changeLevelMode(levelNum) {
         currentLevel = levelNum;
         document.querySelectorAll('.level-tab').forEach((tab, idx) => {
@@ -455,7 +474,7 @@
         }
     }
 
-    // LEVEL 1: ĐIỀN TỪ (HIỂN THỊ DẠNG SỐ (1), (2)...)
+    // LEVEL 1: THUẬT TOÁN ẨN TỪ SO LE THÔNG MINH (KÔNG BAO GIỜ BỊ DÍNH LIỀN)
     function startLevel1(forceWords = null) {
         document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết";
         document.getElementById('level-display-badge').style.backgroundColor = '#a0522d';
@@ -463,21 +482,32 @@
         document.getElementById('practice-zone').style.display = 'block';
         
         let text = dataset[currentTopicIndex].sample;
-        let tokens = text.split(/(\s+)/);
+        let tokens = text.split(/(\s+)/); // Giữ lại khoảng trắng và dấu xuống dòng
         
-        let wordIndices = [];
-        tokens.forEach((token, idx) => {
-            if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
-                wordIndices.push(idx);
-            }
-        });
-
         let chosenIndices = [];
+
         if(forceWords) {
             chosenIndices = forceWords;
         } else {
-            wordIndices.sort(() => Math.random() - 0.5);
-            chosenIndices = wordIndices.slice(0, Math.min(13, wordIndices.length));
+            // Lọc ra danh sách các vị trí hợp lệ có thể ẩn từ (độ dài > 2 ký tự)
+            let validPositions = [];
+            tokens.forEach((token, idx) => {
+                if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
+                    validPositions.push(idx);
+                }
+            });
+
+            // Tiến hành chọn lọc so le cách quãng ngẫu nhiên
+            let lastPickedIdx = -5; // Đảm bảo khoảng cách từ đầu tiên luôn thỏa mãn
+            for(let i = 0; i < validPositions.length; i++) {
+                let currentTokenIdx = validPositions[i];
+                // Chỉ ẩn nếu vị trí này cách vị trí ẩn trước đó ít nhất 2 token (ngăn cách bởi từ khác)
+                if (currentTokenIdx - lastPickedIdx > 2 && Math.random() > 0.4) {
+                    chosenIndices.push(currentTokenIdx);
+                    lastPickedIdx = currentTokenIdx;
+                }
+                if(chosenIndices.length >= 13) break; // Khống chế số lượng từ trống
+            }
         }
 
         level1BlanksData = [];
@@ -504,11 +534,10 @@
         document.getElementById('workspace-container').innerHTML = htmlContent;
         document.getElementById('result-feedback-box').style.display = 'none';
         document.getElementById('btn-redo-errors').style.display = 'none';
-        document.getElementById('btn-next-level').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
     }
 
-    // LEVEL 2: ĐIỀN CÂU
+    // LEVEL 2: ẨN CÂU
     function startLevel2(forceLines = null) {
         document.getElementById('level-display-badge').innerText = "Cấp độ 2: Thử Thách Điền Câu";
         document.getElementById('level-display-badge').style.backgroundColor = '#16a34a';
@@ -545,7 +574,7 @@
                 });
                 
                 htmlContent += `<div class="sentence-block">
-                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại trọn vẹn câu khuyết (${level2LinesData.length}) tại đây]:</span>
+                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại câu khuyết (${level2LinesData.length})]:</span>
                     <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập câu tại đây..."></textarea>
                 </div>`;
             } else {
@@ -557,16 +586,7 @@
         document.getElementById('workspace-container').innerHTML = htmlContent;
         document.getElementById('result-feedback-box').style.display = 'none';
         document.getElementById('btn-redo-errors').style.display = 'none';
-        document.getElementById('btn-next-level').style.display = 'none';
         document.getElementById('btn-submit-practice').style.display = 'block';
-    }
-
-    function askBeforeLevel2() {
-        if(confirm("Chúc mừng bạn hoàn thành xuất sắc! 🎉\nBạn có muốn đọc lại bài mẫu một lượt để ghi nhớ câu trước khi lên Level 2 không?")) {
-            changeLevelMode(0);
-        } else {
-            changeLevelMode(2);
-        }
     }
 
     // CHẤM ĐIỂM TỰ ĐỘNG
@@ -593,14 +613,13 @@
                 }
             });
 
-            feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ khuyết.<br>`;
+            feedbackHTML = `<b>Kết quả chấm điểm:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<span style="color:#b91c1c;">Có một vài từ chưa chuẩn xác, bạn hãy bấm nút đỏ bên dưới để thử sức lại nhé!</span>`;
+                feedbackHTML += `<span style="color:#b91c1c;">Có từ chưa đúng, hãy nhấn nút đỏ để sửa lại nhé!</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn đã vượt qua 100% từ khuyết! 🥳</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt vời! Bạn gõ đúng toàn bộ từ khuyết! 🥳</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
-                document.getElementById('btn-next-level').style.display = 'block';
             }
         } 
         else if(currentLevel === 2) {
@@ -623,7 +642,7 @@
 
             feedbackHTML = `<b>Kết quả chấm điểm:</b> Khớp <b>${correctCount}/${level2LinesData.length}</b> câu.<br>`;
             if(wrongPool.length > 0) {
-                feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#4a2711;"><b>Gợi ý đáp án đúng cho các câu bị sai:</b><br>`;
+                feedbackHTML += `<div style="margin-top:10px; font-size:14px; color:#4a2711;"><b>Gợi ý đáp án đúng:</b><br>`;
                 level2LinesData.forEach((item, i) => {
                     if(wrongPool.includes(item.index)) {
                         feedbackHTML += `• Ô số (${i+1}): <span style="color:#16a34a; font-weight:600;">"${item.correctText}"</span><br>`;
@@ -632,7 +651,7 @@
                 feedbackHTML += `</div>`;
                 document.getElementById('btn-redo-errors').style.display = 'block';
             } else {
-                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá đỉnh! Bạn đã nhớ chuẩn xác hoàn toàn cấu trúc câu bài viết này! 🏆</span>`;
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Quá tốt! Bạn đã thuộc lòng và gõ lại đúng 100% rồi! 🏆</span>`;
                 document.getElementById('btn-redo-errors').style.display = 'none';
             }
         }
@@ -653,9 +672,6 @@
         }
         document.getElementById('btn-redo-errors').style.display = 'none';
     }
-
-    // Khởi động trang ở chế độ đọc bài 1
-    changeLevelMode(0);
 </script>
 
 </body>
