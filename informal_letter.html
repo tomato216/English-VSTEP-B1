@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSTEP Writing - Informal Letter</title>
+    <style>
+        :root {
+            --primary-color: #a0522d; /* Nâu gỗ sồi cổ điển */
+            --dark-color: #4a2711;    /* Nâu đậm màu mực */
+            --bg-color: #fcf8f2;      /* Nền giấy kem mộc mạc */
+            --accent-color: #cd853f;  /* Vàng nâu da thuộc */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Khung chứa giao diện chính */
+        .main-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(74, 39, 17, 0.12);
+            width: 100%;
+            max-width: 500px;
+            border: 3px solid #e6ccb2;
+            z-index: 10;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* Thanh đầu trang chứa nút quay về */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .btn-top-back {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-top-back:hover {
+            background-color: #fcf8f2;
+            color: var(--dark-color);
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header-title h2 {
+            color: var(--dark-color);
+            margin: 5px 0;
+            font-size: 26px;
+        }
+
+        .header-title p {
+            color: #6d594f;
+            font-size: 14px;
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* Lưới lựa chọn ở màn hình chính */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .btn-menu-card {
+            background-color: #fffbf7;
+            border: 2px solid #e6ccb2;
+            border-radius: 16px;
+            padding: 25px 20px;
+            font-size: 18px;
+            color: var(--dark-color);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .btn-menu-card:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--dark-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(74, 39, 17, 0.15);
+        }
+
+        .btn-menu-card span.icon {
+            font-size: 35px;
+        }
+
+        .btn-menu-card span.sub-desc {
+            font-size: 13px;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        /* Khung hiển thị nội dung Cấu trúc / Từ nối */
+        .content-card {
+            background-color: #fffbf7;
+            border: 2px dashed #ddc4b1;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Định dạng bức thư thực tế */
+        .letter-template {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: #2b1d15;
+            font-size: 15px;
+            white-space: pre-line;
+        }
+
+        /* Danh sách từ nối */
+        .vocab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .vocab-item {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #e6ccb2;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .vocab-eng {
+            font-weight: bold;
+            color: var(--dark-color);
+            font-size: 15px;
+        }
+
+        .vocab-vie {
+            color: #6d594f;
+            font-size: 13px;
+        }
+
+        /* Thanh điều hướng chuyển tiếp qua lại dưới nội dung học */
+        .nav-buttons-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .btn-nav-arrow {
+            background-color: white;
+            border: 2px solid #e6ccb2;
+            color: var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s;
+        }
+
+        .btn-nav-arrow:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--dark-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-box">
+    
+    <!-- THANH ĐẦU TRANG (Luôn hiển thị khi ở trong các mục nhỏ) -->
+    <div class="top-nav" id="top-navigation" style="display: none;">
+        <button class="btn-top-back" onclick="backToMainMenu()">⬅ Quay lại</button>
+    </div>
+
+    <!-- MÀN HÌNH CHÍNH: LỰA CHỌN PHÂN MỤC -->
+    <div id="screen-main">
+        <div class="top-nav">
+            <button class="btn-top-back" onclick="window.location.href='writing.html'">⬅ Writing Menu</button>
+        </div>
+        <div class="header-title">
+            <div style="font-size: 45px; margin-bottom: 5px;">👋✉️</div>
+            <h2>Informal Letter</h2>
+            <p>Viết thư thân mật / Email cho bạn bè, người thân</p>
+        </div>
+        <div class="menu-grid">
+            <button class="btn-menu-card" onclick="showSection('structure')">
+                <span class="icon">📐</span>
+                <span>1. Cấu trúc bức thư</span>
+                <span class="sub-desc">Khung sườn chuẩn cho mọi bài viết</span>
+            </button>
+            <button class="btn-menu-card" onclick="showSection('connectors')">
+                <span class="icon">🔗</span>
+                <span>2. Từ nối & Mẫu câu</span>
+                <span class="sub-desc">Các cụm từ liên kết ăn điểm B1</span>
+            </button>
+            <button class="btn-menu-card" onclick="tryNavigatePractice()">
+                <span class="icon">✍️</span>
+                <span>3. Thực hành bài mẫu</span>
+                <span class="sub-desc">Luyện tập trực quan đề thi thật</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH CON 1: CẤU TRÚC BỨC THƯ -->
+    <div id="screen-structure" style="display: none;">
+        <div class="header-title">
+            <h2>Khung Cấu Trúc Chuẩn</h2>
+            <p>Form chuẩn giúp bạn không bao giờ lạc đề hoặc thiếu ý</p>
+        </div>
+        <div class="content-card">
+            <div class="letter-template">Dear [Tên người nhận], 
+
+How are you? I hope you and your family are doing well. I am very happy to receive your letter. I am writing this letter to tell you about [Tuỳ theo đề bài bài viết].
+
+[Triển khai các ý chính của đề bài, có thể chia thành từ 1 đến 2 đoạn văn ngắn]
+
+That’s all for now. I am looking forward to hearing from you soon.
+
+Best wishes, / Take care,
+[Tên của bạn]</div>
+        </div>
+        <div class="nav-buttons-footer">
+            <button class="btn-nav-arrow" onclick="backToMainMenu()">🏠 Menu chính</button>
+            <button class="btn-nav-arrow" onclick="showSection('connectors')">Từ nối tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH CON 2: TỪ NỐI VÀ MẪU CÂU -->
+    <div id="screen-connectors" style="display: none;">
+        <div class="header-title">
+            <h2>Từ Nối & Mẫu Câu</h2>
+            <p>Vũ khí giúp bài viết mạch lạc và liên kết chặt chẽ</p>
+        </div>
+        <div class="content-card" style="max-height: 350px; overflow-y: auto;">
+            <div class="vocab-list">
+                <div class="vocab-item"><span class="vocab-eng">How’s everything going?</span><span class="vocab-vie">→ Dạo này mọi thứ thế nào rồi?</span></div>
+                <div class="vocab-item"><span class="vocab-eng">It’s great to hear from you</span><span class="vocab-vie">→ Thật vui khi nhận tin tức từ bạn</span></div>
+                <div class="vocab-item"><span class="vocab-eng">I hope you had a great weekend/holiday</span><span class="vocab-vie">→ Mình hy vọng bạn đã có cuối tuần/kỳ nghỉ tuyệt vời</span></div>
+                <div class="vocab-item"><span class="vocab-eng">I am sorry for replying so late</span><span class="vocab-vie">→ Xin lỗi vì trả lời muộn</span></div>
+                <div class="vocab-item"><span class="vocab-eng">I am writing this letter to…</span><span class="vocab-vie">→ Tôi viết thư này để…</span></div>
+                <div class="vocab-item"><span class="vocab-eng">First of all, / To begin with, / Firstly</span><span class="vocab-vie">→ Đầu tiên là</span></div>
+                <div class="vocab-item"><span class="vocab-eng">Besides, / In addition, / Moreover,</span><span class="vocab-vie">→ Ngoài ra / Thêm vào đó / Hơn thế nữa</span></div>
+                <div class="vocab-item"><span class="vocab-eng">However</span><span class="vocab-vie">→ Tuy nhiên</span></div>
+                <div class="vocab-item"><span class="vocab-eng">For example, / For instance,</span><span class="vocab-vie">→ Ví dụ</span></div>
+                <div class="vocab-item"><span class="vocab-eng">Fortunately, / Luckily</span><span class="vocab-vie">→ May mắn thay</span></div>
+                <div class="vocab-item"><span class="vocab-eng">Unfortunately,</span><span class="vocab-vie">→ Không may mắn thay</span></div>
+                <div class="vocab-item"><span class="vocab-eng">Finally,</span><span class="vocab-vie">→ Cuối cùng thì</span></div>
+                <div class="vocab-item"><span class="vocab-eng">Hope to see you soon</span><span class="vocab-vie">→ Mong sớm được gặp bạn</span></div>
+            </div>
+        </div>
+        <div class="nav-buttons-footer">
+            <button class="btn-nav-arrow" onclick="showSection('structure')">🎨 ⬅ Cấu trúc</button>
+            <button class="btn-nav-arrow" onclick="tryNavigatePractice()">Luyện tập ➔</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Hàm âm thanh click tinh tinh trong trẻo
+    function playClickSound() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime);
+            gain.gain.setValueAtTime(0.04, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+            osc.start(); osc.stop(ctx.currentTime + 0.1);
+        } catch(e) {}
+    }
+
+    // Quản lý chuyển đổi màn hình mượt mà giữa các mục con
+    function showSection(sectionId) {
+        playClickSound();
+        
+        // Ẩn tất cả các màn hình
+        document.getElementById('screen-main').style.display = 'none';
+        document.getElementById('screen-structure').style.display = 'none';
+        document.getElementById('screen-connectors').style.display = 'none';
+        
+        // Hiển thị thanh nút quay lại và màn hình được chọn
+        document.getElementById('top-navigation').style.display = 'flex';
+        if(sectionId === 'structure') {
+            document.getElementById('screen-structure').style.display = 'block';
+        } else if(sectionId === 'connectors') {
+            document.getElementById('screen-connectors').style.display = 'block';
+        }
+    }
+
+    // Quay lại màn hình lựa chọn chính của bức thư
+    function backToMainMenu() {
+        playClickSound();
+        document.getElementById('screen-structure').style.display = 'none';
+        document.getElementById('screen-connectors').style.display = 'none';
+        document.getElementById('top-navigation').style.display = 'none';
+        document.getElementById('screen-main').style.display = 'block';
+    }
+
+    // Tự động kiểm tra và kết nối với file thực hành trong tương lai
+    function tryNavigatePractice() {
+        playClickSound();
+        const practiceUrl = 'informal_practice.html';
+        
+        fetch(practiceUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = practiceUrl;
+            } else {
+                alert("Nội dung Thực hành bài mẫu đang được phát triển, tinh tinh! 🐒 Bạn hãy học kỹ phần Cấu trúc và Từ nối trước nhé!");
+            }
+        })
+        .catch(() => {
+            alert("Nội dung Thực hành bài mẫu đang được phát triển, tinh tinh! 🐒 Bạn hãy học kỹ phần Cấu trúc và Từ nối trước nhé!");
+        });
+    }
+</script>
+
+</body>
+</html>
