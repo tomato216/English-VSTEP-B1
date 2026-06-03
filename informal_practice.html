@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSTEP Writing - Informal Letter Practice</title>
+    <style>
+        :root {
+            --primary-color: #a0522d;
+            --dark-color: #4a2711;
+            --bg-color: #fcf8f2;
+            --accent-color: #cd853f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .main-box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(74, 39, 17, 0.12);
+            width: 100%;
+            max-width: 650px;
+            border: 3px solid #e6ccb2;
+            box-sizing: border-box;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f4ebe1;
+            padding-bottom: 10px;
+        }
+
+        .btn-top-back {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .topic-selector {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #e6ccb2;
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--dark-color);
+            background-color: #fffbf7;
+            margin-bottom: 15px;
+        }
+
+        .prompt-box {
+            background-color: #fffbf7;
+            border-left: 5px solid var(--primary-color);
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        /* Hệ thống Tab hiển thị nội dung */
+        .tab-container {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e6ccb2;
+            border-bottom: none;
+            background-color: #f4ebe1;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            color: #6d594f;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .tab-btn.active {
+            background-color: white;
+            color: var(--dark-color);
+            border-color: #e6ccb2 #e6ccb2 white #e6ccb2;
+        }
+
+        .tab-content {
+            border: 2px solid #e6ccb2;
+            border-radius: 0 0 12px 12px;
+            padding: 20px;
+            background: white;
+            margin-top: -17px;
+            margin-bottom: 20px;
+            min-height: 150px;
+        }
+
+        .letter-display {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            white-space: pre-line;
+            color: #2b1d15;
+            font-size: 15px;
+        }
+
+        /* Giao diện làm bài tập gõ chữ */
+        .interactive-workspace {
+            line-height: 2.2;
+            font-size: 16px;
+            color: #333;
+            text-align: justify;
+        }
+
+        /* Ô nhập liệu từ trống */
+        .blank-input {
+            width: 110px;
+            padding: 2px 8px;
+            border: none;
+            border-bottom: 2px solid var(--accent-color);
+            background-color: #fffdfa;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: bold;
+            color: #b91c1c;
+            text-align: center;
+            outline: none;
+        }
+
+        .blank-input:focus {
+            background-color: #fffbeb;
+            border-bottom-color: var(--dark-color);
+        }
+
+        /* Ô nhập liệu câu trống Level 2 */
+        .sentence-block {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .blank-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .btn-action {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .btn-action:hover {
+            background-color: var(--dark-color);
+        }
+
+        /* Khung hiển thị kết quả lỗi sai */
+        .review-box {
+            background-color: #fef2f2;
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #fee2e2;
+            padding-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background-color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .grammar-section {
+            margin-bottom: 15px;
+        }
+        .grammar-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-box">
+    <!-- TOP NAV NAVIGATION -->
+    <div class="top-nav">
+        <button class="btn-top-back" onclick="window.location.href='informal_letter.html'">⬅ Quay lại Menu</button>
+        <div id="level-display-badge" class="level-badge">Chế độ: Đọc Bài Mẫu</div>
+    </div>
+
+    <!-- BỘ CHỌN CHỦ ĐỀ ĐỀ BÀI -->
+    <select id="topicDropdown" class="topic-selector" onchange="loadTopic()">
+        <option value="0">Đề 1: Traditional festival in your country (Tết)</option>
+        <option value="1">Đề 2: Historical site in Vietnam (Lăng Bác)</option>
+        <option value="2">Đề 3: Introduce your pet (Chú chó Bông)</option>
+        <option value="3">Đề 4: Member of your family (Người mẹ)</option>
+        <option value="4">Đề 5: Introduce your hometown (Hưng Yên)</option>
+    </select>
+
+    <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
+
+    <!-- KHU VỰC CHẾ ĐỘ ĐỌC BÀI MẪU (TAB VIEW) -->
+    <div id="study-zone">
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="switchTab('sample')">📝 Bài Mẫu</button>
+            <button class="tab-btn" onclick="switchTab('translation')">🇻🇳 Bản Dịch</button>
+            <button class="tab-btn" onclick="switchTab('grammar')">📐 Ngữ Pháp & Từ Nối</button>
+        </div>
+        
+        <div class="tab-content">
+            <div id="tab-sample" class="letter-display"></div>
+            <div id="tab-translation" class="letter-display" style="display:none; color: #555; font-style: italic;"></div>
+            <div id="tab-grammar" style="display:none;"></div>
+        </div>
+
+        <button class="btn-action" onclick="startLevel1()">🔥 Bắt đầu Luyện tập Cấp độ 1</button>
+    </div>
+
+    <!-- KHU VỰC THỰC HÀNH TƯƠNG TÁC (LEVEL 1 & LEVEL 2) -->
+    <div id="practice-zone" style="display: none;">
+        <div id="workspace-container" class="interactive-workspace"></div>
+        
+        <div id="result-feedback-box" class="review-box" style="display: none;"></div>
+        
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+            <button id="btn-submit-practice" class="btn-action" onclick="gradePractice()">Chấm Điểm Bài Làm</button>
+            <button id="btn-redo-errors" class="btn-action" style="display:none; background-color: #dc2626;" onclick="redoWrongAnswers()">🔥 Làm Lại Câu Sai</button>
+            <button id="btn-next-level" class="btn-action" style="display:none; background-color: #16a34a;" onclick="askBeforeLevel2()">Tiến tới Level 2 ➔</button>
+            <button id="btn-back-to-study" class="btn-action" style="display:none; background-color: #4b5563;" onclick="resetToStudyMode()">Quay lại Đọc hiểu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DỮ LIỆU TOÀN BỘ 5 BÀI MẪU NGỮ PHÁP DỊCH NGHĨA KHÔNG THIẾU MỘT CHỮ
+    const dataset = [
+        {
+            prompt: "Write a letter introduce about a traditional festival in your country",
+            sample: `Dear Putin,\n\nHow are you? So, I hope everything is fine for you. I am very happy to receive your letter. I am writing this letter to tell you about a traditional festival in my country.\n\nYou know, I live in Vietnam, a beautiful country with kind people. Not only that, we have a unique Lunar New Year called Tết. Firstly, people clean their houses and go Tet shopping like Christmas in your country, they buy many things, such as food, decorations and clothes, etc.\n\nMoreover, Tet is also a special occasion for family members to gather together to give each other best wishes. During Tet, we enjoy traditional food like Chung cake, sticky rice and boiled chicken. Besides, children are given lucky money by adults, which is a symbol of luck and success.\n\nThat is all for now. How about traditional holidays in your country? I am looking forward to hearing from you soon.\n\nTake care,\n\nBinh`,
+            translation: `Thân gửi Putin,\n\nBạn khỏe không? Mình hy vọng mọi thứ đều tốt đẹp với bạn. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một lễ hội truyền thống ở đất nước mình.\n\nBạn biết đấy, mình sống ở Việt Nam, một đất nước xinh đẹp với những con người nhân hậu. Không chỉ vậy, chúng mình còn có một Tết Nguyên Đán độc đáo gọi là Tết. Đầu tiên, mọi người dọn dẹp nhà cửa và đi sắm Tết giống như Giáng sinh ở nước bạn vậy, họ mua nhiều thứ như thức ăn, đồ trang trí và quần áo, v.v.\n\nHơn nữa, Tết cũng là dịp đặc biệt để các thành viên trong gia đình quây quần bên nhau, trao cho nhau những lời chúc tốt đẹp nhất. Trong suốt dịp Tết, chúng mình thưởng thức những món ăn truyền thống như bánh Chưng, xôi và gà luộc. Ngoài ra, trẻ em được người lớn tặng tiền lì xì, đây là biểu tượng của sự may mắn và thành công.\n\nHiện tại thế thôi nhé. Còn các ngày lễ truyền thống ở nước bạn thì sao? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nGiữ gìn sức khỏe nhé,\n\nBình`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
+            • I hope + mệnh đề (I hope everything is fine for you.)<br>
+            • be happy + to V (I am happy to receive your letter.)<br>
+            • be writing + to V (I am writing this letter to tell you about...)<br>
+            • Not only that, + mệnh đề (Not only that, we have a unique Lunar New Year.)<br>
+            • such as + N (such as food, decorations and clothes.)<br>
+            • occasion for sb + to V (a special occasion for family members to gather together.)<br>
+            • enjoy + N/V-ing (We enjoy traditional food.)<br>
+            • Bị động: S + be + V3/ed + by + O (Children are given lucky money by adults.)<br>
+            • Mệnh đề quan hệ: which + V (..., which is a symbol of luck and success.)<br>
+            • During + N (During Tet...)<br>
+            • look forward to + V-ing (I am looking forward to hearing from you soon.)<br>
+            • How about + N/V-ing? (How about traditional holidays in your country?)<br>
+            <div class="grammar-title">Từ nối dùng trong bài:</div> So, Firstly, Not only that, Moreover, Besides, During Tet, That is all for now, How about...?`
+        },
+        {
+            prompt: "Your foreign friend wants to know about a historical site in Vietnam. Write a letter (about 120–150 words) to introduce a historical site in your country.",
+            sample: `Dear Ronaldo,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about a famous historical site in Vietnam.\n\nOne of the most popular historical sites in my country is Ho Chi Minh Mausoleum in Hanoi. It is a special place where people can learn more about President Ho Chi Minh, a great leader of Vietnam.\n\nFirstly, the mausoleum is large and beautiful. Every year, many visitors come here to pay respect to him. Moreover, there are many interesting places nearby, such as Ba Dinh Square and Ho Chi Minh Museum.\n\nBesides, this site helps young people understand more about Vietnamese history. Therefore, it is an important place for both local people and tourists.\n\nThat is all for now. Have you ever visited a historical site in your country? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nBinh`,
+            translation: `Thân gửi Ronaldo,\n\nBạn khỏe không? Mình hy vọng bạn đang có khoảng thời gian tốt đẹp. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về một di tích lịch sử nổi tiếng ở Việt Nam.\n\nMột trong những di tích lịch sử phổ biến nhất ở đất nước mình là Lăng Chủ tịch Hồ Chí Minh tại Hà Nội. Đây là một nơi đặc biệt nơi mọi người có thể tìm hiểu thêm về Chủ tịch Hồ Chí Minh, một vị lãnh tụ vĩ đại của Việt Nam.\n\nTrước hết, lăng rất lớn và đẹp. Mỗi năm, nhiều du khách đến đây để tỏ lòng kính trọng đối với Người. Hơn nữa, có rất nhiều địa điểm thú vị gần đó, chẳng hạn như Quảng trường Ba Đình và Bảo tàng Hồ Chí Minh.\n\nBên cạnh đó, di tích này giúp giới trẻ hiểu thêm về lịch sử Việt Nam. Vì vậy, nó là một địa điểm quan trọng đối với cả người dân địa phương và khách du lịch.\n\nBây giờ thế thôi nhé. Bạn đã từng đến thăm một di tích lịch sử nào ở nước bạn chưa? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nChúc mọi điều tốt đẹp,\n\nBình`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
+            • One of the most + adj + N số nhiều (One of the most popular historical sites...)<br>
+            • Đại từ quan hệ: place where + mệnh đề (place where people can learn...)<br>
+            • help + sb + V nguyên mẫu (helps young people understand...)<br>
+            • both A and B: Cả A và B (for both local people and tourists.)<br>
+            • Hiện tại hoàn thành: Have you ever + V3/ed? (Have you ever visited...)<br>
+            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, Such as, That is all for now, Have you ever...?`
+        },
+        {
+            prompt: "Your foreign friend wants to know about your pet. Write a letter (120–150 words) to introduce your pet.",
+            sample: `Dear Trump,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my pet.\n\nI have a lovely dog named Bong. She is a white Poodle with soft and fluffy fur. She is small, cute, and very friendly. Firstly, Bong likes playing with balls and running around the yard. Moreover, she is very smart and can understand some simple commands.\n\nBesides, Bong always stays with me when I am at home. She makes me happy whenever I feel tired or stressed. I often take her for a walk in the park every evening. Therefore, she is not only my pet but also my best friend.\n\nThat is all for now. Do you have a pet in your home? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nAn`,
+            translation: `Thân gửi Trump,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về thú cưng của mình.\n\nMình có một chú chó rất đáng yêu tên là Bông. Nó là một chú chó Poodle màu trắng với bộ lông mềm mại và bồng bềnh. Nó nhỏ nhắn, dễ thương và rất thân thiện. Đầu tiên, Bông thích chơi với bóng và chạy quanh sân. Hơn nữa, nó rất thông minh và có thể hiểu được một số câu lệnh đơn giản.\n\nNgoài ra, Bông luôn ở bên cạnh mình khi mình ở nhà. Nó làm mình vui vẻ mỗi khi mình cảm thấy mệt mỏi hay căng thẳng. Mình thường dẫn nó đi dạo trong công viên mỗi buổi tối. Vì vậy, nó không chỉ là thú cưng mà còn là người bạn thân nhất của mình.\n\nBây giờ vậy thôi nhé. Bạn có nuôi thú cưng trong nhà không? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nThân ái,\n\nAn`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
+            • Rút gọn mệnh đề: named + tên (a lovely dog named Bong)<br>
+            • like + V-ing (likes playing with balls)<br>
+            • make + sb + adj (makes me happy)<br>
+            • take sb for a walk: Dẫn ai đi dạo (take her for a walk)<br>
+            • not only A but also B: Không những A mà còn B (not only my pet but also my best friend.)<br>
+            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
+        },
+        {
+            prompt: "Your foreign friend wants to know about a member of your family. Write a letter (120–150 words) to introduce one of them.",
+            sample: `Dear Pepsi,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my mother.\n\nMy mother is the most important person in my family. She is 45 years old and works as a teacher. She is kind, hardworking, and friendly. Firstly, she always takes care of our family and helps me with many things. Moreover, she works very hard every day to support our family.\n\nBesides, my mother often gives me useful advice when I have problems. She always encourages me to study hard and become a good person. Therefore, I love and respect her very much.\n\nThat is all for now. How about your mother? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nMinh`,
+            translation: `Thân gửi Pepsi,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về mẹ của mình.\n\nMẹ là người quan trọng nhất trong gia đình mình. Mẹ 45 tuổi và làm nghề giáo viên. Mẹ rất hiền từ, chăm chỉ và thân thiện. Đầu tiên, mẹ luôn chăm sóc cho gia đình và giúp đỡ mình nhiều thứ. Hơn nữa, mẹ làm việc rất vất vả mỗi ngày để nuôi nấng gia đình mình.\n\nBên cạnh đó, mẹ thường cho mình những lời khuyên bổ ích khi mình gặp rắc rối. Mẹ luôn khuyến khích mình học tập chăm chỉ và trở thành một người tốt. Vì vậy, mình rất yêu thương và kính trọng mẹ.\n\nHiện tại thế thôi nhé. Còn mẹ của bạn thì sao? Mình rất mong sớm nhận được thư từ bạn.\n\nThân ái,\n\nMinh`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
+            • So sánh nhất: the most + adj dài + N (the most important person)<br>
+            • work as + nghề nghiệp: làm nghề gì (works as a teacher)<br>
+            • take care of + sb: chăm sóc ai (takes care of our family)<br>
+            • help sb with sth: giúp ai việc gì (helps me with many things)<br>
+            • encourage sb to V: khuyến khích ai làm gì (encourages me to study hard)<br>
+            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, That is all for now.`
+        },
+        {
+            prompt: "Your foreign friend wants to know about your hometown. Write a letter (120–150 words) to introduce your hometown.",
+            sample: `Dear Messi,\n\nHow are you? I hope you are doing well. I am very happy to receive your letter. I am writing to tell you about my hometown.\n\nMy hometown is Hung Yen, a peaceful province in the north of Vietnam. It is famous for its long history, beautiful countryside, and friendly people. Firstly, Hung Yen has many interesting places to visit, such as temples, pagodas, and traditional villages. Moreover, the weather is pleasant, and the environment is quiet and clean.\n\nBesides, Hung Yen is well known for its delicious food and fresh fruits, especially longan, which is a popular local specialty. Many visitors come here every year to enjoy the local culture and food. Therefore, I am very proud of my hometown.\n\nThat is all for now. What is your hometown like? I am looking forward to hearing from you soon.\n\nBest wishes,\n\nPhuc`,
+            translation: `Thân gửi Messi,\n\nBạn khỏe không? Mình hy vọng bạn đang khỏe. Mình rất vui khi nhận được thư của bạn. Mình viết thư này để kể cho bạn nghe về quê hương của mình.\n\nQuê hương mình là Hưng Yên, một tỉnh thành thanh bình ở miền Bắc Việt Nam. Nơi đây nổi tiếng với lịch sử lâu đời, vùng nông thôn xinh đẹp và những con người thân thiện. Trước hết, Hưng Yên có nhiều địa điểm thú vị để tham quan như đền, chùa và các làng nghề truyền thống. Hơn nữa, thời tiết rất dễ chịu, môi trường thì yên tĩnh và sạch sẽ.\n\nBên cạnh đó, Hưng Yên còn nổi tiếng với những món ăn ngon và trái cây tươi, đặc biệt là nhãn lồng, một sản vật địa phương phổ biến. Nhiều du khách đến đây hàng năm để thưởng thức văn hóa và ẩm thực địa phương. Vì vậy, mình rất tự hào về quê hương của mình.\n\nHiện tại thế thôi nhé. Quê hương của bạn như thế nào? Mình rất mong sớm nhận được phản hồi từ bạn.\n\nThân ái,\n\nPhúc`,
+            grammar: `<div class="grammar-title">Cấu trúc ngữ pháp:</div>
+            • be famous for / be well known for + N: nổi tiếng vì cái gì<br>
+            • S + be + proud of + N: tự hào về điều gì (proud of my hometown)<br>
+            • come + nơi chốn + to V: đến đâu để làm gì (come here every year to enjoy...)<br>
+            • What + is + S + like?: Ai/Cái gì trông như thế nào? (What is your hometown like?)<br>
+            <div class="grammar-title">Từ nối dùng trong bài:</div> Firstly, Moreover, Besides, Therefore, such as, That is all for now.`
+        }
+    ];
+
+    let currentTopicIndex = 0;
+    let currentLevel = 0; // 0: Đọc hiểu, 1: Từ trống, 2: Câu trống
+    let level1BlanksData = []; // Lưu trữ đáp án đúng cho level 1
+    let level2LinesData = [];  // Lưu trữ đáp án đúng cho level 2
+    let wrongPool = [];        // Lưu các câu/từ sai để làm lại
+
+    function playSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(900, ctx.currentTime);
+            gain.gain.setValueAtTime(0.03, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+            osc.start(); osc.stop(ctx.currentTime + 0.08);
+        } catch(e){}
+    }
+
+    function loadTopic() {
+        currentTopicIndex = parseInt(document.getElementById('topicDropdown').value);
+        resetToStudyMode();
+    }
+
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('tab-sample').style.display = tabName === 'sample' ? 'block' : 'none';
+        document.getElementById('tab-translation').style.display = tabName === 'translation' ? 'block' : 'none';
+        document.getElementById('tab-grammar').style.display = tabName === 'grammar' ? 'block' : 'none';
+    }
+
+    function resetToStudyMode() {
+        currentLevel = 0;
+        document.getElementById('level-display-badge').innerText = "Chế độ: Đọc Bài Mẫu";
+        document.getElementById('level-display-badge').style.backgroundColor = '#cd853f';
+        
+        let data = dataset[currentTopicIndex];
+        document.getElementById('prompt-text-display').innerText = data.prompt;
+        document.getElementById('tab-sample').innerText = data.sample;
+        document.getElementById('tab-translation').innerText = data.translation;
+        document.getElementById('tab-grammar').innerHTML = data.grammar;
+
+        document.getElementById('study-zone').style.display = 'block';
+        document.getElementById('practice-zone').style.display = 'none';
+        document.getElementById('result-feedback-box').style.display = 'none';
+        document.getElementById('btn-redo-errors').style.display = 'none';
+        document.getElementById('btn-next-level').style.display = 'none';
+        document.getElementById('btn-back-to-study').style.display = 'none';
+        document.getElementById('btn-submit-practice').style.display = 'block';
+    }
+
+    // LEVEL 1: ĐIỀN TỪ VÀO CHỖ TRỐNG (10-15 TỪ NGẪU NHIÊN CHỌN TỪ TOÀN BÀI)
+    function startLevel1(forceWords = null) {
+        playSound();
+        currentLevel = 1;
+        document.getElementById('level-display-badge').innerText = "Cấp độ 1: Điền Từ Khuyết";
+        document.getElementById('level-display-badge').style.backgroundColor = '#a0522d';
+        document.getElementById('study-zone').style.display = 'none';
+        document.getElementById('practice-zone').style.display = 'block';
+        
+        let text = dataset[currentTopicIndex].sample;
+        // Tách từ nhưng giữ cấu trúc xuống dòng
+        let tokens = text.split(/(\s+)/);
+        
+        // Lọc ra các chỉ số token là từ thực sự (có ký tự chữ cái) để làm trống
+        let wordIndices = [];
+        tokens.forEach((token, idx) => {
+            if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
+                wordIndices.push(idx);
+            }
+        });
+
+        // Chọn ngẫu nhiên khoảng 12 từ để ẩn
+        let chosenIndices = [];
+        if(forceWords) {
+            chosenIndices = forceWords;
+        } else {
+            wordIndices.sort(() => Math.random() - 0.5);
+            chosenIndices = wordIndices.slice(0, Math.min(13, wordIndices.length));
+        }
+
+        level1BlanksData = [];
+        let htmlContent = "";
+
+        tokens.forEach((token, idx) => {
+            if(chosenIndices.includes(idx)) {
+                // Tách phần ký tự đặc biệt/dấu câu ở rìa từ nếu có (ví dụ: Putin, hoặc Tết.)
+                let cleanWord = token.replace(/[^a-zA-ZÀ-ỹ]/g, "");
+                let rawWord = token;
+                
+                level1BlanksData.push({
+                    index: idx,
+                    correctClean: cleanWord.toLowerCase().trim(),
+                    originalToken: token
+                });
+
+                let placeholderStr = `Từ ${level1BlanksData.length}`;
+                // Giữ lại cấu trúc dấu câu hiển thị bên cạnh ô input
+                let inputHTML = token.replace(cleanWord, `<input type="text" class="blank-input" data-blankidx="${level1BlanksData.length - 1}" placeholder="${placeholderStr}">`);
+                htmlContent += inputHTML;
+            } else {
+                // Thay thế ký tự xuống dòng bằng thẻ break để hiển thị định dạng thư đẹp mắt
+                htmlContent += token.replace(/\n/g, "<br>");
+            }
+        });
+
+        document.getElementById('workspace-container').innerHTML = htmlContent;
+        document.getElementById('result-feedback-box').style.display = 'none';
+    }
+
+    // LEVEL 2: ĐIỀN CÂU THEO ĐOẠN (ẨN 30% - 50% SỐ CÂU ĐỘNG)
+    function askBeforeLevel2() {
+        playSound();
+        if(confirm("Chúc mừng bạn vượt qua Cấp độ 1! 🎉\nBạn có muốn đọc lại bài mẫu một lượt trước khi bước vào thử thách Điền Câu Cấp độ 2 không?")) {
+            resetToStudyMode();
+        } else {
+            startLevel2();
+        }
+    }
+
+    function startLevel2(forceLines = null) {
+        currentLevel = 2;
+        document.getElementById('level-display-badge').innerText = "Cấp độ 2: Thử Thách Điền Câu";
+        document.getElementById('level-display-badge').style.backgroundColor = '#16a34a';
+        
+        let text = dataset[currentTopicIndex].sample;
+        // Chia bài viết thành các câu dựa vào dấu chấm, hỏi chấm, xuống dòng
+        let sentences = text.split(/(?<=[.!?])\s*\n*|(?<=\n)/);
+        sentences = sentences.filter(s => s.trim().length > 0);
+
+        let sentenceIndices = [];
+        sentences.forEach((s, i) => {
+            if(s.trim().length > 10) sentenceIndices.push(i);
+        });
+
+        // Ẩn ngẫu nhiên khoảng 35% số câu có nghĩa
+        let chosenLineIndices = [];
+        if(forceLines) {
+            chosenLineIndices = forceLines;
+        } else {
+            sentenceIndices.sort(() => Math.random() - 0.5);
+            chosenLineIndices = sentenceIndices.slice(0, Math.ceil(sentenceIndices.length * 0.4));
+        }
+
+        level2LinesData = [];
+        let htmlContent = "";
+
+        sentences.forEach((sentence, idx) => {
+            let formattedDisplay = sentence.replace(/\n/g, "<br>");
+            if(chosenLineIndices.includes(idx)) {
+                level2LinesData.push({
+                    index: idx,
+                    correctText: sentence.trim(),
+                    cleanText: sentence.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().trim()
+                });
+                
+                htmlContent += `<div class="sentence-block">
+                    <span style="font-size:13px; color:var(--primary-color); font-weight:bold;">[Gõ lại nguyên câu khuyết số ${level2LinesData.length} tại đây]:</span>
+                    <textarea class="blank-textarea" rows="2" data-lineidx="${level2LinesData.length - 1}" placeholder="Nhập trọn vẹn cả câu..."></textarea>
+                </div>`;
+            } else {
+                htmlContent += `<p style="margin:5px 0; display:inline;">${formattedDisplay} </p>`;
+            }
+            if(sentence.includes('\n')) htmlContent += "<br>";
+        });
+
+        document.getElementById('workspace-container').innerHTML = htmlContent;
+        document.getElementById('result-feedback-box').style.display = 'none';
+        document.getElementById('btn-next-level').style.display = 'none';
+        document.getElementById('btn-submit-practice').style.display = 'block';
+    }
+
+    // HỆ THỐNG CHẤM ĐIỂM BÀI LÀM TỰ ĐỘNG
+    function gradePractice() {
+        playSound();
+        let feedbackHTML = "";
+        let correctCount = 0;
+        wrongPool = [];
+
+        if(currentLevel === 1) {
+            let inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach(input => {
+                let bIdx = parseInt(input.getAttribute('data-blankidx'));
+                let target = level1BlanksData[bIdx];
+                let userVal = input.value.replace(/[^a-zA-ZÀ-ỹ]/g, "").toLowerCase().trim();
+
+                if(userVal === target.correctClean) {
+                    correctCount++;
+                    input.style.backgroundColor = '#d1fae5';
+                    input.style.borderColor = '#10b981';
+                } else {
+                    input.style.backgroundColor = '#fee2e2';
+                    input.style.borderColor = '#ef4444';
+                    wrongPool.push(target.index); // Lưu chỉ số từ sai
+                }
+            });
+
+            feedbackHTML = `<b>Kết quả Level 1:</b> Đúng <b>${correctCount}/${level1BlanksData.length}</b> từ khuyết.<br>`;
+            if(wrongPool.length > 0) {
+                feedbackHTML += `<span style="color:#b91c1c;">Bạn có một số từ chưa chính xác. Đừng lo lắng, hãy làm lại nhé!</span>`;
+                document.getElementById('btn-redo-errors').style.display = 'block';
+            } else {
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Tuyệt hảo! Bộ nhớ từ vựng của bạn siêu chuẩn! 🥳</span>`;
+                document.getElementById('btn-redo-errors').style.display = 'none';
+                document.getElementById('btn-next-level').style.display = 'block';
+            }
+        } 
+        else if(currentLevel === 2) {
+            let textareas = document.querySelectorAll('.blank-textarea');
+            textareas.forEach(box => {
+                let lIdx = parseInt(box.getAttribute('data-lineidx'));
+                let target = level2LinesData[lIdx];
+                let userVal = box.value.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().trim();
+
+                if(userVal === target.cleanText) {
+                    correctCount++;
+                    box.style.backgroundColor = '#d1fae5';
+                    box.style.borderColor = '#10b981';
+                } else {
+                    box.style.backgroundColor = '#fee2e2';
+                    box.style.borderColor = '#ef4444';
+                    wrongPool.push(target.index); // Lưu chỉ số câu sai
+                }
+            });
+
+            feedbackHTML = `<b>Kết quả Level 2:</b> Khớp chính xác <b>${correctCount}/${level2LinesData.length}</b> câu hoàn chỉnh.<br>`;
+            if(wrongPool.length > 0) {
+                feedbackHTML += `<div style="margin-top:10px; font-size:13px; color:#4a2711;"><b>Gợi ý đáp án đúng cho câu sai:</b><br>`;
+                level2LinesData.forEach((item, i) => {
+                    if(wrongPool.includes(item.index)) {
+                        feedbackHTML += `• Câu ${i+1}: <i>"${item.correctText}"</i><br>`;
+                    }
+                });
+                feedbackHTML += `</div>`;
+                document.getElementById('btn-redo-errors').style.display = 'block';
+            } else {
+                feedbackHTML += `<span style="color:#15803d; font-weight:bold;">Xuất sắc vượt qua thử thách viết! Bạn đã làm chủ hoàn toàn bài luận này! 🔴❤️</span>`;
+                document.getElementById('btn-redo-errors').style.display = 'none';
+                document.getElementById('btn-back-to-study').style.display = 'block';
+            }
+        }
+
+        let fBox = document.getElementById('result-feedback-box');
+        fBox.innerHTML = feedbackHTML;
+        fBox.style.display = 'block';
+    }
+
+    // CHỨC NĂNG LÀM LẠI CÁC CÂU HOẶC TỪ ĐÃ GÕ SAI
+    function redoWrongAnswers() {
+        if(wrongPool.length === 0) return;
+        let originalWrong = [...wrongPool];
+        
+        if(currentLevel === 1) {
+            startLevel1(originalWrong);
+        } else if(currentLevel === 2) {
+            startLevel2(originalWrong);
+        }
+        document.getElementById('btn-redo-errors').style.display = 'none';
+    }
+
+    // Khởi chạy bài học ban đầu
+    loadTopic();
+</script>
+
+</body>
+</html>
