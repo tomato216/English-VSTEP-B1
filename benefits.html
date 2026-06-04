@@ -6,10 +6,10 @@
     <title>VSTEP Writing B1 - Benefits Paragraphs</title>
     <style>
         :root {
-            --primary-color: #10b981; /* Xanh ngọc lục bảo tươi tắn, năng lượng tích cực */
-            --dark-color: #064e3b;    /* Xanh đậm quý phái, sắc nét */
-            --bg-color: #f0fdf4;      /* Nền xanh lá siêu nhạt, cực kỳ dịu mắt */
-            --accent-color: #34d399;  /* Màu nhấn xanh mint mềm mại */
+            --primary-color: #10b981; /* Xanh ngọc lục bảo chủ đạo dạng Benefits */
+            --dark-color: #064e3b;    /* Xanh lá đậm */
+            --bg-color: #f0fdf4;      /* Nền nhạt dịu mắt */
+            --accent-color: #34d399;
         }
 
         body {
@@ -22,45 +22,16 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            position: relative;
-            overflow-x: hidden;
         }
 
-        /* Hiệu ứng các điểm sáng năng lượng xanh rơi nhẹ ở phông nền */
-        .petal {
-            position: absolute;
-            background-color: #a7f3d0;
-            border-radius: 50%;
-            opacity: 0.5;
-            pointer-events: none;
-            animation: fade 6s infinite linear, float 6s infinite ease-in-out;
-        }
-
-        @keyframes fade {
-            0% { top: -10px; opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { top: 100%; opacity: 0; }
-        }
-
-        @keyframes float {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(30px); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Khung chứa giao diện chính của bài học */
         .main-box {
             background-color: white;
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(6, 78, 59, 0.05);
             width: 100%;
-            max-width: 550px;
-            text-align: left;
-            border: 2px solid #class #ced4da;
-            border-color: #a7f3d0;
-            z-index: 10;
-            position: relative;
+            max-width: 600px;
+            border: 2px solid #a7f3d0;
         }
 
         .header-section {
@@ -78,47 +49,160 @@
             color: var(--dark-color);
             margin: 5px 0;
             font-size: 24px;
+            text-align: center;
         }
 
-        .topic-selector {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--dark-color);
-            background-color: #fff;
+        .btn-back {
+            background: none;
+            border: none;
+            color: #059669;
             cursor: pointer;
-            outline: none;
-            transition: border-color 0.2s;
+            text-decoration: underline;
+            font-size: 14px;
             margin-bottom: 15px;
+            display: inline-block;
+            padding: 0;
         }
 
-        .topic-selector:focus {
+        /* Giao diện danh sách chủ đề (Màn hình 1) */
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .topic-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .topic-item:hover {
             border-color: var(--primary-color);
+            background-color: #f9fbf9;
+            transform: translateY(-2px);
         }
 
-        .section-title {
-            font-size: 16px;
+        .topic-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .topic-title {
+            font-size: 17px;
             font-weight: bold;
             color: var(--dark-color);
-            margin: 15px 0 8px 0;
-            padding-left: 8px;
-            border-left: 4px solid var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
-        .content-card {
+        .topic-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .topic-status {
+            font-size: 12px;
+            color: #059669;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .arrow-icon {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-left: 15px;
+        }
+
+        /* Giao diện học chi tiết (Màn hình 2) */
+        .prompt-box {
             background-color: #f8fafc;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px 12px 12px 4px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Thanh phân cấp bài tập lớn */
+        .main-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .main-tab {
+            padding: 12px 5px;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            color: #475569;
+        }
+
+        .main-tab.active {
+            background-color: #e2e8f0;
+            color: var(--dark-color);
+            border-color: #94a3b8;
+        }
+
+        /* Thanh phân cấp lý thuyết nhỏ bên trong */
+        .sub-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .sub-tab {
+            padding: 8px 14px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sub-tab.active {
+            color: var(--primary-color);
+        }
+
+        .sub-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Khung hiển thị nội dung học */
+        .display-panel {
+            background-color: #fff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            font-size: 15px;
-            line-height: 1.6;
-            color: #1e293b;
+            padding: 18px;
+            min-height: 200px;
+            margin-bottom: 20px;
         }
 
         .essay-text {
@@ -127,151 +211,126 @@
             line-height: 1.7;
             color: #0f172a;
             text-align: justify;
+            white-space: pre-line;
         }
 
-        /* Thiết kế dạng lưới hoặc bảng nhỏ gọn cho cấu trúc */
         .grid-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .grid-item {
-            background: white;
-            border: 1px solid #e2e8f0;
-            padding: 10px 12px;
-            border-radius: 8px;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .grid-item:last-child {
+            border: none;
         }
 
         .eng-phrase {
             font-weight: bold;
             color: #047857;
+            font-size: 15px;
         }
 
         .vie-phrase {
             color: #475569;
             font-size: 14px;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
-        .bottom-actions {
+        /* Thiết kế phần thực hành điền từ */
+        .practice-container {
             display: flex;
-            gap: 12px;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 12px;
+        .sentence-item {
+            text-align: left;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .blank-input {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
             font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.15s;
-            border: 2px solid transparent;
+            font-weight: 600;
+            color: var(--dark-color);
+            outline: none;
+            width: 160px;
             text-align: center;
         }
 
-        .btn-menu {
-            background-color: #f1f5f9;
-            color: #475569;
-            border-color: #cbd5e1;
+        .blank-input:focus {
+            border-color: var(--primary-color);
         }
 
-        .btn-menu:hover {
-            background-color: #e2e8f0;
-        }
-
-        .btn-finish {
+        .btn-check-ans {
             background-color: var(--primary-color);
             color: white;
-        }
-
-        .btn-finish:hover {
-            background-color: #059669;
-        }
-
-        /* Thống kê từ */
-        .word-count {
-            text-align: right;
-            font-size: 13px;
-            color: #64748b;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: bold;
-            margin-top: -5px;
-            margin-bottom: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-check-ans:hover {
+            background-color: #059669;
         }
     </style>
 </head>
 <body>
 
-<div id="petal-container"></div>
-
 <div class="main-box">
-    <div class="header-section">
-        <div class="benefit-icon">🌟📝</div>
-        <h2>Paragraph Writing</h2>
-        <div style="color: var(--primary-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 3px;">Dạng bài: Benefits (Lợi ích)</div>
+    
+    <div id="screen-menu">
+        <button class="btn-back" onclick="window.location.href='writing.html'">⬅ Quay lại Menu Viết Thư</button>
+        <h2>Select a Benefits Paragraph Topic</h2>
+        <div class="topic-list" id="menu-topics-container"></div>
     </div>
 
-    <select id="topic-select" class="topic-selector" onchange="changeTopic()">
-        <option value="0">Chủ đề 1: Keeping Pets (Nuôi thú cưng)</option>
-        <option value="1">Chủ đề 2: Renewable Energy (Năng lượng tái tạo)</option>
-        <option value="2">Chủ đề 3: Regular Exercise (Tập thể dục thường xuyên)</option>
-        <option value="3">Chủ đề 4: Recycling (Tái chế rác thải)</option>
-    </select>
+    <div id="screen-detail" style="display: none;">
+        <button class="btn-back" onclick="backToMenuList()">⬅ Chọn Chủ Đề Khác</button>
+        <div class="prompt-box" id="prompt-display"></div>
 
-    <div class="section-title">💡 Cấu Trúc Khung Chung</div>
-    <div class="content-card" style="font-size:14px; max-height: 150px; overflow-y: auto;">
-        <b>1. Mở đoạn:</b><br>
-        • <i>[Topic] brings many great benefits to our modern lives.</i><br>
-        • <i>There are many positive effects of [Topic] on our society.</i><br>
-        <b>2. Thân đoạn (Luận điểm & Từ nối):</b><br>
-        • <i>First of all, it helps... / Furthermore, it can... / In addition, ... / Last but not least, ...</i><br>
-        <b>3. Kết đoạn:</b><br>
-        • <i>In conclusion, [Topic] is very helpful, and we should use it effectively.</i>
-    </div>
+        <div class="main-tabs">
+            <div class="main-tab active" id="tab-btn-0" onclick="switchMainTab(0)">1. Cấu trúc, Từ nối & Bài mẫu</div>
+            <div class="main-tab" id="tab-btn-1" onclick="switchMainTab(1)">2. Cấp độ 1</div>
+            <div class="main-tab" id="tab-btn-2" onclick="switchMainTab(2)">3. Cấp độ 2</div>
+        </div>
 
-    <div class="section-title" id="prompt-title">Đề Bài (120 - 150 từ)</div>
-    <div class="content-card" id="prompt-text" style="font-style: italic; font-weight: 500; color: #475569;"></div>
+        <div class="sub-tabs" id="theory-sub-tabs">
+            <button class="sub-tab active" id="sub-btn-0" onclick="switchSubTab(0)">📐 1. Cấu trúc</button>
+            <button class="sub-tab" id="sub-btn-1" onclick="switchSubTab(1)">🔗 2. Từ nối</button>
+            <button class="sub-tab" id="sub-btn-2" onclick="switchSubTab(2)">📝 3. Thực hành bài mẫu</button>
+        </div>
 
-    <div class="section-title">✍️ Bài Viết Mẫu Chuẩn VSTEP B1</div>
-    <div class="content-card essay-text" id="essay-content"></div>
-    <div class="word-count" id="word-count-text">Số từ: 0 words</div>
-
-    <div class="section-title">🔍 Ngữ Pháp Cốt Lõi</div>
-    <div class="content-card" style="max-height: 180px; overflow-y: auto;">
-        <div class="grid-list" id="grammar-list"></div>
-    </div>
-
-    <div class="section-title">🔗 Từ Nối Sử Dụng (Connectors)</div>
-    <div class="content-card">
-        <div class="grid-list" id="connectors-list" style="grid-template-columns: 1fr 1fr;"></div>
-    </div>
-
-    <div class="bottom-actions">
-        <button class="btn btn-menu" onclick="goToMenu()">⬅ Menu chính</button>
-        <button class="btn btn-finish" onclick="markAsFinished()">✅ Đã học xong bài này</button>
+        <div class="display-panel" id="panel-content"></div>
     </div>
 </div>
 
 <script>
-    // DATA TOÀN BỘ 4 BÀI VIẾT LỢI ÍCH ĐẦY ĐỦ VÀ CHÍNH XÁC
+    // DATA 4 BÀI VÀ CÁC CẤP ĐỘ THỰC HÀNH TƯƠNG ỨNG ĐẦY ĐỦ DỊCH TIẾNG VIỆT
     const benefitsData = [
         {
-            topicName: "Keeping Pets",
-            prompt: "Many people enjoy keeping pets at home. Write a paragraph (120–150 words) about the benefits of keeping pets.",
+            title: "1. Keeping Pets",
+            desc: "Write a paragraph (120–150 words) about the benefits of keeping pets.",
+            prompt: "Write a paragraph (at least 120 words) about the benefits of keeping pets.",
             essay: "Keeping pets brings many great benefits to our modern lives. First of all, we cannot deny its useful values for our health. Having a pet helps people do more exercise. For example, if you have a dog, you need to walk it in the park every day. Furthermore, pets are excellent friends that can improve our mood. After a hard-working day, playing with popular pets such as cats or dogs is a good way to reduce stress. In addition, keeping pets is very good for families with children. It teaches children how to love animals and care for others. Last but not least, pets make our homes safer because dogs can guard the house. In conclusion, keeping a pet is very helpful, and we should treat them like a member of our family.",
             grammar: [
-                { en: "Keeping + N + V", vi: "Keeping pets brings many great benefits..." },
-                { en: "bring + N", vi: "brings many great benefits (mang lại nhiều lợi ích)" },
-                { en: "cannot deny + N / that + Clause", vi: "We cannot deny its useful values for our health." },
-                { en: "help + sb + V", vi: "Having a pet helps people do more exercise." },
-                { en: "need to + V", vi: "you need to walk it every day." },
-                { en: "can + V / a good way to + V", vi: "Pets can improve our mood / is a good way to reduce stress." },
-                { en: "be good for + N", vi: "Keeping pets is very good for families with children." },
-                { en: "teach + sb + how to V", vi: "It teaches children how to love animals and care for others." },
-                { en: "make + O + Adj", vi: "Pets make our homes safer." },
-                { en: "should + V / treat + O + like + N", vi: "We should treat them like a member of our family." }
+                { en: "Keeping + N + V", vi: "Nuôi thú cưng mang lại nhiều lợi ích..." },
+                { en: "cannot deny + N", vi: "Chúng ta không thể phủ nhận những giá trị hữu ích của nó..." },
+                { en: "help + sb + V", vi: "Nuôi thú cưng giúp con người tập thể dục nhiều hơn." },
+                { en: "make + O + Adj", vi: "Thú cưng làm cho nhà của chúng ta an toàn hơn." }
             ],
             connectors: [
                 { en: "First of all,", vi: "Trước hết," },
@@ -280,22 +339,27 @@
                 { en: "In addition,", vi: "Ngoài ra," },
                 { en: "Last but not least,", vi: "Cuối cùng nhưng không kém phần quan trọng," },
                 { en: "In conclusion,", vi: "Kết luận lại," }
+            ],
+            lvl1: [
+                { text: "Keeping pets _______ many great benefits to our modern lives.", ans: "brings" },
+                { text: "Having a pet _______ people do more exercise.", ans: "helps" },
+                { text: "Furthermore, pets are excellent friends that can _______ our mood.", ans: "improve" }
+            ],
+            lvl2: [
+                { text: "_______, we cannot deny its useful values for our health.", ans: "First of all" },
+                { text: "_______, keeping pets is very good for families with children.", ans: "In addition" },
+                { text: "_______, keeping a pet is very helpful.", ans: "In conclusion" }
             ]
         },
         {
-            topicName: "Renewable Energy",
-            prompt: "Renewable energy is becoming more popular in many countries. Write a paragraph (120–150 words) about the benefits of renewable energy.",
-            essay: "Renewable energy brings many benefits to our lives and the environment. First of all, it helps reduce air pollution. Sources of renewable energy such as solar energy and wind energy do not produce harmful gases. As a result, the air becomes cleaner and healthier for people. Furthermore, renewable energy can reduce the use of fossil fuels such as coal and oil. This helps protect natural resources for future generations. In addition, renewable energy is sustainable because it comes from natural sources that can be used again and again. Last but not least, using renewable energy can create new jobs in many areas. More people can find work in the energy industry and improve their lives. In conclusion, renewable energy has many advantages, and I believe that it is important for a cleaner and better future.",
+            title: "2. Renewable Energy",
+            desc: "Write a paragraph (120–150 words) about the benefits of renewable energy.",
+            prompt: "Write a paragraph (at least 120 words) about the benefits of renewable energy.",
+            essay: "Renewable energy brings many benefits to our lives and the environment. First of all, it helps reduce air pollution. Sources of renewable energy such as solar energy and wind energy do not produce harmful gases. As a result, the air becomes cleaner and healthier for people. Furthermore, renewable energy can reduce the use of fossil fuels such as coal and oil. This helps protect natural resources for future generations. In addition, renewable energy is sustainable because it comes from natural sources that can be used again and again. Last but not least, using renewable energy can create new jobs in many areas. In conclusion, renewable energy has many advantages, and I believe that it is important for a cleaner and better future.",
             grammar: [
-                { en: "bring + N", vi: "Renewable energy brings many benefits..." },
-                { en: "help + V / such as + N", vi: "It helps reduce air pollution / such as solar energy and wind energy." },
-                { en: "do not + V", vi: "do not produce harmful gases." },
-                { en: "As a result, + Clause", vi: "As a result, the air becomes cleaner." },
-                { en: "protect... for future generations", vi: "This helps protect natural resources for future generations." },
-                { en: "be + adj + because + Clause", vi: "Renewable energy is sustainable because it comes from..." },
-                { en: "can be + V3/ed (Bị động)", vi: "natural sources that can be used again and again." },
-                { en: "create + N / find + N", vi: "create new jobs / find work" },
-                { en: "I believe that + Clause", vi: "I believe that it is important for a cleaner and better future." }
+                { en: "help + V", vi: "Nó giúp giảm thiểu ô nhiễm không khí." },
+                { en: "As a result, + Clause", vi: "Kết quả là, không khí trở nên sạch hơn." },
+                { en: "can be + V3/ed", vi: "Nguồn năng lượng tự nhiên có thể được dùng đi dùng lại." }
             ],
             connectors: [
                 { en: "First of all,", vi: "Trước hết," },
@@ -304,22 +368,27 @@
                 { en: "In addition,", vi: "Ngoài ra," },
                 { en: "Last but not least,", vi: "Cuối cùng nhưng không kém phần quan trọng," },
                 { en: "In conclusion,", vi: "Kết luận lại," }
+            ],
+            lvl1: [
+                { text: "Renewable energy _______ many benefits to our lives.", ans: "brings" },
+                { text: "It helps _______ air pollution.", ans: "reduce" },
+                { text: "This helps _______ natural resources for future generations.", ans: "protect" }
+            ],
+            lvl2: [
+                { text: "_______, it helps reduce air pollution.", ans: "First of all" },
+                { text: "_______, the air becomes cleaner and healthier.", ans: "As a result" },
+                { text: "_______, renewable energy has many advantages.", ans: "In conclusion" }
             ]
         },
         {
-            topicName: "Regular Exercise",
-            prompt: "Many people think that regular exercise is important for a healthy life. Write a paragraph (120–150 words) about the benefits of doing exercise regularly.",
+            title: "3. Regular Exercise",
+            desc: "Write a paragraph (120–150 words) about the benefits of doing exercise regularly.",
+            prompt: "Write a paragraph (at least 120 words) about the benefits of doing exercise regularly.",
             essay: "Doing exercise regularly brings many benefits to our health and daily life. First of all, it helps people stay healthy and strong. People who exercise regularly are less likely to get sick and often have more energy for work and study. Furthermore, exercise is a good way to reduce stress and improve mood. After a busy day, activities such as walking, jogging, or cycling can help people relax and feel happier. In addition, regular exercise can improve sleep quality, which helps people feel refreshed in the morning. Last but not least, doing exercise helps people maintain a healthy weight and live a more active lifestyle. In conclusion, regular exercise has many advantages, and I believe that everyone should make it a part of their daily routine.",
             grammar: [
-                { en: "Doing + N/V-ing + V", vi: "Doing exercise regularly brings many benefits..." },
-                { en: "help + sb + stay + adj", vi: "It helps people stay healthy and strong." },
-                { en: "People who + V", vi: "People who exercise regularly... (Những người tập thể dục...)" },
-                { en: "be less likely to + V", vi: "are less likely to get sick (ít có nguy cơ bị bệnh hơn)" },
-                { en: "be a good way to + V", vi: "Exercise is a good way to reduce stress." },
-                { en: "which + V (Mệnh đề quan hệ)", vi: "...improve sleep quality, which helps people feel refreshed..." },
-                { en: "maintain + N", vi: "maintain a healthy weight (duy trì cân nặng hợp lý)" },
-                { en: "live + a/an + adj + N", vi: "live a more active lifestyle (sống lối sống năng động hơn)" },
-                { en: "should make it a part of...", vi: "everyone should make it a part of their daily routine." }
+                { en: "stay + Adj", vi: "Giúp mọi người giữ được sự khỏe mạnh và cường tráng." },
+                { en: "be less likely to + V", vi: "Ít có khả năng bị đổ bệnh hơn." },
+                { en: "be a good way to + V", vi: "Tập thể dục là một cách tốt để giảm căng thẳng." }
             ],
             connectors: [
                 { en: "First of all,", vi: "Trước hết," },
@@ -327,22 +396,27 @@
                 { en: "In addition,", vi: "Ngoài ra," },
                 { en: "Last but not least,", vi: "Cuối cùng nhưng không kém phần quan trọng," },
                 { en: "In conclusion,", vi: "Kết luận lại," }
+            ],
+            lvl1: [
+                { text: "It helps people _______ healthy and strong.", ans: "stay" },
+                { text: "Exercise is a good way to _______ stress.", ans: "reduce" },
+                { text: "Doing exercise helps people _______ a healthy weight.", ans: "maintain" }
+            ],
+            lvl2: [
+                { text: "_______, it helps people stay healthy and strong.", ans: "First of all" },
+                { text: "_______, regular exercise can improve sleep quality.", ans: "In addition" },
+                { text: "_______, regular exercise has many advantages.", ans: "In conclusion" }
             ]
         },
         {
-            topicName: "Recycling Activities",
-            prompt: "Recycling is becoming more important in modern society. Write a paragraph (120–150 words) about the benefits of recycling.",
-            essay: "Recycling brings many benefits to the environment and our daily lives. First of all, it helps reduce the amount of waste in landfills. As a result, the environment becomes cleaner and healthier. Furthermore, recycling helps save natural resources such as wood, water, and minerals. Instead of using new materials, people can reuse old ones to make new products. In addition, recycling can save energy because producing goods from recycled materials often requires less energy than producing them from raw materials. Last but not least, recycling helps reduce pollution and protect the environment for future generations. It also encourages people to develop good habits and become more responsible. In conclusion, recycling has many advantages, and I believe that everyone should take part in recycling activities.",
+            title: "4. Recycling Activities",
+            desc: "Write a paragraph (120–150 words) about the benefits of recycling.",
+            prompt: "Write a paragraph (at least 120 words) about the benefits of recycling.",
+            essay: "Recycling brings many benefits to the environment and our daily lives. First of all, it helps reduce the amount of waste in landfills. As a result, the environment becomes cleaner and healthier. Furthermore, recycling helps save natural resources such as wood, water, and minerals. Instead of using new materials, people can reuse old ones to make new products. In addition, recycling can save energy because producing goods from recycled materials often requires less energy than producing them from raw materials. Last but not least, recycling helps reduce pollution and protect the environment for future generations. In conclusion, recycling has many advantages, and I believe that everyone should take part in recycling activities.",
             grammar: [
-                { en: "V-ing + V (Danh động từ làm CN)", vi: "Recycling brings many benefits to the environment..." },
-                { en: "the amount of + N không đếm được", vi: "helps reduce the amount of waste in landfills." },
-                { en: "become + adj", vi: "the environment becomes cleaner and healthier." },
-                { en: "Instead of + N/V-ing", vi: "Instead of using new materials, people can reuse old ones..." },
-                { en: "to V (Để chỉ mục đích)", vi: "...reuse old ones to make new products." },
-                { en: "require + N", vi: "often requires less energy than producing them..." },
-                { en: "encourage + sb + to V", vi: "It also encourages people to develop good habits..." },
-                { en: "become + adj", vi: "become more responsible (trở nên có trách nhiệm hơn)" },
-                { en: "take part in + N", vi: "everyone should take part in recycling activities." }
+                { en: "Instead of + V-ing", vi: "Thay vì sử dụng các nguyên liệu mới..." },
+                { en: "require + N", vi: "Đòi hỏi ít năng lượng hơn việc sản xuất thông thường." },
+                { en: "take part in + N", vi: "Mọi người nên tham gia các hoạt động tái chế rác." }
             ],
             connectors: [
                 { en: "First of all,", vi: "Trước hết," },
@@ -351,88 +425,168 @@
                 { en: "In addition,", vi: "Ngoài ra," },
                 { en: "Last but not least,", vi: "Cuối cùng nhưng không kém phần quan trọng," },
                 { en: "In conclusion,", vi: "Kết luận lại," }
+            ],
+            lvl1: [
+                { text: "It helps _______ the amount of waste in landfills.", ans: "reduce" },
+                { text: "The environment _______ cleaner and healthier.", ans: "becomes" },
+                { text: "Recycling helps _______ natural resources.", ans: "save" }
+            ],
+            lvl2: [
+                { text: "_______, it helps reduce the amount of waste.", ans: "First of all" },
+                { text: "_______, recycling can save energy.", ans: "In addition" },
+                { text: "_______, recycling has many advantages.", ans: "In conclusion" }
             ]
         }
     ];
 
-    // Âm thanh phần cứng bíp nhẹ an toàn hệ thống
-    function playSound() {
-        try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            const ctx = new AudioContext();
-            let osc = ctx.createOscillator();
-            let gain = ctx.createGain();
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime);
-            gain.gain.setValueAtTime(0.03, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-            osc.start(); osc.stop(ctx.currentTime + 0.08);
-        } catch(e) {}
+    let activeTopicIndex = 0;
+    let currentMainTab = 0;
+    let currentSubTab = 0;
+
+    // Sinh Menu chủ đề ban đầu giống hệt ảnh mẫu
+    function renderMenu() {
+        let menuHTML = "";
+        benefitsData.forEach((item, index) => {
+            menuHTML += `
+                <div class="topic-item" onclick="openTopic(${index})">
+                    <div class="topic-info">
+                        <div class="topic-title">${item.title}</div>
+                        <div class="topic-desc">${item.desc}</div>
+                        <div class="topic-status">⭐ Sẵn sàng học | 🏆 Trạng thái: Trống</div>
+                    </div>
+                    <div class="arrow-icon">➔</div>
+                </div>
+            `;
+        });
+        document.getElementById('menu-topics-container').innerHTML = menuHTML;
     }
 
-    // Hiệu ứng phông nền rơi lãng mạn nhẹ nhàng
-    function createPetals() {
-        try {
-            const container = document.getElementById('petal-container');
-            if (!container) return;
-            for (let i = 0; i < 10; i++) {
-                let petal = document.createElement('div');
-                petal.className = 'petal';
-                petal.style.left = Math.random() * 100 + 'vw';
-                let size = Math.random() * 8 + 6 + 'px';
-                petal.style.width = size; petal.style.height = size;
-                petal.style.animationDelay = Math.random() * 5 + 's';
-                petal.style.animationDuration = Math.random() * 4 + 4 + 's';
-                container.appendChild(petal);
+    function openTopic(index) {
+        activeTopicIndex = index;
+        document.getElementById('screen-menu').style.display = 'none';
+        document.getElementById('screen-detail').style.display = 'block';
+        document.getElementById('prompt-display').innerText = benefitsData[index].prompt;
+        switchMainTab(0); // Mặc định mở tab lý thuyết & bài mẫu trước
+    }
+
+    function backToMenuList() {
+        document.getElementById('screen-detail').style.display = 'none';
+        document.getElementById('screen-menu').style.display = 'block';
+    }
+
+    // Điều khiển 3 Tab lớn
+    function switchMainTab(tabIdx) {
+        currentMainTab = tabIdx;
+        for (let i = 0; i < 3; i++) {
+            document.getElementById(`tab-btn-${i}`).classList.toggle('active', i === tabIdx);
+        }
+
+        const subTabsDiv = document.getElementById('theory-sub-tabs');
+        if (tabIdx === 0) {
+            subTabsDiv.style.display = 'flex';
+            switchSubTab(0);
+        } else {
+            subTabsDiv.style.display = 'none';
+            renderPracticeContent(tabIdx); // Mở Tab thực hành Cấp độ 1 hoặc Cấp độ 2
+        }
+    }
+
+    // Điều khiển 3 Tab nhỏ lý thuyết
+    function switchSubTab(subIdx) {
+        currentSubTab = subIdx;
+        for (let i = 0; i < 3; i++) {
+            document.getElementById(`sub-btn-${i}`).classList.toggle('active', i === subIdx);
+        }
+        renderTheoryContent(subIdx);
+    }
+
+    // Đổ nội dung lý thuyết chi tiết dịch nghĩa đầy đủ
+    function renderTheoryContent(subIdx) {
+        const panel = document.getElementById('panel-content');
+        const data = benefitsData[activeTopicIndex];
+        let html = "";
+
+        if (subIdx === 0) { // Cấu trúc ngữ pháp
+            html += `<div class="grid-list">`;
+            data.grammar.forEach(item => {
+                html += `
+                    <div class="grid-item">
+                        <div class="eng-phrase">❖ Công thức: ${item.en}</div>
+                        <div class="vie-phrase">👉 <b>Ví dụ:</b> ${item.vi}</div>
+                    </div>`;
+            });
+            html += `</div>`;
+        } 
+        else if (subIdx === 1) { // Từ nối mẫu
+            html += `<div class="grid-list" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">`;
+            data.connectors.forEach(item => {
+                html += `
+                    <div class="grid-item" style="border: 1px solid #e2e8f0; padding:10px; border-radius:8px;">
+                        <div class="eng-phrase" style="color:#0284c7;">${item.en}</div>
+                        <div class="vie-phrase">Nghĩa: <b>${item.vi}</b></div>
+                    </div>`;
+            });
+            html += `</div>`;
+        } 
+        else if (subIdx === 2) { // Bài viết mẫu chuẩn chỉnh
+            html += `<div class="essay-text">${data.essay}</div>`;
+            // Tự động kích hoạt cơ chế ghi nhận nhật ký hệ thống an toàn đa biến khi học xong bài mẫu
+            saveToHistory();
+        }
+
+        panel.innerHTML = html;
+    }
+
+    // Đổ nội dung điền từ thực hành (Cấp độ 1 & Cấp độ 2) bị bỏ quên
+    function renderPracticeContent(tabIdx) {
+        const panel = document.getElementById('panel-content');
+        const data = benefitsData[activeTopicIndex];
+        const listQuestions = (tabIdx === 1) ? data.lvl1 : data.lvl2;
+
+        let html = `<div class="practice-container">`;
+        html += `<p style="font-weight:600; color:#475569; margin-bottom:10px;">Điền từ thích hợp vào ô trống:</p>`;
+        
+        listQuestions.forEach((q, i) => {
+            let parts = q.text.split("_______");
+            html += `
+                <div class="sentence-item">
+                    <span>${i + 1}. ${parts[0]}</span>
+                    <input type="text" class="blank-input" id="blank-ans-${i}" placeholder="Nhập đáp án...">
+                    <span>${parts[1]}</span>
+                    <div id="feedback-${i}" style="margin-top: 5px; font-weight: bold; font-size:14px;"></div>
+                </div>
+            `;
+        });
+
+        html += `<button class="btn-check-ans" onclick="checkPracticeAnswers(${tabIdx})">Nộp bài & Kiểm tra đáp án</button>`;
+        html += `</div>`;
+        panel.innerHTML = html;
+    }
+
+    // Kiểm tra kết quả điền từ bài tập thực hành
+    function checkPracticeAnswers(tabIdx) {
+        const data = benefitsData[activeTopicIndex];
+        const listQuestions = (tabIdx === 1) ? data.lvl1 : data.lvl2;
+        let correctCount = 0;
+
+        listQuestions.forEach((q, i) => {
+            const userAns = document.getElementById(`blank-ans-${i}`).value.trim();
+            const feedback = document.getElementById(`feedback-${i}`);
+            
+            // So khớp không phân biệt hoa thường
+            if (userAns.toLowerCase() === q.ans.toLowerCase()) {
+                feedback.innerHTML = "🟢 Đúng rồi!";
+                feedback.style.color = "#16a34a";
+                correctCount++;
+            } else {
+                feedback.innerHTML = `🔴 Sai rồi! Đáp án chuẩn: <span style="text-decoration:underline;">${q.ans}</span>`;
+                feedback.style.color = "#dc2626";
             }
-        } catch(e) {}
-    }
-
-    // Hàm đếm số từ tự động chính xác
-    function countWords(str) {
-        return str.trim().split(/\s+/).filter(word => word.length > 0).length;
-    }
-
-    // Hàm đổi nội dung chủ đề linh hoạt câu hỏi
-    function changeTopic() {
-        playSound();
-        const index = parseInt(document.getElementById('topic-select').value);
-        const data = benefitsData[index];
-
-        document.getElementById('prompt-text').innerText = data.prompt;
-        document.getElementById('essay-content').innerText = data.essay;
-        document.getElementById('word-count-text').innerText = `Số từ: ${countWords(data.essay)} words`;
-
-        // Đổ danh sách ngữ pháp
-        let grammarHTML = "";
-        data.grammar.forEach(item => {
-            grammarHTML += `
-                <div class="grid-item">
-                    <div class="eng-phrase">${item.en}</div>
-                    <div class="vie-phrase">👉 Ví dụ: ${item.vi}</div>
-                </div>`;
         });
-        document.getElementById('grammar-list').innerHTML = grammarHTML;
-
-        // Đổ danh sách từ nối
-        let connectorsHTML = "";
-        data.connectors.forEach(item => {
-            connectorsHTML += `
-                <div class="grid-item">
-                    <div class="eng-phrase" style="color: #0284c7;">${item.en}</div>
-                    <div class="vie-phrase">${item.vi}</div>
-                </div>`;
-        });
-        document.getElementById('connectors-list').innerHTML = connectorsHTML;
     }
 
-    // Ghi nhận lịch sử học tập đồng bộ với hệ thống lich_su.html
-    function markAsFinished() {
-        playSound();
-        const index = parseInt(document.getElementById('topic-select').value);
-        const data = benefitsData[index];
-
+    // Đồng bộ an toàn đa biến trực tiếp với file lịch sử tổng thể
+    function saveToHistory() {
         try {
             let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
             let now = new Date();
@@ -443,8 +597,8 @@
                 thoiGian: dateStr,
                 skill: 'Writing',
                 kyNang: 'Writing',
-                topic: `Benefits - ${data.topicName}`,
-                chuDe: `Benefits - ${data.topicName}`,
+                topic: `Benefits - ${benefitsData[activeTopicIndex].title.split(". ")[1]}`,
+                chuDe: `Benefits - ${benefitsData[activeTopicIndex].title.split(". ")[1]}`,
                 type: 'Paragraph Writing',
                 capDo: 'Đoạn văn (B1)',
                 score: 100,
@@ -454,21 +608,13 @@
 
             if (history.length > 50) history.pop();
             localStorage.setItem('vstep_learning_history', JSON.stringify(history));
-            alert(`🎉 Hệ thống đã ghi nhận! Bạn đã hoàn thành xuất sắc bài viết về chủ đề: [Benefits - ${data.topicName}]!`);
         } catch(e) {
-            console.log("Không thể truy cập localStorage");
+            console.log("Lỗi LocalStorage.");
         }
     }
 
-    function goToMenu() {
-        playSound();
-        window.location.href = 'writing.html';
-    }
-
-    window.onload = function() {
-        createPetals();
-        changeTopic();
-    };
+    // Khởi chạy ứng dụng
+    renderMenu();
 </script>
 
 </body>
