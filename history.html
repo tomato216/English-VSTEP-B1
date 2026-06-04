@@ -72,7 +72,7 @@
             color: var(--dark-color);
             margin: 5px 0;
             font-size: 24px;
-            font-family: 'Georgia', serif; /* Font chữ có chân tạo cảm giác cổ điển */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .question { 
@@ -357,6 +357,8 @@
         if (isRedoMode) {
             summaryText = `Lượt ôn tập kết thúc! Bạn còn <b>${wrongQuestions.length}</b> câu chưa thuộc hoàn toàn.`;
         } else {
+            // ĐỒNG BỘ KẾT QUẢ VÀO HỆ THỐNG NHẬT KÝ ĐA NĂNG MỚI
+            saveToLearningHistory(score, currentQuestions.length);
             summaryText = `Tuyệt vời! Bạn đã vượt qua bài Lịch sử với số điểm <b>${score}/${currentQuestions.length}</b> câu đúng.`;
         }
         document.getElementById('result-summary').innerHTML = summaryText;
@@ -387,6 +389,36 @@
     function goToMenu() {
         playSound('click');
         window.location.href = 'reading.html';
+    }
+
+    // HÀM GHI NHẬT KÝ AN TOÀN ĐA BIẾN (COMBO TIẾNG ANH + TIẾNG VIỆT)
+    function saveToLearningHistory(finalScore, totalQuestions) {
+        try {
+            let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+            let now = new Date();
+            
+            let dateStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+            
+            // Đóng gói mảng kép linh hoạt để tương thích tuyệt đối với file lịch sử
+            history.unshift({
+                date: dateStr,
+                thoiGian: dateStr,
+                skill: 'Reading',
+                kyNang: 'Reading',
+                topic: 'History',
+                chuDe: 'History',
+                type: 'Trắc nghiệm từ vựng',
+                capDo: 'Trắc nghiệm từ vựng',
+                score: finalScore,
+                total: totalQuestions,
+                diemSo: `${finalScore}/${totalQuestions}`
+            });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem('vstep_learning_history', JSON.stringify(history));
+        } catch(e) {
+            console.log("Không thể lưu lịch sử vào localStorage");
+        }
     }
 
     initQuiz();
