@@ -169,7 +169,6 @@
 
 <div id="petal-container"></div>
 
-<!-- MÀN HÌNH LÀM BÀI TẬP CỐ ĐỊNH -->
 <div id="quiz-screen" class="main-box">
     <div class="transport-icon">🚗🚌</div>
     <div style="color: var(--dark-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">CHỦ ĐỀ: TRANSPORT</div>
@@ -179,7 +178,6 @@
     <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
-<!-- MÀN HÌNH KẾT THÚC BÀI HỌC (2 LỰA CHỌN Ô VUÔNG LỚN) -->
 <div id="result-screen" class="main-box" style="display: none;">
     <div class="transport-icon">🏁⚡</div>
     <h2>Kết Quả Luyện Tập</h2>
@@ -255,7 +253,6 @@
 
             if (type === 'click' || type === 'correct') {
                 osc.type = 'sine';
-                // Tần số 900Hz nghe thanh và bắt tai giống tiếng tinh tinh của các phiên bản trước
                 osc.frequency.setValueAtTime(type === 'correct' ? 900 : 800, ctx.currentTime);
                 gain.gain.setValueAtTime(0.04, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
@@ -300,7 +297,6 @@
         document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
         document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
 
-        // Sinh phương án nhiễu ngẫu nhiên từ kho dữ liệu
         let options = [q.word];
         let allWords = vocabularyData.map(item => item.word).filter(w => w !== q.word);
         allWords.sort(() => Math.random() - 0.5);
@@ -337,7 +333,6 @@
             }
         }
 
-        // Chuyển sang câu tiếp theo đứng yên ổn định sau 0.7 giây
         setTimeout(() => {
             currentQuestionIndex++;
             if (currentQuestionIndex < currentQuestions.length) {
@@ -356,6 +351,8 @@
         if (isRedoMode) {
             summaryText = `Lượt sửa lỗi hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa thuộc vững.`;
         } else {
+            // ĐỒNG BỘ KẾT QUẢ VÀO HỆ THỐNG NHẬT KÝ ĐA BIẾN MỚI
+            saveToLearningHistory(score, currentQuestions.length);
             summaryText = `Hoàn thành! Bạn đạt số điểm <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Giao thông.`;
         }
         document.getElementById('result-summary').innerHTML = summaryText;
@@ -386,6 +383,36 @@
     function goToMenu() {
         playSound('click');
         window.location.href = 'reading.html';
+    }
+
+    // HÀM GHI NHẬT KÝ AN TOÀN ĐA BIẾN (COMBO TIẾNG ANH + TIẾNG VIỆT)
+    function saveToLearningHistory(finalScore, totalQuestions) {
+        try {
+            let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+            let now = new Date();
+            
+            let dateStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+            
+            // Đóng gói mảng kép linh hoạt để tương thích tuyệt đối với file lịch sử
+            history.unshift({
+                date: dateStr,
+                thoiGian: dateStr,
+                skill: 'Reading',
+                kyNang: 'Reading',
+                topic: 'Transport',
+                chuDe: 'Transport',
+                type: 'Trắc nghiệm từ vựng',
+                capDo: 'Trắc nghiệm từ vựng',
+                score: finalScore,
+                total: totalQuestions,
+                diemSo: `${finalScore}/${totalQuestions}`
+            });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem('vstep_learning_history', JSON.stringify(history));
+        } catch(e) {
+            console.log("Không thể lưu lịch sử vào localStorage");
+        }
     }
 
     initQuiz();
