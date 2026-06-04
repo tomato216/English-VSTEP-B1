@@ -175,10 +175,7 @@
     <div class="question" id="question-text">Đang tải câu hỏi...</div>
     <div class="options" id="options-container"></div>
     <div class="score" id="score-text"></div>
-    <div style="display: flex; justify-content: center; gap: 20px;">
-        <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
-        <button class="btn-back" onclick="goToHistory()">📊 Xem lịch sử</button>
-    </div>
+    <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
 <div id="result-screen" class="main-box" style="display: none;">
@@ -190,7 +187,6 @@
         <button class="btn-result btn-next-topic" onclick="goToMenu()">🔄 Đổi sang chủ đề khác</button>
         <button class="btn-result btn-redo-wrong" id="btn-redo" onclick="startRedoWrong()">🔥 Làm lại các câu sai</button>
     </div>
-    <button class="btn-back" onclick="goToHistory()">📊 Đi tới trang Lịch sử học tập</button>
 </div>
 
 <script>
@@ -351,7 +347,7 @@
         if (isRedoMode) {
             summaryText = `Lượt ôn tập hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa thuộc kỹ.`;
         } else {
-            // TỰ ĐỘNG LƯU LỊCH SỬ KHI HOÀN THÀNH BÀI THI CHÍNH
+            // TỰ ĐỘNG LƯU LỊCH SỬ KHI HOÀN THÀNH LƯỢT LÀM CHÍNH THỨC
             saveToLearningHistory(score, currentQuestions.length);
             summaryText = `Hoàn thành xuất sắc! Bạn đạt <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Môi trường.`;
         }
@@ -385,36 +381,24 @@
         window.location.href = 'reading.html';
     }
 
-    // HÀM CHUYỂN HƯỚNG SANG TRANG LỊCH SỬ
-    function goToHistory() {
-        playSound('click');
-        window.location.href = 'lich_su.html';
-    }
-
-    // HÀM LƯU DỮ LIỆU ĐỂ FILE LICH_SU.HTML CÓ THỂ ĐỌC ĐƯỢC
+    // HÀM LƯU DỮ LIỆU ĐÃ ĐƯỢC CHUẨN HÓA KHỚP 100% VỚI FILE LICH_SU.HTML
     function saveToLearningHistory(finalScore, totalQuestions) {
         let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
         let now = new Date();
         
-        // Tạo chuỗi định dạng ngày giờ chuẩn Việt Nam (Ví dụ: 04/06/2026 - 10:49)
-        let dateStr = now.toLocaleDateString('vi-VN') + ' - ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+        // Tạo chuỗi định dạng ngày giờ chuẩn
+        let dateStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
         
-        // Thêm bản ghi mới cho chủ đề Environment lên trên đầu mảng
+        // Đẩy đối tượng có đầy đủ các key (skill, type, topic, score, total) lên đầu mảng
         history.unshift({
-            topic: 'Environment',
             date: dateStr,
+            skill: 'Reading',
+            topic: 'Environment',
+            type: 'Trắc nghiệm từ vựng',
             score: finalScore,
             total: totalQuestions
         });
         
-        // Giới hạn lưu tối đa 50 lượt làm bài gần nhất để tối ưu bộ nhớ trình duyệt
         if (history.length > 50) history.pop();
         
-        localStorage.setItem('vstep_learning_history', JSON.stringify(history));
-    }
-
-    initQuiz();
-</script>
-
-</body>
-</html>
+        localStorage
