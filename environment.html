@@ -6,9 +6,9 @@
     <title>VSTEP B1 - Environment Vocabulary</title>
     <style>
         :root {
-            --primary-color: #22c55e; 
-            --dark-color: #14532d;    
-            --bg-color: #f0fdf4;      
+            --primary-color: #22c55e; /* Xanh lá cây tươi mát */
+            --dark-color: #14532d;    /* Xanh lục bảo đậm già dặn */
+            --bg-color: #f0fdf4;      /* Nền xanh mint siêu nhẹ, chống mỏi mắt */
         }
 
         body {
@@ -25,11 +25,11 @@
             overflow-x: hidden;
         }
 
-        /* Hiệu ứng lá rơi */
+        /* Hiệu ứng những chiếc lá non rơi nhẹ nhàng ở phông nền */
         .petal {
             position: absolute;
             background-color: #bbf7d0;
-            border-radius: 100% 0 100% 0; 
+            border-radius: 100% 0 100% 0; /* Dáng hình chiếc lá */
             opacity: 0.6;
             pointer-events: none;
             animation: fade 6s infinite linear, float 6s infinite ease-in-out;
@@ -47,7 +47,7 @@
             100% { transform: translateX(0) rotate(40deg); }
         }
 
-        /* Khung giao diện */
+        /* Khung chứa giao diện chính của bài học */
         .main-box {
             background-color: white;
             padding: 30px;
@@ -61,6 +61,7 @@
             position: relative;
         }
 
+        /* Icon thiên nhiên xanh */
         .env-icon {
             font-size: 45px;
             margin-bottom: 10px;
@@ -109,31 +110,19 @@
             margin-top: 20px; 
             font-size: 15px; 
             color: #166534; 
-            font-weight: bold;
         }
 
-        .bottom-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-        }
-
-        .btn-text {
+        .btn-back {
+            margin-top: 20px;
             background: none;
             border: none;
             color: #166534;
             cursor: pointer;
             text-decoration: underline;
             font-size: 14px;
-            font-weight: bold;
-            padding: 5px;
-        }
-        
-        .btn-text:hover {
-            color: var(--primary-color);
         }
 
-        /* Nút màn hình kết quả */
+        /* Khung chứa nút kết quả ở màn hình cuối */
         .result-buttons {
             display: grid;
             grid-template-columns: 1fr;
@@ -142,9 +131,9 @@
         }
 
         .btn-result {
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 15px;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
@@ -174,17 +163,6 @@
             color: white;
             border-color: #991b1b;
         }
-
-        .btn-history-view {
-            background-color: #f8fafc;
-            border-color: #e2e8f0;
-            color: #334155;
-        }
-
-        .btn-history-view:hover {
-            background-color: #cbd5e1;
-            border-color: #94a3b8;
-        }
     </style>
 </head>
 <body>
@@ -197,10 +175,9 @@
     <div class="question" id="question-text">Đang tải câu hỏi...</div>
     <div class="options" id="options-container"></div>
     <div class="score" id="score-text"></div>
-    
-    <div class="bottom-actions">
-        <button class="btn-text" onclick="goToMenu()">⬅ Menu chính</button>
-        <button class="btn-text" onclick="window.location.href='lich_su.html'">📊 Xem Lịch sử</button>
+    <div style="display: flex; justify-content: center; gap: 20px;">
+        <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
+        <button class="btn-back" onclick="goToHistory()">📊 Xem lịch sử</button>
     </div>
 </div>
 
@@ -212,11 +189,12 @@
     <div class="result-buttons">
         <button class="btn-result btn-next-topic" onclick="goToMenu()">🔄 Đổi sang chủ đề khác</button>
         <button class="btn-result btn-redo-wrong" id="btn-redo" onclick="startRedoWrong()">🔥 Làm lại các câu sai</button>
-        <button class="btn-result btn-history-view" onclick="window.location.href='lich_su.html'">📊 Chuyển đến trang Lịch sử</button>
     </div>
+    <button class="btn-back" onclick="goToHistory()">📊 Đi tới trang Lịch sử học tập</button>
 </div>
 
 <script>
+    // DATA TOÀN BỘ 37 TỪ VỰNG CHỦ ĐỀ ENVIRONMENT ĐẦY ĐỦ KHÔNG THIẾU TỪ NÀO
     const vocabularyData = [
         { word: "Environment (n)", mean: "Môi trường" },
         { word: "Pollution (n)", mean: "Ô nhiễm / Sự ô nhiễm" },
@@ -263,7 +241,7 @@
     let score = 0;
     let isRedoMode = false;
 
-    // Hệ thống âm thanh
+    // Âm thanh phần cứng: Tiếng tinh tinh trong trẻo (khi đúng) và tiếng bíp trầm ngắn (khi sai)
     function playSound(type) {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -289,7 +267,7 @@
         } catch(e) {}
     }
 
-    // Hiệu ứng background
+    // Hiệu ứng lá non bay nhẹ phông nền
     function createPetals() {
         const container = document.getElementById('petal-container');
         for (let i = 0; i < 10; i++) {
@@ -305,7 +283,6 @@
     }
     createPetals();
 
-    // Khởi tạo Quiz
     function initQuiz() {
         currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
         wrongQuestions = [];
@@ -366,7 +343,6 @@
         }, 700);
     }
 
-    // Xử lý màn hình Kết quả và Lưu Lịch sử
     function showResult() {
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('result-screen').style.display = 'block';
@@ -375,8 +351,8 @@
         if (isRedoMode) {
             summaryText = `Lượt ôn tập hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa thuộc kỹ.`;
         } else {
-            // Lưu kết quả vào LocalStorage để trang lich_su.html lấy đọc
-            saveHistory(score, currentQuestions.length);
+            // TỰ ĐỘNG LƯU LỊCH SỬ KHI HOÀN THÀNH BÀI THI CHÍNH
+            saveToLearningHistory(score, currentQuestions.length);
             summaryText = `Hoàn thành xuất sắc! Bạn đạt <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Môi trường.`;
         }
         document.getElementById('result-summary').innerHTML = summaryText;
@@ -400,33 +376,39 @@
 
         document.getElementById('result-screen').style.display = 'none';
         document.getElementById('quiz-screen').style.display = 'block';
+        
         showQuestion();
     }
 
     function goToMenu() {
         playSound('click');
-        window.location.href = 'reading.html'; 
+        window.location.href = 'reading.html';
     }
 
-    // Lưu dữ liệu vào chung 1 key để lich_su.html dễ kiểm soát
-    function saveHistory(finalScore, total) {
-        // Key này tùy bạn đặt, ở đây mình dùng chung 1 mảng 'vstep_learning_history' 
-        // cho tất cả các chủ đề để trang lich_su.html load dễ hơn.
+    // HÀM CHUYỂN HƯỚNG SANG TRANG LỊCH SỬ
+    function goToHistory() {
+        playSound('click');
+        window.location.href = 'lich_su.html';
+    }
+
+    // HÀM LƯU DỮ LIỆU ĐỂ FILE LICH_SU.HTML CÓ THỂ ĐỌC ĐƯỢC
+    function saveToLearningHistory(finalScore, totalQuestions) {
         let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
         let now = new Date();
         
+        // Tạo chuỗi định dạng ngày giờ chuẩn Việt Nam (Ví dụ: 04/06/2026 - 10:49)
         let dateStr = now.toLocaleDateString('vi-VN') + ' - ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
         
-        // Đưa lịch sử mới lên đầu với topic cụ thể
-        history.unshift({ 
-            topic: 'Environment', 
-            date: dateStr, 
-            score: finalScore, 
-            total: total 
+        // Thêm bản ghi mới cho chủ đề Environment lên trên đầu mảng
+        history.unshift({
+            topic: 'Environment',
+            date: dateStr,
+            score: finalScore,
+            total: totalQuestions
         });
         
-        // Có thể cấu hình giới hạn lưu trữ (ví dụ 50 hoặc 100 lượt gần nhất)
-        if (history.length > 50) history.pop(); 
+        // Giới hạn lưu tối đa 50 lượt làm bài gần nhất để tối ưu bộ nhớ trình duyệt
+        if (history.length > 50) history.pop();
         
         localStorage.setItem('vstep_learning_history', JSON.stringify(history));
     }
