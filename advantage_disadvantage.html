@@ -78,6 +78,14 @@
             font-weight: normal;
             margin-top: 4px;
         }
+        
+        /* Style mới cho phần hiển thị điểm Cấp 1, Cấp 2 */
+        .score-badges {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+        }
 
         .top-nav {
             display: flex;
@@ -302,41 +310,17 @@
 
 <div class="main-box">
 
-    <!-- ================= MÀN HÌNH CHỌN CHỦ ĐỀ RIÊNG BIỆT ================= -->
     <div id="menu-screen">
         <button class="btn-top-back" style="margin-bottom:25px;" onclick="window.location.href='writing.html'">⬅ Quay lại Menu Writing</button>
-        <div class="menu-title">Advantage – Disadvantage Topics</div>
+        <div class="menu-title">Select an Advantage & Disadvantage Topic</div>
         
-        <div class="menu-grid">
-            <div class="menu-card" onclick="openTopic(0)">
-                <div>
-                    <div>1. Public Transport</div>
-                    <div class="topic-meta">Discuss the benefits and drawbacks of using public transport (money, environment, time, comfort...)</div>
-                </div>
-                <span>➔</span>
+        <div class="menu-grid" id="menu-grid-container">
             </div>
-            <div class="menu-card" onclick="openTopic(1)">
-                <div>
-                    <div>2. Plastic Bags</div>
-                    <div class="topic-meta">Discuss the benefits and drawbacks of using plastic bags in daily life.</div>
-                </div>
-                <span>➔</span>
-            </div>
-            <div class="menu-card" onclick="openTopic(2)">
-                <div>
-                    <div>3. Keeping Animals in Zoos</div>
-                    <div class="topic-meta">Discuss the advantages and disadvantages of keeping wild animals in zoos.</div>
-                </div>
-                <span>➔</span>
-            </div>
-        </div>
     </div>
 
 
-    <!-- ================= KHÔNG GIAN HỌC TẬP VÀ THỰC HÀNH CHI TIẾT ================= -->
     <div id="study-practice-screen" style="display: none;">
         
-        <!-- TOP NAV -->
         <div class="top-nav">
             <button class="btn-top-back" onclick="backToMainMenu()">⬅ Chọn Chủ Đề Khác</button>
             <div id="level-display-badge" class="level-badge">Đang Xem Học Liệu</div>
@@ -344,14 +328,12 @@
 
         <div id="prompt-text-display" class="prompt-box">Đang tải đề bài...</div>
 
-        <!-- THANH CHỌN CHẾ ĐỘ CHÍNH -->
         <div class="level-switcher">
             <button id="lvl-tab-0" class="level-tab active" onclick="changeLevelMode(0)">1. Cấu trúc, Từ nối & Bài mẫu</button>
             <button id="lvl-tab-1" class="level-tab" onclick="changeLevelMode(1)">2. Cấp độ 1</button>
             <button id="lvl-tab-2" class="level-tab" onclick="changeLevelMode(2)">3. Cấp độ 2</button>
         </div>
 
-        <!-- CHẾ ĐỘ LÝ THUYẾT: HIỂN THỊ ĐỦ 3 MỤC -->
         <div id="study-zone">
             <div class="tab-container">
                 <button id="btn-sub-structure" class="tab-btn active" onclick="switchSubTab('structure')">📐 1. Cấu trúc</button>
@@ -360,20 +342,15 @@
             </div>
             
             <div class="tab-content">
-                <!-- MỤC 1: CẤU TRÚC -->
                 <div id="tab-structure" class="text-display"></div>
-                <!-- MỤC 2: TỪ NỐI -->
                 <div id="tab-connectors" class="text-display" style="display:none;"></div>
-                <!-- MỤC 3: BÀI MẪU + DỊCH + NGỮ PHÁP -->
                 <div id="tab-sample" class="text-display" style="display:none;"></div>
             </div>
             <button class="btn-action" onclick="changeLevelMode(1)">Tiến Hành Thực Hành Điền Từ Khuyết (Cấp độ 1) ➔</button>
         </div>
 
-        <!-- CHẾ ĐỘ THỰC HÀNH (CẤP ĐỘ 1 & CẤP ĐỘ 2) -->
         <div id="practice-zone" style="display: none;">
             <div id="workspace-container" class="interactive-workspace"></div>
-            
             <div id="result-feedback-box" class="review-box" style="display: none;"></div>
             
             <div style="margin-top: 20px; display: flex; gap: 10px;">
@@ -386,9 +363,11 @@
 </div>
 
 <script>
+    // DATASET: Đã bổ sung trường 'meta' để hiển thị text mô tả dưới tiêu đề
     const dataset = [
         {
             topicTitle: "Public Transport",
+            meta: "Discuss the benefits and drawbacks of using public transport (money, environment, time, comfort...)",
             prompt: "Write a paragraph (at least 120 words) about the advantages and disadvantages of using public transport.",
             sample: "Using public transport brings both benefits and drawbacks to users. On the one hand, there are some clear benefits. First of all, it helps people save a lot of money. Buying a bus ticket is much cheaper than buying gas for a motorbike or a car. Furthermore, using public transport such as buses or trains can protect the environment because it reduces air pollution. On the other hand, there are several drawbacks. However, it also causes some annoying problems. It often takes more time because you have to wait for the bus. Moreover, public transport is sometimes very crowded and noisy during rush hours. As a result, many people feel tired and uncomfortable. In conclusion, although public transport has some negative points, I believe that its advantages are more significant for our lives.",
             translation: "Việc sử dụng phương tiện giao thông công cộng mang lại cả lợi ích và hạn chế cho người dùng. Một mặt, có những lợi ích rất rõ ràng. Trước hết, nó giúp mọi người tiết kiệm được rất nhiều tiền. Mua một vé xe buýt rẻ hơn nhiều so với việc mua xăng cho xe máy hoặc ô tô. Hơn nữa, việc sử dụng phương tiện công cộng như xe buýt hoặc tàu hỏa có thể bảo vệ môi trường vì nó làm giảm ô nhiễm không khí. Mặt khác, có một vài hạn chế. Tuy nhiên, nó cũng gây ra một số vấn đề phiền toái. Nó thường tốn nhiều thời gian hơn vì bạn phải đợi xe buýt. Hơn nữa, phương tiện công cộng đôi khi rất đông đúc và ồn ào trong giờ cao điểm. Kết quả là, nhiều người cảm thấy mệt mỏi và không thoải mái. Kết luận lại, mặc dù phương tiện công cộng có một số điểm tiêu cực, tôi tin rằng những lợi ích của nó vẫn quan trọng hơn đối với cuộc sống của chúng ta.",
@@ -404,6 +383,7 @@
         },
         {
             topicTitle: "Plastic Bags",
+            meta: "Discuss the benefits and drawbacks of using plastic bags in daily life.",
             prompt: "Some people think that using plastic bags is convenient in daily life. Write a paragraph (120–150 words) about the benefits and drawbacks of using plastic bags.",
             sample: "Using plastic bags brings both benefits and drawbacks to people. On the one hand, there are some clear benefits. First of all, plastic bags are cheap and easy to use. People can carry food, clothes, and many other things conveniently. Furthermore, plastic bags are light and can be found in almost every shop or supermarket. On the other hand, there are several drawbacks. However, plastic bags are harmful to the environment because they take a long time to break down. Moreover, many people throw them away carelessly, which causes pollution in rivers, lakes, and streets. As a result, animals and plants may be affected. In conclusion, although plastic bags are convenient, I believe that their negative effects on the environment are more serious.",
             translation: "Việc sử dụng túi nilon mang lại cả lợi ích và tác hại cho con người. Một mặt, có những lợi ích rất rõ ràng. Trước hết, túi nilon rẻ và dễ sử dụng. Mọi người có thể mang theo đồ ăn, quần áo và nhiều thứ khác một cách thuận tiện. Hơn nữa, túi nilon nhẹ và có thể tìm thấy ở hầu hết mọi cửa hàng hoặc siêu thị. Mặt khác, có một số hạn chế. Tuy nhiên, túi nilon có hại cho môi trường vì chúng mất nhiều thời gian để phân hủy. Hơn nữa, nhiều người vứt chúng đi một cách cẩu thả, điều này gây ra ô nhiễm ở sông, hồ và đường phố. Kết quả là, động vật và thực vật có thể bị ảnh hưởng. Kết luận lại, mặc dù túi nilon rất tiện lợi, tôi tin rằng những tác động tiêu cực của chúng đối với môi trường thì nghiêm trọng hơn.",
@@ -416,6 +396,7 @@
         },
         {
             topicTitle: "Keeping Animals in Zoos",
+            meta: "Discuss the advantages and disadvantages of keeping wild animals in zoos.",
             prompt: "Many zoos keep wild animals for people to visit. Write a paragraph (120–150 words) about the benefits and drawbacks of keeping animals in zoos.",
             sample: "Keeping animals in zoos brings both benefits and drawbacks. On the one hand, there are some clear benefits. First of all, zoos help protect many rare animals. Some animals can live in a safe place and receive good care from zoo workers. Furthermore, zoos give people a chance to learn more about different kinds of animals and their lives. On the other hand, there are several drawbacks. However, animals in zoos do not live in their natural environment. Moreover, some zoos have limited space, so animals may feel bored or unhappy. As a result, they cannot live as freely as they do in the wild. In conclusion, although keeping animals in zoos has some disadvantages, I believe that zoos play an important role in protecting animals and educating people.",
             translation: "Việc nuôi giữ động vật trong sở thú mang lại cả lợi ích và tác hại. Một mặt, có những lợi ích rất rõ ràng. Trước hết, các sở thú giúp bảo vệ nhiều loài động vật quý hiếm. Một số động vật có thể sống ở một nơi an toàn và nhận được sự chăm sóc tốt từ các nhân viên sở thú. Hơn nữa, sở thú cho mọi người cơ hội để tìm hiểu thêm về các loài động vật khác nhau và cuộc sống của chúng. Mặt khác, có một số hạn chế. Tuy nhiên, động vật trong sở thú không được sống trong môi trường tự nhiên của chúng. Hơn nữa, một số sở thú có không gian hạn chế, vì vậy động vật có thể cảm thấy buồn chán hoặc không hạnh phúc. Kết quả là, chúng không thể sống tự do như khi ở ngoài tự nhiên. Kết luận lại, mặc dù việc nuôi giữ động vật trong sở thú có một số bất lợi, tôi tin rằng sở thú đóng một vai trò quan trọng trong việc bảo vệ động vật và giáo dục con người.",
@@ -480,6 +461,90 @@
     let level2LinesData = [];  
     let wrongPool = [];        
 
+    // =========================================================================
+    // CODE RENDER MENU MỚI & LẤY ĐIỂM CAO NHẤT
+    // =========================================================================
+
+    // Hàm giả lập tính số lượng câu/từ khuyết tối đa dựa theo nội dung
+    function calculateMaxes(text) {
+        // Cấp 1 (Tính số từ)
+        let tokens = text.split(/(\s+)/);
+        let validPositions = [];
+        tokens.forEach((token, idx) => {
+            if(/[a-zA-Z]/.test(token) && token.trim().length > 2) validPositions.push(idx);
+        });
+        
+        let possibleIndices = [];
+        let lastPickedIdx = -5;
+        for(let i = 0; i < validPositions.length; i++) {
+            let currentTokenIdx = validPositions[i];
+            if (currentTokenIdx - lastPickedIdx > 2) {
+                possibleIndices.push(currentTokenIdx);
+                lastPickedIdx = currentTokenIdx;
+            }
+        }
+        let maxLevel1 = Math.min(15, possibleIndices.length); // Tối đa 15 chỗ trống
+
+        // Cấp 2 (Tính số câu dài > 10 kí tự)
+        let sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+        let sentenceIndices = [];
+        sentences.forEach((s, i) => { if(s.trim().length > 10) sentenceIndices.push(i); });
+        let maxLevel2 = Math.ceil(sentenceIndices.length * 0.45); // Lấy 45% số câu
+
+        return { maxLevel1, maxLevel2 };
+    }
+
+    // Hàm lấy điểm cao nhất từ localStorage
+    function getBestScore(topicTitle, levelName, maxScore) {
+        let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+        let bestCorrect = 0;
+        
+        let filtered = history.filter(h => h.chuDe === topicTitle && h.capDo === levelName);
+        filtered.forEach(log => {
+            if(log.diemSo) {
+                let correct = parseInt(log.diemSo.split('/')[0]);
+                if(correct > bestCorrect) bestCorrect = correct;
+            }
+        });
+        
+        return `${bestCorrect}/${maxScore}`;
+    }
+
+    // Sinh HTML giao diện Menu
+    function renderMenu() {
+        let menuContainer = document.getElementById('menu-grid-container');
+        let htmlContent = '';
+        
+        dataset.forEach((data, index) => {
+            let maxes = calculateMaxes(data.sample);
+            let scoreLvl1 = getBestScore(data.topicTitle, "Cấp độ 1 (Điền từ)", maxes.maxLevel1);
+            let scoreLvl2 = getBestScore(data.topicTitle, "Cấp độ 2 (Điền câu)", maxes.maxLevel2);
+            
+            htmlContent += `
+            <div class="menu-card" onclick="openTopic(${index})">
+                <div>
+                    <div>${index + 1}. ${data.topicTitle}</div>
+                    <div class="topic-meta">${data.meta}</div>
+                    <div class="score-badges">
+                        <span style="color: #eab308;">⭐ Cấp 1: ${scoreLvl1}</span> | 
+                        <span style="color: #10b981;">🏆 Cấp 2: ${scoreLvl2}</span>
+                    </div>
+                </div>
+                <span style="font-size: 20px;">➔</span>
+            </div>
+            `;
+        });
+        
+        menuContainer.innerHTML = htmlContent;
+    }
+
+    // Chạy khi khởi động trang
+    window.onload = function() {
+        renderMenu();
+    };
+
+    // =========================================================================
+
     function openTopic(index) {
         currentTopicIndex = index;
         document.getElementById('menu-screen').style.display = 'none';
@@ -490,6 +555,7 @@
     function backToMainMenu() {
         document.getElementById('study-practice-screen').style.display = 'none';
         document.getElementById('menu-screen').style.display = 'block';
+        renderMenu(); // Load lại menu để cập nhật điểm mới nhất
     }
 
     function switchSubTab(tabName) {
@@ -546,7 +612,6 @@
         
         let text = dataset[currentTopicIndex].sample;
         let tokens = text.split(/(\s+)/); 
-        
         let chosenIndices = [];
 
         if(forceWords) {
@@ -554,20 +619,20 @@
         } else {
             let validPositions = [];
             tokens.forEach((token, idx) => {
-                if(/[a-zA-Z]/.test(token) && token.trim().length > 2) {
-                    validPositions.push(idx);
-                }
+                if(/[a-zA-Z]/.test(token) && token.trim().length > 2) validPositions.push(idx);
             });
 
+            let possibleIndices = [];
             let lastPickedIdx = -5;
             for(let i = 0; i < validPositions.length; i++) {
                 let currentTokenIdx = validPositions[i];
-                if (currentTokenIdx - lastPickedIdx > 2 && Math.random() > 0.35) {
-                    chosenIndices.push(currentTokenIdx);
+                if (currentTokenIdx - lastPickedIdx > 2) {
+                    possibleIndices.push(currentTokenIdx);
                     lastPickedIdx = currentTokenIdx;
                 }
-                if(chosenIndices.length >= 15) break; 
             }
+            possibleIndices.sort(() => Math.random() - 0.5);
+            chosenIndices = possibleIndices.slice(0, Math.min(15, possibleIndices.length));
         }
 
         level1BlanksData = [];
@@ -612,9 +677,9 @@
         } else {
             let sentenceIndices = [];
             sentences.forEach((s, i) => { if(s.trim().length > 10) sentenceIndices.push(i); });
-            
             sentenceIndices.sort(() => Math.random() - 0.5);
-            chosenLineIndices = sentenceIndices.slice(0, Math.ceil(sentenceIndices.length * 0.45));
+            let maxL2 = Math.ceil(sentenceIndices.length * 0.45);
+            chosenLineIndices = sentenceIndices.slice(0, maxL2);
         }
 
         level2LinesData = [];
@@ -646,7 +711,7 @@
     function gradePractice() {
         let feedbackHTML = "";
         let correctCount = 0;
-        let totalCount = 0; // Để ghi nhận tổng số câu/từ khuyết
+        let totalCount = 0; 
         wrongPool = [];
 
         if(currentLevel === 1) {
@@ -716,28 +781,18 @@
         fBox.innerHTML = feedbackHTML;
         fBox.style.display = 'block';
 
-        // =========================================================================
-        // ĐOẠN CODE TỰ ĐỘNG LƯU KẾT QUẢ VÀO LỊCH SỬ HỆ THỐNG (LOCALSTORAGE)
-        // =========================================================================
+        // LƯU KẾT QUẢ VÀO LOCALSTORAGE
         try {
-            // 1. Lấy dữ liệu cũ ra (nếu có), nếu chưa có thì tạo mảng rỗng []
             let lichSuHeThong = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
-            
-            // 2. Gom thông tin bài học hiện tại thành 1 đối tượng gọn gàng
             let ketQuaMoi = {
                 kyNang: "Writing",
                 chuDe: (dataset[currentTopicIndex].topicTitle || "Advantage/Disadvantage Topic"),
                 capDo: currentLevel === 1 ? "Cấp độ 1 (Điền từ)" : "Cấp độ 2 (Điền câu)",
                 diemSo: `${correctCount}/${totalCount}`,
-                thoiGian: new Date().toLocaleString('vi-VN') // Tự động lấy ngày giờ học thực tế
+                thoiGian: new Date().toLocaleString('vi-VN')
             };
-            
-            // 3. Đưa kết quả mới lên đầu danh sách để khi xem lịch sử sẽ thấy bài mới nhất trước
             lichSuHeThong.unshift(ketQuaMoi);
-            
-            // 4. Lưu ngược trở lại bộ nhớ máy
             localStorage.setItem('vstep_learning_history', JSON.stringify(lichSuHeThong));
-            console.log("Hệ thống đã tự động ghi nhận lịch sử học tập thành công!");
         } catch (error) {
             console.error("Lỗi đồng bộ lịch sử: ", error);
         }
