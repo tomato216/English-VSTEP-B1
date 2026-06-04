@@ -169,6 +169,7 @@
 
 <div id="petal-container"></div>
 
+<!-- MÀN HÌNH LÀM BÀI TẬP CỐ ĐỊNH -->
 <div id="quiz-screen" class="main-box">
     <div class="env-icon">🌱🌍</div>
     <div style="color: var(--dark-color); font-weight: bold; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">CHỦ ĐỀ: ENVIRONMENT</div>
@@ -178,6 +179,7 @@
     <button class="btn-back" onclick="goToMenu()">⬅ Quay lại Menu chính</button>
 </div>
 
+<!-- MÀN HÌNH KẾT THÚC BÀI HỌC (2 LỰA CHỌN Ô VUÔNG LỚN) -->
 <div id="result-screen" class="main-box" style="display: none;">
     <div class="env-icon">🌲✨</div>
     <h2>Kết Quả Luyện Tập</h2>
@@ -237,10 +239,11 @@
     let score = 0;
     let isRedoMode = false;
 
-    // Âm thanh phần cứng: Tiếng tinh tinh trong trẻo (khi đúng) và tiếng bíp trầm ngắn (khi sai)
+    // Âm thanh phần cứng: Bọc try-catch an toàn tuyệt đối
     function playSound(type) {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
             const ctx = new AudioContext();
             let osc = ctx.createOscillator();
             let gain = ctx.createGain();
@@ -260,35 +263,45 @@
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
                 osc.start(); osc.stop(ctx.currentTime + 0.18);
             }
-        } catch(e) {}
+        } catch(e) {
+            console.log("Audio error ignored to prevent crash");
+        }
     }
 
     // Hiệu ứng lá non bay nhẹ phông nền
     function createPetals() {
-        const container = document.getElementById('petal-container');
-        for (let i = 0; i < 10; i++) {
-            let petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.width = Math.random() * 8 + 8 + 'px';
-            petal.style.height = Math.random() * 12 + 10 + 'px';
-            petal.style.animationDelay = Math.random() * 6 + 's';
-            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
-            container.appendChild(petal);
-        }
+        try {
+            const container = document.getElementById('petal-container');
+            if(!container) return;
+            for (let i = 0; i < 10; i++) {
+                let petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 8 + 8 + 'px';
+                petal.style.height = Math.random() * 12 + 10 + 'px';
+                petal.style.animationDelay = Math.random() * 6 + 's';
+                petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+                container.appendChild(petal);
+            }
+        } catch(e) {}
     }
-    createPetals();
 
     function initQuiz() {
-        currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
-        wrongQuestions = [];
-        currentQuestionIndex = 0;
-        score = 0;
-        isRedoMode = false;
-        showQuestion();
+        try {
+            currentQuestions = [...vocabularyData].sort(() => Math.random() - 0.5);
+            wrongQuestions = [];
+            currentQuestionIndex = 0;
+            score = 0;
+            isRedoMode = false;
+            showQuestion();
+        } catch(e) {
+            alert("Có lỗi khởi tạo dữ liệu, vui lòng reload lại trang.");
+        }
     }
 
     function showQuestion() {
+        if (currentQuestions.length === 0 || !currentQuestions[currentQuestionIndex]) return;
+        
         let q = currentQuestions[currentQuestionIndex];
         document.getElementById('question-text').innerText = `Từ nào có nghĩa là: "${q.mean}"?`;
         document.getElementById('score-text').innerText = `Câu hỏi: ${currentQuestionIndex + 1}/${currentQuestions.length} | Đúng: ${score}`;
@@ -347,7 +360,6 @@
         if (isRedoMode) {
             summaryText = `Lượt ôn tập hoàn thành! Còn lại <b>${wrongQuestions.length}</b> từ chưa thuộc kỹ.`;
         } else {
-            // TỰ ĐỘNG LƯU LỊCH SỬ KHI HOÀN THÀNH LƯỢT LÀM CHÍNH THỨC
             saveToLearningHistory(score, currentQuestions.length);
             summaryText = `Hoàn thành xuất sắc! Bạn đạt <b>${score}/${currentQuestions.length}</b> câu đúng trong chủ đề Môi trường.`;
         }
@@ -381,24 +393,35 @@
         window.location.href = 'reading.html';
     }
 
-    // HÀM LƯU DỮ LIỆU ĐÃ ĐƯỢC CHUẨN HÓA KHỚP 100% VỚI FILE LICH_SU.HTML
     function saveToLearningHistory(finalScore, totalQuestions) {
-        let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
-        let now = new Date();
-        
-        // Tạo chuỗi định dạng ngày giờ chuẩn
-        let dateStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
-        
-        // Đẩy đối tượng có đầy đủ các key (skill, type, topic, score, total) lên đầu mảng
-        history.unshift({
-            date: dateStr,
-            skill: 'Reading',
-            topic: 'Environment',
-            type: 'Trắc nghiệm từ vựng',
-            score: finalScore,
-            total: totalQuestions
-        });
-        
-        if (history.length > 50) history.pop();
-        
-        localStorage
+        try {
+            let history = JSON.parse(localStorage.getItem('vstep_learning_history')) || [];
+            let now = new Date();
+            
+            let dateStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+            
+            history.unshift({
+                date: dateStr,
+                skill: 'Reading',
+                topic: 'Environment',
+                type: 'Trắc nghiệm từ vựng',
+                score: finalScore,
+                total: totalQuestions
+            });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem('vstep_learning_history', JSON.stringify(history));
+        } catch(e) {
+            console.log("Localstorage error ignored");
+        }
+    }
+
+    // Đảm bảo chạy mượt mà ngay cả khi tải trang
+    window.onload = function() {
+        createPetals();
+        initQuiz();
+    };
+</script>
+
+</body>
+</html>
